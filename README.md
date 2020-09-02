@@ -1,44 +1,89 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Schedule
+Schedule - расписание курса RS School.
 
-## Available Scripts
+Это руководство так же доступно на другом языке:
+ * ![en](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/United-States.png) **English**: [ссылка]()
 
-In the project directory, you can run:
+## Оглавление
+ 1. [Установка и запуск](#setup)
+ 2. [Демо](#demo)
+ 3. [Описание приложения](#description)
+ 4. [Используемые технологии](#tech)
+ 5. [Авторы](#contributors)
+ 6. [Лицензия](#license)
+ 
+ ## <a name="setup">Установка и запуск</a>
+ 
+ Используйте пакетный менеджер [npm](https://www.npmjs.com/get-npm) для установки проекта.
+ 
+ ```bash
+ npm install
+ ```
 
-### `npm start`
+Запуск приложения в режиме разработчика
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ ```bash
+ npm start
+ ```
+  
+  **[к оглавлению](#Оглавление)**
+ 
+## <a name="demo">Демо</a>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Здесь будет [ссылка на демо версию]()
+ 
+ **[к оглавлению](#Оглавление)**
+ 
+## <a name="description">Описание приложения</a>
 
-### `npm test`
+**Расписание содержит:**
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* минимум 10 рядов, но может быть расширено до 100-150 рядов
+* минимум 5 колонок, но может быть расширено до 10-12 колонок
+* значения в ячейках относятся к типам datetime, instant, string, object, integer и соответствуют существующему расписанию курса
 
-### `npm run build`
+Интерактивные функции расписания отличаются для ментора и студента.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Возможности студента:**
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+* просмотр расписания в виде таблицы (основная форма расписания), календаря либо списка
+* просмотр детальной информации об отдельных заданиях расписания. Структуру страницы задания для разных типов заданий вам необходимо продумать самостоятельно
+* сохранение расписания в виде таблицы, списка или календаря. Оптимальные форматы файлов (.txt, .pdf, .csv etc) для сохранения расписания определите исходя из потребностей пользователей
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Дополнительные возможности ментора:**
 
-### `npm run eject`
+* редактирование расписания - добавление, удаление и изменение данных
+* редактирование страницы задания - добавление, удаление и изменение данных
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Примеры типов данных для ячеек**
+* string - отображается как есть, но надо либо ограничить длину строки, либо использовать `text-overflow: ellipsis`
+* integer / decimal - числа обычно выравниваются по правой стороне и форматируются с учётом локали (см. `Number.toLocaleString`).
+* local datetime - дата и/или время в виде строки.
+* instant - время как в `Date.getTime()`
+* составные объекты - например, `money: {currency: 'PHP', amount: 7.4}`
+ 
+ **[к оглавлению](#Оглавление)**
+ 
+## <a name="tech">Используемые технологии</a>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Список используемых технологий в проекте
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Redux](https://redux.js.org/basics/usage-with-react)
+- [Ant Design of React](https://ant.design/docs/react/introduce)
+- [Webpack](https://webpack.js.org/)
+     
+ **[к оглавлению](#Оглавление)**
+ 
+ ## <a name="contributors">Авторы</a>
+ 
+ [Посмотреть авторов](https://github.com/Darzamat12/schedule/graphs/contributors)
+  
+ **[к оглавлению](#Оглавление)**
+ 
+## <a name="license">Лицензия</a>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[MIT License](https://choosealicense.com/licenses/mit/)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Copyright (c) 2020 RS React group 46 
