@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import { Table, Tag, Space, Button } from 'antd';
 import { ColumnsType } from "antd/es/table";
 import { LinkOutlined } from '@ant-design/icons';
-import ScheduleData from '../../data/scheduleData.json';
+import { connect } from 'react-redux';
+import {fetchScheduleData} from '../../redux/actions';
 
 interface Event {
     id: number,
@@ -102,12 +103,32 @@ const columns: ColumnsType<Event> = [
     },
 ];
 
-const data = ScheduleData;
 
-const TestTable = () => {
+const TestTable = (props: any/*plug*/) => {
+    useEffect(() => {
+        props.fetchScheduleData(); //function to start fetch data
+    }, []);
+
     return (
-        <Table<Event> columns={columns} dataSource={data} />
-    )
+        <>
+            {props.loading && <p>Loading...</p> }
+            {props.error && <p>Error, try again</p>}
+            {props.data !== null && <Table<Event> columns={columns} dataSource={props.data} />}
+        </>
+    );
 };
 
-export default TestTable;
+
+const mapStateToProps = (state: any) => {
+    return {
+        loading: state.scheduleData.loading,
+        error: state.scheduleData.error,
+        data: state.scheduleData.data,
+    };
+};
+
+const mapDispatchToProps = {
+    fetchScheduleData,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TestTable);

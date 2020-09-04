@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import firstReducer from './firstReducer';
+import scheduleDataReducer from './scheduleDataReducer';
 
 export default combineReducers({
-    someName: firstReducer,
+    scheduleData: scheduleDataReducer,
 });
