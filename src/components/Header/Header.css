@@ -1,0 +1,22 @@
+.header {
+  background-color: white;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.header .title {
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 26px;
+  color: #666;
+}
+.header .logo {
+  height: 30px;
+}
+.header__avatar {
+  margin-right: 10px;
+}
+.header__setting {
+  margin-right: 10px;
+}
