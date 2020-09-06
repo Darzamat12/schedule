@@ -12,11 +12,19 @@
   color: #666;
 }
 .header .logo {
-  height: 30px;
+  height: 45px;
 }
 .header__avatar {
   margin-right: 10px;
 }
 .header__setting {
+  display: flex;
+  align-items: center;
   margin-right: 10px;
+}
+.header__setting > *:first-child {
+  margin-right: 10px;
+}
+.header__buttons {
+  display: flex;
 }
