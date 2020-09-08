@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import moment from 'moment';
-import { Table, Tag, Space, Button } from 'antd';
-import { ColumnsType } from "antd/es/table";
-import { LinkOutlined } from '@ant-design/icons';
-import { connect } from 'react-redux';
-import {fetchScheduleData} from '../../redux/actions';
+import {Table, Tag, Space, Button} from 'antd';
+import {ColumnsType} from "antd/es/table";
+import {LinkOutlined} from '@ant-design/icons';
+import ScheduleData from '../../data/scheduleData.json';
+import {filters} from "../../utils/filters";
 
 interface Event {
     id: number,
@@ -30,6 +30,8 @@ const columns: ColumnsType<Event> = [
         title: 'Date',
         dataIndex: 'date',
         key: 'date',
+        sorter: (a, b) => a.date === b.date ? 0 : a.date < b.date ? -1 : 1,
+        sortDirections: ['descend', 'ascend'],
         render: date => <p>{moment(date).format(('YYYY-MM-DD'))}</p>,
     },
     {
@@ -42,6 +44,8 @@ const columns: ColumnsType<Event> = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        sorter: (a, b) => a.name === b.name ? 0 : a.name < b.name ? -1 : 1,
+        sortDirections: ['descend', 'ascend'],
         render: text => <a>{text}</a>,
     },
     {
@@ -64,27 +68,29 @@ const columns: ColumnsType<Event> = [
         title: 'Duration',
         dataIndex: 'duration',
         key: 'duration',
+        sorter: (a, b) => a.duration - b.duration,
     },
     {
         title: 'Type',
         key: 'tag',
         dataIndex: 'tag',
+        filters: filters.tag,
+        onFilter: (value, record) => record.tag.indexOf(value) === 0,
         render: tag => {
-                    let color;
-                    if (tag === 'deadline') {
-                        color = 'volcano';
-                    } else if (tag === 'html/css task'
-                        || tag === 'js task'
-                        || tag === 'cv task')
-                    {
-                        color = 'green';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag}
-                        </Tag>
-                    );
-               }
+            let color;
+            if (tag === 'deadline') {
+                color = 'volcano';
+            } else if (tag === 'html/css task'
+                || tag === 'js task'
+                || tag === 'cv task') {
+                color = 'green';
+            }
+            return (
+                <Tag color={color} key={tag}>
+                    {tag}
+                </Tag>
+            );
+        }
     },
     {
         title: 'Action',
@@ -100,35 +106,19 @@ const columns: ColumnsType<Event> = [
         title: 'Author',
         dataIndex: 'author',
         key: 'author',
+        filters: filters.author,
+        onFilter: ((value, record) => record.author.indexOf(value) === 0),
+        sorter: (a, b) => a.author.length - b.author.length,
+        sortDirections: ['descend', 'ascend'],
     },
 ];
 
+const data = ScheduleData;
 
-const TestTable = (props: any/*plug*/) => {
-    useEffect(() => {
-        props.fetchScheduleData(); //function to start fetch data
-    }, []);
-
+const FilterTable = () => {
     return (
-        <>
-            {props.loading && <p>Loading...</p> }
-            {props.error && <p>Error, try again</p>}
-            {props.data !== null && <Table<Event> columns={columns} dataSource={props.data} />}
-        </>
-    );
+        <Table<Event> columns={columns} dataSource={data} />
+    )
 };
 
-
-const mapStateToProps = (state: any) => {
-    return {
-        loading: state.scheduleData.loading,
-        error: state.scheduleData.error,
-        data: state.scheduleData.data,
-    };
-};
-
-const mapDispatchToProps = {
-    fetchScheduleData,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TestTable);
+export default FilterTable;
