@@ -1,11 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import '../../App.less';
+import './TaskPage.less';
+import { changeIsALert } from './action';
+import { Demo } from './alert';
+import { bindActionCreators } from 'redux';
 
-
-function TaskPage() {
+function TaskPage({ changeIsAlert, isAlert }) {
+  const something = 'something';
   return (
-    <div className="App">
+    <div>
+      <button onClick={() => changeIsAlert(isAlert, something)}>Task Page</button>
+      {isAlert && <Demo />}
     </div>
   );
 }
+const putStateToPtops = (state) => {
+  return {
+    isAlert: state.taskPageReducer1.alert,
+  };
+};
 
-export default TaskPage;
+const putActionsToPtops = (dispatch) => {
+  return {
+    changeIsAlert: bindActionCreators(changeIsALert, dispatch),
+  };
+};
+const WrappedDemoComponent = connect(putStateToPtops, putActionsToPtops)(TaskPage);
+export default WrappedDemoComponent;
