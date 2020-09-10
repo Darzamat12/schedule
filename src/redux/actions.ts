@@ -2,6 +2,7 @@ import { REQ_SCHEDULE_DATA,
   REQ_SCHEDULE_DATA_FAILED,
   REQ_SCHEDULE_DATA_SUCCEEDED,
   FETCHED_SCHEDULE_DATA,
+  VISIBLE_COLUMN_TITLES,
 } from './actionTypes';
 
 
@@ -19,4 +20,11 @@ export const reqScheduleDataError = () => {
 
 export const fetchScheduleData = () => {
   return { type: FETCHED_SCHEDULE_DATA }
+};
+
+export const setVisibleColumnTitles = (columnArray: any) => {
+  return {
+    type: VISIBLE_COLUMN_TITLES,
+    payload: columnArray,
+  }
 };
