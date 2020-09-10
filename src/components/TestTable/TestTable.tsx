@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import moment from 'moment';
 import { Table, Tag, Space, Button } from 'antd';
 import { ColumnsType } from "antd/es/table";
@@ -106,14 +106,27 @@ const columns: ColumnsType<Event> = [
 
 const TestTable = (props: any/*plug*/) => {
     useEffect(() => {
-        props.fetchScheduleData(); //function to start fetch data
+      props.fetchScheduleData(); //function to start fetch data
     }, []);
+
+    const currentData = useMemo(() => {
+      if (props.data !== null) {
+        return props.data.map((elem: Event) => {
+          const date = new Date(elem.date);
+          date.setHours(date.getHours() - (3/*Moscow time offset*/ - props.timeZone));
+          return {...elem, date: date};
+        });
+      } else {
+        return props.data;
+      }
+    }, [props.timeZone, props.data]);
+
 
     return (
         <>
             {props.loading && <p>Loading...</p> }
             {props.error && <p>Error, try again</p>}
-            {props.data !== null && <Table<Event> columns={columns} dataSource={props.data} />}
+            {props.data !== null && <Table<Event> columns={columns} dataSource={currentData} />}
         </>
     );
 };
@@ -124,6 +137,7 @@ const mapStateToProps = (state: any) => {
         loading: state.scheduleData.loading,
         error: state.scheduleData.error,
         data: state.scheduleData.data,
+        timeZone: state.dropDownsData.timeZone,
     };
 };
 
