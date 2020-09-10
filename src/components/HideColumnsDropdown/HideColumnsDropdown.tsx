@@ -2,11 +2,10 @@ import React from 'react';
 import { Menu, Dropdown, Button, Checkbox} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { connect, useDispatch } from 'react-redux';
-import { setVisibleColumnTitles } from '../../redux/actions';
-import "antd/dist/antd.css";
+import { setVisibleColumnTitles } from '../../redux/reducers/hideColumnReducer/actions';
 
+const HideColumnDropdown = (props: any) => {
 
-const HideColumnDropdown = () => {
     const dispatch = useDispatch();
 
     const columns = localStorage.getItem('columns');
@@ -23,6 +22,7 @@ const HideColumnDropdown = () => {
             });
         }
 
+       // props.setVisibleColumnTitles(visibleColumn);
         dispatch(setVisibleColumnTitles(visibleColumn));
         localStorage.setItem('currentColumns', JSON.stringify(visibleColumn));
         console.log("checked = ", checkedValues);
@@ -39,7 +39,7 @@ const HideColumnDropdown = () => {
             <Checkbox.Group
                 style={{ display: "flex", flexDirection: "column", padding: "0 5px" }}
                 options={columnOptions}
-                defaultValue={columnOptions}
+                defaultValue={/* props.columnTitles */ columnOptions }
                 onChange={onChange}
             />
             </Menu.Item>
@@ -50,7 +50,7 @@ const HideColumnDropdown = () => {
         <>
             <Dropdown overlay={columnList} trigger={["click"]}>
                 <Button onClick={(e) => e.preventDefault()}>
-                Click me <DownOutlined />
+                Columns <DownOutlined />
                 </Button>
             </Dropdown>
         </>

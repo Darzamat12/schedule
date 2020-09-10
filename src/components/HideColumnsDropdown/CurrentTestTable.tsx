@@ -4,7 +4,7 @@ import { Table, Tag, Space, Button } from 'antd';
 import { ColumnsType } from "antd/es/table";
 import { LinkOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import {fetchScheduleData, setVisibleColumnTitles} from '../../redux/actions';
+import { setVisibleColumnTitles } from '../../redux/reducers/hideColumnReducer/actions';
 import ScheduleData from '../../data/scheduleData.json';
 
 interface Event {
@@ -106,24 +106,18 @@ const columns: ColumnsType<Event> = [
 
 localStorage.setItem('columns', JSON.stringify(columns));
 
-const columnsArray = columns.map((column, i) => {
-    if(i>2) return column.title
-});
-
-const CurrentTestTable = (props: any) => {
-    useEffect(() => {
-        props.fetchScheduleData(); //function to start fetch data
-    }, []);
+const CurrentTestTable = (/* props: any */) => {
 
     const data = ScheduleData;
     let columnTitlesArray: any;
     const columnTitlesList = localStorage.getItem('currentColumns');
 
+    setVisibleColumnTitles(columns);
     if(columnTitlesList !== null) columnTitlesArray = JSON.parse(columnTitlesList);
 
     return (
         <>
-            <Table<Event> columns={columnTitlesArray} dataSource={data} />
+            <Table<Event> columns={columnTitlesArray/* props.columnTitles */} dataSource={data} />
         </>
     );
 };
@@ -132,14 +126,10 @@ const CurrentTestTable = (props: any) => {
 const mapStateToProps = (state: any) => {
     return {
         columnTitles: state.hideColumnData.columnArray,
-        loading: state.scheduleData.loading,
-        error: state.scheduleData.error,
-        data: state.scheduleData.data,
     };
 };
 
 const mapDispatchToProps = {
-    fetchScheduleData,
     setVisibleColumnTitles,
 }
 
