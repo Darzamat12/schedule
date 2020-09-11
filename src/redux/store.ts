@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
 import { watchFetchScheduleData } from './sagas';
 import thunk from 'redux-thunk';
+import { watchLoadData } from '../components/Calendar/sagas';
 
 declare global {
   interface Window {
@@ -16,6 +17,8 @@ const createAppStore = (): any => {
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(rootReducer, compose(applyMiddleware(sagaMiddleware), composeEnhancers()));
   sagaMiddleware.run(watchFetchScheduleData);
+  sagaMiddleware.run(watchLoadData);
+
   return store;
 };
 

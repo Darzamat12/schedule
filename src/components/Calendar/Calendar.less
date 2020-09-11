@@ -1,20 +1,39 @@
 @import '~antd/dist/antd.less';
-.events {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.events .ant-badge-status {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-  text-overflow: ellipsis;
-  font-size: 12px;
-}
-.notes-month {
-  text-align: center;
-  font-size: 28px;
-}
-.notes-month section {
-  font-size: 28px;
+
+.calendar-container {
+  .modal-window {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 10px;
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 25px;
+    z-index: 10;
+    background-color: aqua;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+  }
+  .events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .events .ant-badge-status {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-size: 14px;
+  }
+  .notes-month {
+    text-align: center;
+    font-size: 28px;
+  }
+  .notes-month section {
+    font-size: 28px;
+  }
 }

@@ -1,68 +1,34 @@
-import React from 'react';
-import { Calendar, Badge } from 'antd';
+import React, { useEffect } from 'react';
 import './Calendar.less';
-function Calendar1() {
-  return <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />;
-}
+import data from '../../data/scheduleData.json';
+import { connect } from 'react-redux';
+import { loadData } from './actions';
+import { bindActionCreators } from 'redux';
+import AntDesignCalendar from './antDesign/antDesignCalendar';
+import Loader from './antDesign/loader';
 
-export default Calendar1;
+function Calendar({ fetchedData, loadData }) {
+  useEffect(() => {
+    loadData();
+  }, []);
 
-function getListData(value) {
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        { type: 'warning', content: 'This is warning event.' },
-        { type: 'success', content: 'This is usual event.' },
-      ];
-      break;
-    case 10:
-      listData = [
-        { type: 'warning', content: 'This is warning event.' },
-        { type: 'success', content: 'This is usual event.' },
-        { type: 'error', content: 'This is error event.' },
-      ];
-      break;
-    case 15:
-      listData = [
-        { type: 'warning', content: 'This is warning event' },
-        { type: 'success', content: 'This is very long usual event。。....' },
-        { type: 'error', content: 'This is error event 1.' },
-        { type: 'error', content: 'This is error event 2.' },
-        { type: 'error', content: 'This is error event 3.' },
-        { type: 'error', content: 'This is error event 4.' },
-      ];
-      break;
-    default:
+  if (fetchedData.length === 0) {
+    return <Loader />;
   }
-  return listData || [];
+  return <AntDesignCalendar props={fetchedData} />;
 }
 
-function dateCellRender(value) {
-  const listData = getListData(value);
-  return (
-    <ul className="events">
-      {listData.map((item) => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))}
-    </ul>
-  );
-}
+const putStateToPtops = (state) => {
+  return {
+    fetchedData: state.CalendarPageReducer.fetchedData,
+    modalWindowData: state.CalendarPageReducer.modalWindowData,
+  };
+};
 
-function getMonthData(value) {
-  if (value.month() === 8) {
-    return 1394;
-  }
-}
-
-function monthCellRender(value) {
-  const num = getMonthData(value);
-  return num ? (
-    <div className="notes-month">
-      <section>{num}</section>
-      <span>Backlog number</span>
-    </div>
-  ) : null;
-}
+const putActionsToPtops = (dispatch) => {
+  return {
+    loadData: bindActionCreators(loadData, dispatch),
+  };
+};
+const WrappedCalendar = connect(putStateToPtops, putActionsToPtops)(Calendar);
+export default WrappedCalendar;
