@@ -6,4 +6,3 @@ export const TIME_ZONE = 'CHANGE_TIME_ZONE';
 export const SCHEDULE_MODE = 'SCHEDULE_MODE';
 export const WEEK = 'WEEK';
 export const USER_MODE = 'USER_MODE';
-
