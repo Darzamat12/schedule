@@ -10,7 +10,7 @@ export const scheduleModeList = [
   {
     name: 'Calendar',
     value: 2,
-  }
+  },
 ];
 
 export const timeZoneList = [
@@ -24,19 +24,19 @@ export const timeZoneList = [
   },
   {
     name: 'Europe/Kiev',
-    value: 3
+    value: 3,
   },
   {
     name: 'Europe/Minsk',
-    value: 3
+    value: 3,
   },
   {
     name: 'Europe/Moscow',
-    value: 3
+    value: 3,
   },
   {
     name: 'Europe/Volgograd',
-    value: 4
+    value: 4,
   },
   {
     name: 'Europe/Yekaterinburg',
@@ -49,7 +49,7 @@ export const timeZoneList = [
   {
     name: 'Asia/Tbilisi',
     value: 4,
-  }
+  },
 ];
 
 export const weekList = [
