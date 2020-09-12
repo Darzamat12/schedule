@@ -114,18 +114,9 @@ const columns: ColumnsType<Event> = [
 
 const data: any = ScheduleData;
 
-const saveInLocalStorage = () => {
-// here will be save
-};
-
 const FilterTable = () => {
   return (
-    <>
-      <Button onClick={saveInLocalStorage} type="default">
-        Settings
-      </Button>
       <Table<Event> columns={columns} dataSource={data} />
-    </>
   );
 };
 
