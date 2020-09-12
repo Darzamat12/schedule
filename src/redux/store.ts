@@ -7,8 +7,9 @@ import { watchFetchScheduleData } from './sagas';
 import { composeWithDevTools } from 'redux-devtools-extension/index';
 
 const persistConfig = {
-  key: 'root',
+  key: 'userPreferences',
   storage,
+  whitelist: ['userPreferences'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -114,10 +114,8 @@ const columns: ColumnsType<Event> = [
 
 const data: any = ScheduleData;
 
-const FilterTable = () => {
-  return (
-      <Table<Event> columns={columns} dataSource={data} />
-  );
+const FilterTable: React.FC = () => {
+  return <Table<Event> columns={columns} dataSource={data} />;
 };
 
 export default FilterTable;

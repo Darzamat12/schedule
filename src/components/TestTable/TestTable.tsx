@@ -50,7 +50,7 @@ const columns: ColumnsType<Event> = [
     key: 'links',
     render: (links) => (
       <>
-        {links.map((link) => {
+        {links.map((link: string) => {
           return (
             <a key={link} href={link}>
               <LinkOutlined />
