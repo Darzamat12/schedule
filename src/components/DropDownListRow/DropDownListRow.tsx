@@ -41,9 +41,9 @@ const DropDownListRow: React.FC<DropDownListRowInterface> = (props) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    timeZone: state.dropDownsData.timeZone,
-    scheduleMode: state.dropDownsData.scheduleMode,
-    week: state.dropDownsData.week,
+    timeZone: state.timeZoneData.timeOffset,
+    scheduleMode: state.scheduleModeData.scheduleMode,
+    week: state.weekPickerData.week,
   };
 };
 

@@ -23,8 +23,8 @@ export const fetchScheduleData = () => {
   return { type: FETCHED_SCHEDULE_DATA }
 };
 
-export const changeTimeZone = (timeZone: number) => {
-  return { type: TIME_ZONE, payload: timeZone}
+export const changeTimeZone = (timeOffset: number) => {
+  return { type: TIME_ZONE, payload: timeOffset}
 }
 
 export const changeScheduleMode = (scheduleMode : 0|1|2) => {

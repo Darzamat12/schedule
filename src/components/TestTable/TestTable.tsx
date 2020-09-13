@@ -50,7 +50,7 @@ const columns: ColumnsType<Event> = [
     key: 'links',
     render: (links) => (
       <>
-        {links.map((link) => {
+        {links.map((link: string) => {
           return (
             <a key={link} href={link}>
               <LinkOutlined />
@@ -100,10 +100,6 @@ const columns: ColumnsType<Event> = [
   },
 ];
 
-const TestTable = (props: any /*plug*/) => {
-  useEffect(() => {
-    props.fetchScheduleData(); //function to start fetch data
-  }, []);
 
 const TestTable = (props: any/*plug*/) => {
     useEffect(() => {
@@ -127,7 +123,7 @@ const TestTable = (props: any/*plug*/) => {
         <>
             {props.loading && <p>Loading...</p> }
             {props.error && <p>Error, try again</p>}
-            {props.data !== null && <Table<Event> columns={columns} dataSource={currentData} />}
+            {props.data !== null && <Table columns={columns} dataSource={currentData} />}
         </>
     );
 };
@@ -137,7 +133,7 @@ const mapStateToProps = (state: any) => {
         loading: state.scheduleData.loading,
         error: state.scheduleData.error,
         data: state.scheduleData.data,
-        timeZone: state.dropDownsData.timeZone,
+        timeZone: state.timeZoneData.timeOffset,
     };
 };
 
