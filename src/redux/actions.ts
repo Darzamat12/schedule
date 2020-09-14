@@ -18,5 +18,5 @@ export const reqScheduleDataError = () => {
 };
 
 export const fetchScheduleData = () => {
-  return { type: FETCHED_SCHEDULE_DATA };
+  return { type: FETCHED_SCHEDULE_DATA }
 };
