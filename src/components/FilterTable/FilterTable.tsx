@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import moment from 'moment';
-import { Table, Tag, Space, Button } from 'antd';
+import { Table, Tag, Space, Button, Spin, Alert } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { LinkOutlined } from '@ant-design/icons';
 import ScheduleData from '../../data/scheduleData.json';
 import { filters } from '../../utils/filters';
 import { choosingPage } from './choosingPage';
 import TaskPageDrawer from '../TaskPageDrawer';
+import { fetchScheduleData } from '../../redux/actions';
+import { connect } from 'react-redux';
 
 interface Event {
   id: number;
@@ -97,8 +99,8 @@ const columns: ColumnsType<Event> = [
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <Button>Edit</Button>
-        <Button>Delete</Button>
+        <Button onClick={(event) => event.stopPropagation()}>Edit</Button>
+        <Button onClick={(event) => event.stopPropagation()}>Delete</Button>
       </Space>
     ),
   },
@@ -113,31 +115,63 @@ const columns: ColumnsType<Event> = [
   },
 ];
 
-const data = ScheduleData;
-const page = choosingPage(data);
-
-const FilterTable = () => {
+const FilterTable = (props: any) => {
   const [showModal, setShowModal] = useState(false);
-  const [currentItem, setCurrentItem] = useState({});
+  const [currentItem, setCurrentItem] = useState<Event>({});
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    props.fetchScheduleData(); //function to start fetch data
+  }, []);
+
+  const currentData = useMemo(() => {
+    if (props.data !== null) {
+      const pageIndex = choosingPage(props.data);
+      setPage(pageIndex);
+      return props.data.map((elem: Event) => {
+        const date = new Date(elem.date);
+        date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
+        return { ...elem, date: date };
+      });
+    } else {
+      return props.data;
+    }
+  }, [props.timeZone, props.data]);
 
   return (
     <>
-      <Table<Event>
-        pagination={{ defaultCurrent: page }}
-        columns={columns}
-        dataSource={data}
-        onRow={(record, index) => {
-          return {
-            onClick: (event) => {
-              setShowModal(true);
-              setCurrentItem(record);
-            },
-          };
-        }}
-      />
+      {props.loading && <p>Loading...</p>}
+      {props.error && <p>Error, try again</p>}
+      {props.data !== null && (
+        <Table<Event>
+          pagination={{ defaultCurrent: page }}
+          columns={columns}
+          dataSource={currentData}
+          onRow={(record, index) => {
+            return {
+              onClick: (event) => {
+                setShowModal(true);
+                setCurrentItem(record);
+              },
+            };
+          }}
+        />
+      )}
       <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />
     </>
   );
 };
 
-export default FilterTable;
+const mapStateToProps = (state: any) => {
+  return {
+    loading: state.scheduleData.loading,
+    error: state.scheduleData.error,
+    data: state.scheduleData.data,
+    timeZone: state.timeZoneData.timeOffset,
+  };
+};
+
+const mapDispatchToProps = {
+  fetchScheduleData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterTable);

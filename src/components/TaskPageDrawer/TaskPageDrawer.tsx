@@ -4,10 +4,16 @@ import { Drawer, Col, Row, Card, Avatar } from 'antd';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import Info from './Info/Info';
 import { connect } from 'react-redux';
+import { Event } from '../../interfaces/Event';
 
 const { Meta } = Card;
 
-const TaskPageDrawer = ({ isShown, handleOnClose, currentItem, adminMode }) => {
+const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentItem: Event; adminMode?: boolean }> = ({
+  isShown,
+  handleOnClose,
+  currentItem,
+  adminMode,
+}) => {
   // const [adminMode, setAdminMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
   console.log(adminMode);
