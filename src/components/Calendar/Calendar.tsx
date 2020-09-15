@@ -6,7 +6,7 @@ import { loadData } from './actions';
 import { bindActionCreators } from 'redux';
 import AntDesignCalendar from './antDesign/antDesignCalendar';
 import Loader from './antDesign/loader';
-
+import MiniCalendar from './antDesign/antDesignMiniCalendar'
 function Calendar({ fetchedData, loadData }) {
   useEffect(() => {
     loadData();
@@ -16,6 +16,7 @@ function Calendar({ fetchedData, loadData }) {
     return <Loader />;
   }
   return <AntDesignCalendar props={fetchedData} />;
+  // return <MiniCalendar props={fetchedData} />
 }
 
 const putStateToPtops = (state) => {

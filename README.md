@@ -11,11 +11,11 @@ Schedule - расписание курса RS School.
  4. [Используемые технологии](#tech)
  5. [Авторы](#contributors)
  6. [Лицензия](#license)
- 
+
  ## <a name="setup">Установка и запуск</a>
- 
+
  Используйте пакетный менеджер [npm](https://www.npmjs.com/get-npm) для установки проекта.
- 
+
  ```bash
  npm install
  ```
@@ -25,15 +25,15 @@ Schedule - расписание курса RS School.
  ```bash
  npm start
  ```
-  
+
   **[к оглавлению](#Оглавление)**
- 
+
 ## <a name="demo">Демо</a>
 
 Здесь будет [ссылка на демо версию]()
- 
+
  **[к оглавлению](#Оглавление)**
- 
+
 ## <a name="description">Описание приложения</a>
 
 **Расписание содержит:**
@@ -55,15 +55,18 @@ Schedule - расписание курса RS School.
 * редактирование расписания - добавление, удаление и изменение данных
 * редактирование страницы задания - добавление, удаление и изменение данных
 
+**Общие возможности**
+* Скрывать ненужные, по мнению пользователя, столбцы таблицы
+
 **Примеры типов данных для ячеек**
 * string - отображается как есть, но надо либо ограничить длину строки, либо использовать `text-overflow: ellipsis`
 * integer / decimal - числа обычно выравниваются по правой стороне и форматируются с учётом локали (см. `Number.toLocaleString`).
 * local datetime - дата и/или время в виде строки.
 * instant - время как в `Date.getTime()`
 * составные объекты - например, `money: {currency: 'PHP', amount: 7.4}`
- 
+
  **[к оглавлению](#Оглавление)**
- 
+
 ## <a name="tech">Используемые технологии</a>
 
 Список используемых технологий в проекте
@@ -73,17 +76,17 @@ Schedule - расписание курса RS School.
 - [Redux](https://redux.js.org/basics/usage-with-react)
 - [Ant Design of React](https://ant.design/docs/react/introduce)
 - [Webpack](https://webpack.js.org/)
-     
+
  **[к оглавлению](#Оглавление)**
- 
+
  ## <a name="contributors">Авторы</a>
- 
+
  [Посмотреть авторов](https://github.com/Darzamat12/schedule/graphs/contributors)
-  
+
  **[к оглавлению](#Оглавление)**
- 
+
 ## <a name="license">Лицензия</a>
 
 [MIT License](https://choosealicense.com/licenses/mit/)
 
-Copyright (c) 2020 RS React group 46 
+Copyright (c) 2020 RS React group 46

@@ -1,35 +1,36 @@
 import React, { useState } from 'react';
 import { Calendar, Badge } from 'antd';
+import { filterByDate, getMonthValue } from '../DateFuncs'
 
-function filterByDate(props, value) {
-  let result = props.filter((el) => new Date(el.date).toLocaleDateString() == new Date(value).toLocaleDateString());
+function getListData(value, props) {
+  let listData = [];
+  filterByDate(props, value).forEach((el) => {
+    listData.push({ type: 'success', content: el.name, key: el.id });
+  });
 
-  return result;
+  return listData || [];
 }
 
+
+
+
+
 function AntDesignCalendar({ props }) {
+
   const [modalWindowData, setModalWindowData] = useState(false);
 
-  function showModalWindow1(id) {
-    let ont = props.find((el) => el.id === id);
-    setModalWindowData(ont);
+  function showModalWindow(id) {
+    setModalWindowData(props.find((el) => el.id === id));
   }
 
-  function getListData(value) {
-    let listData = [];
-    filterByDate(props, value).forEach((el) => {
-      listData.push({ type: 'success', content: el.name, key: el.id });
-    });
 
-    return listData || [];
-  }
 
   function dateCellRender(value) {
-    const listData = getListData(value);
+    const listData = getListData(value, props);
     return (
       <ul className="events">
         {listData.map((item) => (
-          <li key={item.key} onClick={() => showModalWindow1(item.key)}>
+          <li key={item.key} onClick={() => showModalWindow(item.key)}>
             <Badge status={item.type} text={item.content} />
           </li>
         ))}
@@ -37,18 +38,14 @@ function AntDesignCalendar({ props }) {
     );
   }
 
-  function getMonthData(value) {
-    if (value.month() + 1) {
-      return 1394;
-    }
-  }
+
 
   function monthCellRender(value) {
-    const num = getMonthData(value);
+    const num = getMonthValue(props, value);
     return num ? (
       <div className="notes-month">
+        <span>Number of events</span>
         <section>{num}</section>
-        <span>Backlog number</span>
       </div>
     ) : null;
   }

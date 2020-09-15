@@ -29,11 +29,34 @@
     text-overflow: ellipsis;
     font-size: 14px;
   }
+
   .notes-month {
     text-align: center;
-    font-size: 28px;
+    font-size: 24px;
+    section {
+      font-size: 28px;
+    }
   }
-  .notes-month section {
-    font-size: 28px;
+  @media (max-width: 700px) {
+    .notes-month {
+      font-size: 18px;
+      section {
+        font-size: 22px;
+      }
+    }
   }
+  @media (max-width: 600px) {
+    .notes-month {
+      font-size: 14px;
+      section {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.site-calendar-demo-card {
+  width: 300px;
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
 }
