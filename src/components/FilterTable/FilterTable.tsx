@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { Table, Tag, Space, Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -6,6 +6,7 @@ import { LinkOutlined } from '@ant-design/icons';
 import ScheduleData from '../../data/scheduleData.json';
 import { filters } from '../../utils/filters';
 import { choosingPage } from './choosingPage';
+import TaskPageDrawer from '../TaskPageDrawer';
 
 interface Event {
   id: number;
@@ -57,7 +58,7 @@ const columns: ColumnsType<Event> = [
       <>
         {links.map((link) => {
           return (
-            <a key={link} href={link}>
+            <a key={link} href={link} onClick={(event) => event.stopPropagation()}>
               <LinkOutlined />
             </a>
           );
@@ -116,7 +117,27 @@ const data = ScheduleData;
 const page = choosingPage(data);
 
 const FilterTable = () => {
-  return <Table<Event> pagination={{ defaultCurrent: page }} columns={columns} dataSource={data} />;
+  const [showModal, setShowModal] = useState(false);
+  const [currentItem, setCurrentItem] = useState({});
+
+  return (
+    <>
+      <Table<Event>
+        pagination={{ defaultCurrent: page }}
+        columns={columns}
+        dataSource={data}
+        onRow={(record, index) => {
+          return {
+            onClick: (event) => {
+              setShowModal(true);
+              setCurrentItem(record);
+            },
+          };
+        }}
+      />
+      <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />
+    </>
+  );
 };
 
 export default FilterTable;

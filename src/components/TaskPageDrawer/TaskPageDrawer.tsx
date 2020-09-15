@@ -3,15 +3,15 @@ import './TaskPageDrawer.less';
 import { Drawer, Col, Row, Card, Avatar } from 'antd';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import Info from './Info/Info';
+import { connect } from 'react-redux';
 
 const { Meta } = Card;
 
-const TaskPageDrawer = ({ isShown, handleOnClose, currentItem }) => {
-  const [adminMode, setAdminMode] = useState(false);
+const TaskPageDrawer = ({ isShown, handleOnClose, currentItem, adminMode }) => {
+  // const [adminMode, setAdminMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
-
+  console.log(adminMode);
   const { width } = useWindowDimensions();
-
   return (
     <Drawer
       width={
@@ -60,4 +60,10 @@ const TaskPageDrawer = ({ isShown, handleOnClose, currentItem }) => {
   );
 };
 
-export default TaskPageDrawer;
+const mapStateToProps = (state) => {
+  return {
+    adminMode: state.userMode.isAdmin,
+  };
+};
+
+export default connect(mapStateToProps, null)(TaskPageDrawer);
