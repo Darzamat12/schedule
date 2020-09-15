@@ -5,6 +5,7 @@ import { ColumnsType } from 'antd/es/table';
 import { LinkOutlined } from '@ant-design/icons';
 import ScheduleData from '../../data/scheduleData.json';
 import { filters } from '../../utils/filters';
+import { choosingPage } from './choosingPage';
 
 interface Event {
   id: number;
@@ -112,9 +113,10 @@ const columns: ColumnsType<Event> = [
 ];
 
 const data = ScheduleData;
+const page = choosingPage(data);
 
 const FilterTable = () => {
-  return <Table<Event> columns={columns} dataSource={data} />;
+  return <Table<Event> pagination={{ defaultCurrent: page }} columns={columns} dataSource={data} />;
 };
 
 export default FilterTable;
