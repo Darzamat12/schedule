@@ -1,7 +1,8 @@
+import moment from 'moment'
+
 export function formatDateToString(date) {
-  var MM = date.getMonth() + 1;
-  var yyyy = date.getFullYear();
-  return MM + '-' + yyyy;
+  return moment(date).format('MM-YYYY')
+
 }
 
 export function filterByDate(props, value) {
