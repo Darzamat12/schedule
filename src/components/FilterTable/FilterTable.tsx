@@ -127,7 +127,6 @@ const FilterTable = (props: any) => {
   const [page, setPage] = useState(1);
   let columnTitlesArray: any;
   const columnTitlesList = localStorage.getItem('currentColumns');
-  console.log(columnTitlesList);
   setVisibleColumnTitles(columns);
   if (columnTitlesList !== null) columnTitlesArray = JSON.parse(columnTitlesList);
   useEffect(() => {
@@ -155,7 +154,7 @@ const FilterTable = (props: any) => {
       {props.data !== null && (
         <Table<Event>
           pagination={{ defaultCurrent: page }}
-          columns={props.adminMode ? columnTitlesArray : columnTitlesArray.filter((el, index) => index !== 6)}
+          columns={props.adminMode ? columns : columns.filter((el, index) => index !== 6)}
           dataSource={currentData}
           onRow={(record, index) => {
             return {
