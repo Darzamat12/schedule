@@ -6,11 +6,14 @@ import WrappedDemoComponent from './components/TaskPage/TaskPage';
 //import { connect } from 'react-redux';
 //import {fetchScheduleData} from './redux/actions';
 import FilterTable from './components/FilterTable/FilterTable'
+import CurrentTestTable from './components/HideColumnsDropdown/CurrentTestTable'
+import HideColumnsDropdown from './components/HideColumnsDropdown/HideColumnsDropdown';
 
 function App(props) {
   return (
     <div className="App">
       <DropDownListRow/>
+      <HideColumnsDropdown/>
       {props.scheduleMode===0 && <FilterTable/>}
     </div>
   );

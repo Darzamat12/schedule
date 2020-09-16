@@ -9,6 +9,7 @@ import { choosingPage } from './choosingPage';
 import TaskPageDrawer from '../TaskPageDrawer';
 import { fetchScheduleData } from '../../redux/actions';
 import { connect } from 'react-redux';
+import { setVisibleColumnTitles } from '../../redux/reducers/hideColumnReducer/actions';
 import store from '../../redux/store';
 
 interface Event {
@@ -119,12 +120,16 @@ let columns: ColumnsType<Event> = [
     sortDirections: ['descend', 'ascend'],
   },
 ];
-
+localStorage.setItem('columns', JSON.stringify(columns));
 const FilterTable = (props: any) => {
   const [showModal, setShowModal] = useState(false);
   const [currentItem, setCurrentItem] = useState<Event>({});
   const [page, setPage] = useState(1);
-
+  let columnTitlesArray: any;
+  const columnTitlesList = localStorage.getItem('currentColumns');
+  console.log(columnTitlesList);
+  setVisibleColumnTitles(columns);
+  if (columnTitlesList !== null) columnTitlesArray = JSON.parse(columnTitlesList);
   useEffect(() => {
     props.fetchScheduleData(); //function to start fetch data
   }, []);
@@ -150,7 +155,7 @@ const FilterTable = (props: any) => {
       {props.data !== null && (
         <Table<Event>
           pagination={{ defaultCurrent: page }}
-          columns={columns}
+          columns={props.adminMode ? columnTitlesArray : columnTitlesArray.filter((el, index) => index !== 6)}
           dataSource={currentData}
           onRow={(record, index) => {
             return {
@@ -174,11 +179,13 @@ const mapStateToProps = (state: any) => {
     data: state.scheduleData.data,
     timeZone: state.timeZoneData.timeOffset,
     adminMode: state.userMode.isAdmin,
+    columnTitles: state.hideColumnData.columnArray,
   };
 };
 
 const mapDispatchToProps = {
   fetchScheduleData,
+  setVisibleColumnTitles,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterTable);
