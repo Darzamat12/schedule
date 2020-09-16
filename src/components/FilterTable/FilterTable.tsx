@@ -5,6 +5,7 @@ import { ColumnsType } from 'antd/es/table';
 import { LinkOutlined } from '@ant-design/icons';
 import ScheduleData from '../../data/scheduleData.json';
 import { filters } from '../../utils/filters';
+import '../../App.less';
 
 interface Event {
   id: number;
@@ -54,7 +55,7 @@ const columns: ColumnsType<Event> = [
     key: 'links',
     render: (links) => (
       <>
-        {links.map((link) => {
+        {links.map((link: string) => {
           return (
             <a key={link} href={link}>
               <LinkOutlined />
@@ -75,7 +76,7 @@ const columns: ColumnsType<Event> = [
     key: 'tag',
     dataIndex: 'tag',
     filters: filters.tag,
-    onFilter: (value, record) => record.tag.indexOf(value) === 0,
+    onFilter: (value, record) => record.tag.indexOf(value as string) === 0,
     render: (tag) => {
       let color;
       if (tag === 'deadline') {
@@ -105,15 +106,15 @@ const columns: ColumnsType<Event> = [
     dataIndex: 'author',
     key: 'author',
     filters: filters.author,
-    onFilter: (value, record) => record.author.indexOf(value) === 0,
+    onFilter: (value, record) => record.author.indexOf(value as string) === 0,
     sorter: (a, b) => a.author.length - b.author.length,
     sortDirections: ['descend', 'ascend'],
   },
 ];
 
-const data = ScheduleData;
+const data: any = ScheduleData;
 
-const FilterTable = () => {
+const FilterTable: React.FC = () => {
   return <Table<Event> columns={columns} dataSource={data} />;
 };
 
