@@ -1,17 +1,20 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
 import { watchFetchScheduleData } from './sagas';
 import thunk from 'redux-thunk';
 import { watchLoadData } from '../components/Calendar/sagas';
+import { composeWithDevTools } from 'redux-devtools-extension/index';
 
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
+const persistConfig = {
+  key: 'userPreferences',
+  storage,
+  whitelist: ['userPreferences'],
+};
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const createAppStore = (): any => {
   const sagaMiddleware = createSagaMiddleware();
