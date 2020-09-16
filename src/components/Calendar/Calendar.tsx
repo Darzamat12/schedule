@@ -1,22 +1,29 @@
 import React, { useEffect } from 'react';
 import './Calendar.less';
-import data from '../../data/scheduleData.json';
 import { connect } from 'react-redux';
 import { loadData } from './actions';
 import { bindActionCreators } from 'redux';
 import AntDesignCalendar from './antDesign/antDesignCalendar';
 import Loader from './antDesign/loader';
 import MiniCalendar from './antDesign/antDesignMiniCalendar'
+import useWindowDimensions from '../../utils/useWindowDimensions'
+
 function Calendar({ fetchedData, loadData }) {
+  const { height, width } = useWindowDimensions();
   useEffect(() => {
     loadData();
   }, []);
 
   if (fetchedData.length === 0) {
     return <Loader />;
+  } else
+    if (width > 750) {
+      return <AntDesignCalendar props={fetchedData} />;
+    } else {
+      return <MiniCalendar props={fetchedData} />
   }
-  return <AntDesignCalendar props={fetchedData} />;
-  // return <MiniCalendar props={fetchedData} />
+
+
 }
 
 const putStateToPtops = (state) => {

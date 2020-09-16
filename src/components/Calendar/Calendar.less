@@ -1,5 +1,20 @@
 @import '~antd/dist/antd.less';
 
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  .ant-spin-lg .ant-spin-dot {
+    width: 3em;
+    height: 3em;
+    i {
+      width: 48px;
+      height: 48px;
+  }
+  }
+}
 .calendar-container {
   .modal-window {
     position: absolute;
@@ -22,12 +37,17 @@
     margin: 0;
     padding: 0;
   }
+  .ant-badge-status-dot {
+    position: absolute;
+    top: 7px;
+  }
   .events .ant-badge-status {
     overflow: hidden;
-    white-space: nowrap;
+    word-wrap: break-word !important;
     width: 100%;
     text-overflow: ellipsis;
     font-size: 14px;
+    border-bottom: 1px solid gray;
   }
 
   .notes-month {
@@ -37,26 +57,64 @@
       font-size: 28px;
     }
   }
-  @media (max-width: 700px) {
-    .notes-month {
-      font-size: 18px;
+}
+
+.site-calendar-demo-card {
+  width: 95%;
+  margin: 0 auto;
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  .events {
+    list-style-type: none;
+
+    li {
+      text-align: center;
       section {
-        font-size: 22px;
+        position: absolute;
+        z-index: 13;
+        bottom: 12px;
+        background: red;
+        right: -10px;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+      }
+      @media (max-width: 400px) {
+        section {
+          right: -5px;
+        }
       }
     }
   }
-  @media (max-width: 600px) {
-    .notes-month {
-      font-size: 14px;
-      section {
-        font-size: 18px;
-      }
+  .notes-month {
+    position: absolute;
+    bottom: 12px;
+    background: red;
+    border-radius: 50%;
+    right: -10px;
+
+    section {
+      z-index: 13;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
     }
   }
 }
 
-.site-calendar-demo-card {
-  width: 300px;
-  border: 1px solid #f0f0f0;
-  border-radius: 2px;
+.mini-calendar-list-item {
+  position: absolute;
+  list-style-type: none;
+  margin: -250px;
+  overflow: hidden;
+
+  li {
+    border-bottom: 1px solid #1890ff;
+    cursor: pointer;
+  }
+}
+.show-list-item {
+  transition: margin 0.5s;
+  margin: 0;
 }
