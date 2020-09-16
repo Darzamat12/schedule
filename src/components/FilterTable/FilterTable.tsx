@@ -9,6 +9,7 @@ import { choosingPage } from './choosingPage';
 import TaskPageDrawer from '../TaskPageDrawer';
 import { fetchScheduleData } from '../../redux/actions';
 import { connect } from 'react-redux';
+import store from '../../redux/store';
 
 interface Event {
   id: number;
@@ -29,7 +30,7 @@ interface Event {
   feedback: string;
 }
 
-const columns: ColumnsType<Event> = [
+let columns: ColumnsType<Event> = [
   {
     title: 'Date',
     dataIndex: 'date',
@@ -97,12 +98,16 @@ const columns: ColumnsType<Event> = [
   {
     title: 'Action',
     key: 'action',
-    render: (text, record) => (
-      <Space size="middle">
-        <Button onClick={(event) => event.stopPropagation()}>Edit</Button>
-        <Button onClick={(event) => event.stopPropagation()}>Delete</Button>
-      </Space>
-    ),
+    render: (text, record) => {
+      return (
+        <>
+          <Space size="middle">
+            <Button onClick={(event) => event.stopPropagation()}>Edit</Button>
+            <Button onClick={(event) => event.stopPropagation()}>Delete</Button>
+          </Space>
+        </>
+      );
+    },
   },
   {
     title: 'Author',
@@ -119,6 +124,7 @@ const FilterTable = (props: any) => {
   const [showModal, setShowModal] = useState(false);
   const [currentItem, setCurrentItem] = useState<Event>({});
   const [page, setPage] = useState(1);
+
   useEffect(() => {
     props.fetchScheduleData(); //function to start fetch data
   }, []);
@@ -167,6 +173,7 @@ const mapStateToProps = (state: any) => {
     error: state.scheduleData.error,
     data: state.scheduleData.data,
     timeZone: state.timeZoneData.timeOffset,
+    adminMode: state.userMode.isAdmin,
   };
 };
 
