@@ -23,17 +23,17 @@ function Calendar({ fetchedData, loadData }) {
   }
 }
 
-const putStateToPtops = (state) => {
+const mapStateToProps = (state) => {
   return {
     fetchedData: state.CalendarPageReducer.fetchedData,
     modalWindowData: state.CalendarPageReducer.modalWindowData,
   };
 };
 
-const putActionsToPtops = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     loadData: bindActionCreators(loadData, dispatch),
   };
 };
-const WrappedCalendar = connect(putStateToPtops, putActionsToPtops)(Calendar);
+const WrappedCalendar = connect(mapStateToProps, mapDispatchToProps)(Calendar);
 export default WrappedCalendar;

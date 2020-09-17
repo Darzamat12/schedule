@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { Calendar, Badge } from 'antd';
-import { filterByDate, getMonthValue } from '../DateFuncs';
+import { getMonthValue } from '../DateFuncs';
+import { getListData, isEmpty } from '../DataFuncs'
 
-function getListData(value, props) {
-  const listData = [];
-  filterByDate(props, value).forEach((el) => {
-    listData.push({ type: 'success', content: el.name, key: el.id });
-  });
 
-  return listData || [];
-}
+
+
 
 function AntDesignCalendar({ props }) {
-  const [modalWindowData, setModalWindowData] = useState(false);
+  const [modalWindowData, setModalWindowData] = useState({});
 
   function showModalWindow(id) {
     setModalWindowData(props.find((el) => el.id === id));
@@ -44,7 +40,7 @@ function AntDesignCalendar({ props }) {
   return (
     <div className="calendar-container">
       <div>
-        {modalWindowData && (
+        {!isEmpty(modalWindowData) && (
           <div className="modal-window">
             <span>{modalWindowData.name}</span>
             <span>{new Date(modalWindowData.date).toLocaleDateString()}</span>
@@ -52,7 +48,7 @@ function AntDesignCalendar({ props }) {
             <a href={modalWindowData.links} target="_blank">
               Link
             </a>
-            <button onClick={() => setModalWindowData(false)}>close</button>
+            <button onClick={() => setModalWindowData({})}>close</button>
           </div>
         )}
       </div>

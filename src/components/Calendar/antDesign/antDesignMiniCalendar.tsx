@@ -1,23 +1,17 @@
 import React, { useState, useRef } from 'react';
 import { Calendar, Badge } from 'antd';
-import { filterByDate, getMonthValue } from '../DateFuncs';
+import { getMonthValue } from '../DateFuncs';
 import TaskPageDrawer from '../../TaskPageDrawer/TaskPageDrawer';
+import { getListData } from '../DataFuncs'
 
-function getListData(value, props) {
-  let listData = [];
-  filterByDate(props, value).forEach((el) => {
-    listData.push({ type: 'success', content: el.name, key: el.id });
-  });
-
-  return listData || [];
-}
 
 export default function MiniCalendar({ props }) {
-  const [modalWindowData, setModalWindowData] = useState(false);
+  const [modalWindowData, setModalWindowData] = useState([]);
   const [currentItem, setCurrentItem] = useState([]);
   const [showDrawer, setShowDrawer] = useState(false);
   const [calendarMode, setCalendarMode] = useState('month');
   const miniCalendarListItem = useRef(null);
+
 
   const handleOnClose = () => {
     setShowDrawer(false);
@@ -30,16 +24,17 @@ export default function MiniCalendar({ props }) {
 
   function onSelect(value) {
     if (calendarMode === 'month') {
-      setModalWindowData(false);
+      setModalWindowData([]);
       miniCalendarListItem.current.classList.remove('show-list-item');
       setModalWindowData(getListData(value, props));
       setTimeout(() => miniCalendarListItem.current.classList.add('show-list-item'), 111);
     }
   }
 
-  function onPanelChange(value, mode) {
+  function onPanelChange(_, mode) {
+
     setCalendarMode(mode);
-    setModalWindowData(false);
+    setModalWindowData([]);
   }
 
   function dateCellRender(value) {
