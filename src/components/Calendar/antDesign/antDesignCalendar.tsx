@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, Badge } from 'antd';
 import { getMonthValue } from '../DateFuncs';
 import { getListData, isEmpty } from '../DataFuncs'
+import { ModalWidnow } from './antDesignModal';
 
 
 
@@ -9,7 +10,9 @@ import { getListData, isEmpty } from '../DataFuncs'
 
 function AntDesignCalendar({ props }) {
   const [modalWindowData, setModalWindowData] = useState({});
-
+  const handleOnClose = () => {
+    setModalWindowData({});
+  };
   function showModalWindow(id: any) {
     setModalWindowData(props.find((el: { id: any; }) => el.id === id));
   }
@@ -40,17 +43,7 @@ function AntDesignCalendar({ props }) {
   return (
     <div className="calendar-container">
       <div>
-        {!isEmpty(modalWindowData) && (
-          <div className="modal-window">
-            <span>{modalWindowData.name}</span>
-            <span>{new Date(modalWindowData.date).toLocaleDateString()}</span>
-            <span>{modalWindowData.description}</span>
-            <a href={modalWindowData.links} target="_blank">
-              Link
-            </a>
-            <button onClick={() => setModalWindowData({})}>close</button>
-          </div>
-        )}
+        <ModalWidnow props={modalWindowData} handleOnClose={handleOnClose} />
       </div>
       <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
     </div>
