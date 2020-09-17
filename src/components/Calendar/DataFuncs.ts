@@ -1,6 +1,6 @@
 import { filterByDate } from './DateFuncs';
 
-export function getListData(value, props) {
+export function getListData(value: any, props: any) {
   const listData: { type: string; content: any; key: any; }[] = [];
   filterByDate(props, value).forEach((el: { name: any; id: any; }) => {
     listData.push({ type: 'success', content: el.name, key: el.id });

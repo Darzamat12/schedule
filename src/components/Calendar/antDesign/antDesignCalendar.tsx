@@ -10,11 +10,11 @@ import { getListData, isEmpty } from '../DataFuncs'
 function AntDesignCalendar({ props }) {
   const [modalWindowData, setModalWindowData] = useState({});
 
-  function showModalWindow(id) {
-    setModalWindowData(props.find((el) => el.id === id));
+  function showModalWindow(id: any) {
+    setModalWindowData(props.find((el: { id: any; }) => el.id === id));
   }
 
-  function dateCellRender(value) {
+  function dateCellRender(value: any) {
     const listData = getListData(value, props);
     return (
       <ul className="events">
@@ -27,7 +27,7 @@ function AntDesignCalendar({ props }) {
     );
   }
 
-  function monthCellRender(value) {
+  function monthCellRender(value: any) {
     const num = getMonthValue(props, value);
     return num ? (
       <div className="notes-month">

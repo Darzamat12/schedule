@@ -23,7 +23,7 @@ function Calendar({ fetchedData, loadData }) {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: { CalendarPageReducer: { fetchedData: any; modalWindowData: any; }; }) => {
   return {
     fetchedData: state.CalendarPageReducer.fetchedData,
     modalWindowData: state.CalendarPageReducer.modalWindowData,

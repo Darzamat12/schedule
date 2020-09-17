@@ -22,7 +22,7 @@ export default function MiniCalendar({ props }) {
     setShowDrawer(true);
   }
 
-  function onSelect(value) {
+  function onSelect(value: any) {
     if (calendarMode === 'month') {
       setModalWindowData([]);
       miniCalendarListItem.current.classList.remove('show-list-item');
