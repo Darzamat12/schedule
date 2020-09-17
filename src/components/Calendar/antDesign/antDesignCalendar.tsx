@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Calendar, Badge } from 'antd';
-import { filterByDate, getMonthValue } from '../DateFuncs'
+import { filterByDate, getMonthValue } from '../DateFuncs';
 
 function getListData(value, props) {
-  let listData = [];
+  const listData = [];
   filterByDate(props, value).forEach((el) => {
     listData.push({ type: 'success', content: el.name, key: el.id });
   });
@@ -11,19 +11,12 @@ function getListData(value, props) {
   return listData || [];
 }
 
-
-
-
-
 function AntDesignCalendar({ props }) {
-
   const [modalWindowData, setModalWindowData] = useState(false);
 
   function showModalWindow(id) {
     setModalWindowData(props.find((el) => el.id === id));
   }
-
-
 
   function dateCellRender(value) {
     const listData = getListData(value, props);
@@ -37,8 +30,6 @@ function AntDesignCalendar({ props }) {
       </ul>
     );
   }
-
-
 
   function monthCellRender(value) {
     const num = getMonthValue(props, value);

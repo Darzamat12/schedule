@@ -1,9 +1,7 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react';
 import { Calendar, Badge } from 'antd';
-import { filterByDate, getMonthValue } from '../DateFuncs'
-import TaskPageDrawer from '../../TaskPageDrawer/TaskPageDrawer'
-
-
+import { filterByDate, getMonthValue } from '../DateFuncs';
+import TaskPageDrawer from '../../TaskPageDrawer/TaskPageDrawer';
 
 function getListData(value, props) {
   let listData = [];
@@ -18,21 +16,21 @@ export default function MiniCalendar({ props }) {
   const [modalWindowData, setModalWindowData] = useState(false);
   const [currentItem, setCurrentItem] = useState([]);
   const [showDrawer, setShowDrawer] = useState(false);
-  const [calendarMode, setCalendarMode] = useState('month')
-  const miniCalendarListItem = useRef(null)
+  const [calendarMode, setCalendarMode] = useState('month');
+  const miniCalendarListItem = useRef(null);
 
-  const handleOnClose = () => { setShowDrawer(false) }
+  const handleOnClose = () => {
+    setShowDrawer(false);
+  };
 
   function showModalWindow(id) {
     setCurrentItem(props.find((el) => el.id === id));
-    setShowDrawer(true)
+    setShowDrawer(true);
   }
 
   function onSelect(value) {
-
     if (calendarMode === 'month') {
-
-      setModalWindowData(false)
+      setModalWindowData(false);
       miniCalendarListItem.current.classList.remove('show-list-item');
       setModalWindowData(getListData(value, props));
       setTimeout(() => miniCalendarListItem.current.classList.add('show-list-item'), 111);
@@ -40,8 +38,8 @@ export default function MiniCalendar({ props }) {
   }
 
   function onPanelChange(value, mode) {
-    setCalendarMode(mode)
-    setModalWindowData(false)
+    setCalendarMode(mode);
+    setModalWindowData(false);
   }
 
   function dateCellRender(value) {
@@ -56,7 +54,6 @@ export default function MiniCalendar({ props }) {
     );
   }
 
-
   function monthCellRender(value) {
     const num = getMonthValue(props, value);
     return num ? (
@@ -66,21 +63,26 @@ export default function MiniCalendar({ props }) {
     ) : null;
   }
 
-
-
   return (
-    <><div className="site-calendar-demo-card">
-      <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} fullscreen={false} onSelect={onSelect} onPanelChange={onPanelChange} />
-    </div>
+    <>
+      <div className="site-calendar-demo-card">
+        <Calendar
+          dateCellRender={dateCellRender}
+          monthCellRender={monthCellRender}
+          fullscreen={false}
+          onSelect={onSelect}
+          onPanelChange={onPanelChange}
+        />
+      </div>
       <ul ref={miniCalendarListItem} className="mini-calendar-list-item">
-        {modalWindowData && modalWindowData.map(el =>
-          <li key={el.key} onClick={() => showModalWindow(el.key)}>
-            <Badge status={el.type} text={el.content} /></li>
-        )}
+        {modalWindowData &&
+          modalWindowData.map((el) => (
+            <li key={el.key} onClick={() => showModalWindow(el.key)}>
+              <Badge status={el.type} text={el.content} />
+            </li>
+          ))}
       </ul>
-      <TaskPageDrawer
-        isShown={showDrawer}
-        handleOnClose={handleOnClose}
-        currentItem={currentItem} />
-    </>)
+      <TaskPageDrawer isShown={showDrawer} handleOnClose={handleOnClose} currentItem={currentItem} />
+    </>
+  );
 }
