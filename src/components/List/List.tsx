@@ -3,6 +3,9 @@ import {fetchScheduleData} from '../../redux/actions';
 import { connect } from 'react-redux';
 import { List, message, Avatar, Spin, Checkbox, Tag} from 'antd';
 import moment from 'moment';
+import './List.less';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { LinkOutlined } from '@ant-design/icons';
 
 
 interface Event {
@@ -49,27 +52,42 @@ const ListView = (props: any /*plug*/) => {
       {props.error && <p>Error, try again</p>}
       {props.data !== null && DateArray !== [] &&
         <>
+          <Scrollbars className={'scrollbar-list-container'} style={{height: 700 }}>
+          <div style={{overflowX: 'hidden'}}>
           {
             DateArray.map((item: Event, index: number) => {
               const thisDate = moment(item.date).format('YYYY-MM-DD');
-              return <div key={index}>
-                <p>{thisDate}</p>
+              return <div key={index} className={'list-events-container'}>
+                <p className={'list-date-wrapper'}>{moment(item.date).format('MMMM Do YYYY')}</p>
                 <List
                   dataSource={props.data}
                   renderItem={(eventItem: Event, index) => {
-                    const eventDate = moment(eventItem.date).format('YYYY-MM-DD');
-                    if (thisDate === eventDate) {
-                      return <List.Item key={eventItem.name + index.toString()}>
-                        <Checkbox/>
-                        <List.Item.Meta
-                          title={eventItem.name}
-                          description={'Time: ' + moment(eventItem.date).format('HH:mm')}
-                        />
-                        <List.Item.Meta
-                          title={<div style={{display: 'flex'}}><p>Organizer: {eventItem.author}</p><Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/></div>}
-                          description={<Tag key={eventItem.tag}>{eventItem.tag}</Tag>}
-                        />
-                        <a>more</a>
+                    if (thisDate === moment(eventItem.date).format('YYYY-MM-DD')) {
+                      return <List.Item key={eventItem.name + index.toString()} className={'list-item'}>
+                          <div className={'left-list-item-info'}>
+                            <Checkbox/>
+                            <div className='main-list-item-info'>
+                              <h3>{eventItem.name}</h3>
+                              <p style={{marginBottom: 0,}}>{eventItem.result}</p>
+                              <div className='description-of-list-item'>
+                                <Tag key={eventItem.tag}>{eventItem.tag}</Tag>
+                                <p>{'Time: ' + moment(eventItem.date).format('HH:mm')}</p>
+                                <p>{eventItem.links.map((link) => {
+                                  return (
+                                  <a key={link} href={link} title={link}>
+                                    <LinkOutlined />
+                                  </a>
+                                )})}</p>
+                                <div className='organizer-container'>
+                                  <p>Organizer: {eventItem.author}</p>
+                                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className='more-info-container'>
+                            <a>more</a>
+                          </div>
                       </List.Item>
                     }
                   }}
@@ -78,6 +96,7 @@ const ListView = (props: any /*plug*/) => {
               </div>
             })
           }
+          </div></Scrollbars>
         </>
       }
   </>
@@ -89,6 +108,7 @@ const mapStateToProps = (state: any) => {
     loading: state.scheduleData.loading,
     error: state.scheduleData.error,
     data: state.scheduleData.data,
+    //isAdmin: state.userModeData.userMode,
   };
 };
 
