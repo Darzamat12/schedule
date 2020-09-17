@@ -22,8 +22,6 @@ function Calendar({ fetchedData, loadData }) {
     } else {
       return <MiniCalendar props={fetchedData} />
   }
-
-
 }
 
 const putStateToPtops = (state) => {
