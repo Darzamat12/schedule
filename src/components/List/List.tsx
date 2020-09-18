@@ -63,7 +63,9 @@ const ListView = (props: any /*plug*/) => {
             <h3>{eventItem.name}</h3>
             <div className="description-of-list-item">
               <Tag key={eventItem.tag}>{eventItem.tag}</Tag>
-              <p>{'Time: ' + moment(eventItem.date).format('HH:mm')}</p>
+              <p>
+                Time: <span>{moment(eventItem.date).format('HH:mm')}</span>
+              </p>
               <p>
                 {eventItem.links.map((link) => {
                   return (
@@ -73,10 +75,13 @@ const ListView = (props: any /*plug*/) => {
                   );
                 })}
               </p>
-              <div className="organizer-container">
-                <p>Organizer: {eventItem.author}</p>
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              </div>
+              <p className={'organizer-container'}>
+                Organizer:&nbsp;
+                <a href={'https://github.com/' + eventItem.author}>
+                  <Avatar src={`https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png`} />
+                  <span>{eventItem.author}</span>
+                </a>
+              </p>
             </div>
           </div>
         </div>
