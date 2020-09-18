@@ -1,4 +1,6 @@
 import React from 'react';
+import TestTable from './components/TestTable/TestTable';
+import WrappedCalendar from './components/Calendar/Calendar';
 //import TestTable from './components/TestTable/TestTable';
 //import DropDownListRow from './components/DropDownListRow'
 import WrappedDemoComponent from './components/TaskPage/TaskPage';
@@ -10,8 +12,7 @@ import './App.less';
 function App() {
   return (
     <div className="App">
-
-      <ListView/>
+      <WrappedCalendar />
     </div>
   );
 }
