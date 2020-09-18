@@ -1,11 +1,6 @@
 import React from 'react';
 import './Header.less'
-import Icon from '@ant-design/icons';
-
-
-import {Layout, Button, Avatar} from 'antd';
-import {LeftOutlined,  SettingFilled} from '@ant-design/icons'
-import {LeftArrow, Setting} from '../Icons/Icons'
+import {Button, Avatar} from 'antd';
 
 function Header() {
   return (
@@ -16,8 +11,8 @@ function Header() {
       <h1 className="title">Schedule</h1>
       <div className = "header__buttons">
           <Button className="header__setting" size="large">
-            <LeftArrow />
-            <Setting/>
+            <img src='src/icons/settings/arrow.svg'/>
+            <img className="setting" src='src/icons/settings/settings.svg'/>
           </Button>
         <Button size="large" type="dashed">
         <Avatar className="header__avatar" size="small"  src="https://app.rs.school/static/images/logo-rsschool3.png" />
@@ -28,4 +23,4 @@ function Header() {
   );
 }
 
-export default Header; 
+export default Header;

@@ -1,9 +1,9 @@
 .header{
-    background-color: white;
     padding: 8px;
         display: flex;
         justify-content: space-between;
         align-items: baseline;
+  flex-wrap: wrap;
     .title{
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
@@ -11,7 +11,7 @@
         color: #666;
     }
     .logo{
-        height: 45px;;
+        height: 45px;
     }
     &__avatar{
         margin-right: 10px;
@@ -23,6 +23,10 @@
         display: flex;
         align-items: center;
         margin-right: 10px;
+      .setting{
+        height: 28px;
+        width: 28px;
+      }
     }
     &__buttons{
         display: flex;
