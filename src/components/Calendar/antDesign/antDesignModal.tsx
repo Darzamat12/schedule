@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { Modal, Button } from 'antd';
-import { isEmpty } from '../DataFuncs';
+import React from 'react'
+import { Modal } from 'antd';
+import moment from 'moment';
 
-export function ModalWidnow({ props, handleOnClose }) {
-  console.log(props);
+export function ModalWidnow({ isShow, currentItem, handleOnClose }) {
 
 
   return (
     <>
-
-      <Modal
-        title="Vertically centered modal dialog"
+      <Modal 
+        wrapClassName="calendar-modal-window-container"
+        title={currentItem.name}
         centered
-        visible={!isEmpty(props)}
+        footer={null}
         onOk={() => handleOnClose()}
         onCancel={() => handleOnClose()}
+        visible={isShow}
       >
-        <p>{props.name}</p>
-        <p>{props.name}</p>
-        <p>{props.name}</p>
+
+        <p>Deadline: {moment(currentItem.date).format('LLL')}</p>
+        <p>Author: {currentItem.author}</p>
+        <p>{currentItem.description}</p>
+        {currentItem.links.map((el: string | undefined) => <a href={el} target="_blank">Tык</a>)}
       </Modal>
     </>
   );

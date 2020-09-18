@@ -73,7 +73,7 @@ export default function MiniCalendar({ props }) {
         {modalWindowData &&
           modalWindowData.map((el) => (
             <li key={el.key} onClick={() => showModalWindow(el.key)}>
-              <Badge status={el.type} text={el.content} />
+              <Badge color={el.color} text={el.content} />
             </li>
           ))}
       </ul>
