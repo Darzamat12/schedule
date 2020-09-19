@@ -8,6 +8,10 @@ import scheduleModeReducer from './scheduleModeReducer';
 import userModeReducer from './userModeReducer';
 import timeZoneReducer from './timeZoneReducer';
 import weekPickerReducer from './weekPickerReducer';
+import postEventReducer from './postEventReducer';
+import editEventReducer from './editEventReducer';
+import deleteEventReducer from './deleteEventReducer';
+import eventDataReducer from './eventDataReducer';
 
 
 export default combineReducers({
@@ -20,7 +24,10 @@ export default combineReducers({
     timeZoneData: timeZoneReducer,
     weekPickerData: weekPickerReducer,
     hideColumnData: hideColumsReducer,
-
+    postEvent: postEventReducer,
+    editEvent: editEventReducer,
+    deleteEvent: deleteEventReducer,
+    eventData: eventDataReducer
 });
 
 
