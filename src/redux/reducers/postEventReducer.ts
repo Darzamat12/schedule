@@ -4,6 +4,7 @@ const initialState = {
   data: null,
   loading: false,
   error: false,
+  success: false
 };
 
 const postEventReducer = (state = initialState, action: any) => {
@@ -12,7 +13,7 @@ const postEventReducer = (state = initialState, action: any) => {
       return { ...initialState, loading: true };
     }
     case REQ_POST_EVENT_SUCCEEDED: {
-      return { ...initialState, data: action.payload };
+      return { ...initialState, data: action.payload, success: true };
     }
     case REQ_POST_EVENT_FAILED: {
       return { ...initialState, error: true };
