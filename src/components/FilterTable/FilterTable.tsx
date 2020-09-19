@@ -11,6 +11,7 @@ import { fetchScheduleData } from '../../redux/actions';
 import { connect } from 'react-redux';
 import { setVisibleColumnTitles } from '../../redux/reducers/hideColumnReducer/actions';
 import store from '../../redux/store';
+import '../../App.less';
 
 interface Event {
   id: number;
@@ -31,7 +32,7 @@ interface Event {
   feedback: string;
 }
 
-let columns: ColumnsType<Event> = [
+const columns: ColumnsType<Event> = [
   {
     title: 'Date',
     dataIndex: 'date',
@@ -60,7 +61,7 @@ let columns: ColumnsType<Event> = [
     key: 'links',
     render: (links) => (
       <>
-        {links.map((link) => {
+        {links.map((link: string) => {
           return (
             <a key={link} href={link} onClick={(event) => event.stopPropagation()}>
               <LinkOutlined />
@@ -81,7 +82,7 @@ let columns: ColumnsType<Event> = [
     key: 'tag',
     dataIndex: 'tag',
     filters: filters.tag,
-    onFilter: (value, record) => record.tag.indexOf(value) === 0,
+    onFilter: (value, record) => record.tag.indexOf(value as string) === 0,
     render: (tag) => {
       let color;
       if (tag === 'deadline') {
@@ -115,7 +116,7 @@ let columns: ColumnsType<Event> = [
     dataIndex: 'author',
     key: 'author',
     filters: filters.author,
-    onFilter: (value, record) => record.author.indexOf(value) === 0,
+    onFilter: (value, record) => record.author.indexOf(value as string) === 0,
     sorter: (a, b) => a.author.length - b.author.length,
     sortDirections: ['descend', 'ascend'],
   },
