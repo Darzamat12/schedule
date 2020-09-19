@@ -9,9 +9,9 @@ import { watchFetchCalendarData } from '../components/Calendar/sagas';
 import { composeWithDevTools } from 'redux-devtools-extension/index';
 
 const persistConfig = {
-  key: 'userPreferences',
+  key: 'root',
   storage,
-  whitelist: ['userPreferences'],
+  whitelist: ['userPreferences', 'hideColumnData'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
