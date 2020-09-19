@@ -12,7 +12,10 @@ const scheduleDataReducer = (state = initialState, action: any) => {
       return { ...initialState, loading: true };
     }
     case REQ_SCHEDULE_DATA_SUCCEEDED: {
-      return { ...initialState, data: action.payload };
+      const result = action.payload.sort((a: any, b: any) => {
+        return new Date(a.date) - new Date(b.date);
+      });
+      return { ...initialState, data: result };
     }
     case REQ_SCHEDULE_DATA_FAILED: {
       return { ...initialState, error: true };
