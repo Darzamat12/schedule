@@ -15,21 +15,21 @@ export const eventsAPI = {
   createEvent(event: any) {
     return instance
       .post(`team/${teamId}/event`, event)
-      .then((response) => response.data);
+      .then((response) => response);
   },
   getEvent(id: string) {
     return instance
       .get(`team/${teamId}/event/${id}`)
-      .then((response) => response.data);
+      .then((response) => response);
   },
   updateEvent(id: string, event: any) {
     return instance
       .put(`team/${teamId}/event/${id}`, event)
-      .then((response) => response.data);
+      .then((response) => response);
   },
   deleteEvent(id: string) {
     return instance
       .delete(`team/${teamId}/event/${id}`)
-      .then((response) => response.data);
+      .then((response) => response);
   },
 };
