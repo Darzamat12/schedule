@@ -9,7 +9,7 @@ import { filters } from '../../utils/filters';
 import TaskPageDrawer from '../TaskPageDrawer';
 import { fetchScheduleData } from '../../redux/actions';
 import { connect } from 'react-redux';
-import { setVisibleColumnTitles } from '../../redux/reducers/hideColumnReducer/actions';
+import { setVisibleColumns, setInitialColumns } from '../../redux/reducers/hideColumnReducer/actions';
 import store from '../../redux/store';
 import '../../App.less';
 import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
@@ -127,18 +127,23 @@ const FilterTable = (props: any) => {
   const [showModal, setShowModal] = useState(false);
   const [currentItem, setCurrentItem] = useState<Event>({});
   const [page, setPage] = useState(1);
-  let columnTitlesArray: any;
-  const columnTitlesList = localStorage.getItem('currentColumns');
-  setVisibleColumnTitles(columns);
-  if (columnTitlesList !== null) columnTitlesArray = JSON.parse(columnTitlesList);
+  const [columnsList, setColumnsList] = useState(columns);
+
   useEffect(() => {
     props.fetchScheduleData(); //function to start fetch data
+    props.setVisibleColumns(columns);
+    props.setInitialColumns(columns);
   }, []);
+
+  useEffect(() => {
+    setColumnsList(props.columnTitles);
+  }, [props.columnTitles]);
+
 
   const currentData = useMemo(() => {
     if (props.data !== null) {
-      // const pageIndex = choosingPage(props.data);
-      // setPage(pageIndex);
+      const pageIndex = choosingPage(props.data);
+      setPage(pageIndex);
       return props.data.map((elem: Event) => {
         const date = new Date(elem.date);
         date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
@@ -151,13 +156,11 @@ const FilterTable = (props: any) => {
 
   return (
     <>
-     <HideColumnsDropdown/>
       {props.loading && <p>Loading...</p>}
       {props.error && <p>Error, try again</p>}
       {props.data !== null && (
         <Table<Event>
-          // pagination={{ defaultCurrent: page }}
-          columns={props.adminMode ? columns : columns.filter((el, index) => index !== 6)}
+          columns={props.adminMode ? columnsList : columnsList.filter((el, index) => index !== 6)}
           dataSource={currentData}
           onRow={(record, index) => {
             return {
@@ -187,7 +190,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = {
   fetchScheduleData,
-  setVisibleColumnTitles,
+  setVisibleColumns,
+  setInitialColumns,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterTable);

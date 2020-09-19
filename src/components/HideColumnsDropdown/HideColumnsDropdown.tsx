@@ -1,55 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Menu, Dropdown, Button, Checkbox } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { connect, useDispatch } from 'react-redux';
-import { setVisibleColumnTitles } from '../../redux/reducers/hideColumnReducer/actions';
+import { connect} from 'react-redux';
+import { setVisibleColumns } from '../../redux/reducers/hideColumnReducer/actions';
 
 const HideColumnDropdown = (props: any) => {
-  const dispatch = useDispatch();
+  const [checkedColumns, setCheckedColumns] = useState([]);
 
-  const columns = localStorage.getItem('columns');
-  let columnOptions: any;
-  console.log(columns);
+  const onChange = (e) => {
+    let checkedColumnsArray: any = checkedColumns;
+    let filteredColumns: any = props.adminMode ? props.initialColumns : props.initialColumns.filter((el, index) => index !== 6);
 
-  function onChange(checkedValues: any) {
-    let visibleColumn: any;
-    if (columns !== null) {
-      console.log(Array.from(JSON.parse(columns)));
-      visibleColumn = Array.from(JSON.parse(columns)).filter((value: any) => {
-        if (checkedValues.includes(value.title)) return value;
-      });
+    if(e.target.checked){
+      console.log('here');
+      checkedColumnsArray = checkedColumnsArray.filter(id => {return id !== e.target.id});
+      console.log(checkedColumnsArray);
+    }
+    else if(!e.target.checked){
+      console.log('here1');
+      checkedColumnsArray.push(e.target.id);
+      console.log(checkedColumnsArray);
     }
 
-    // props.setVisibleColumnTitles(visibleColumn);
-    dispatch(setVisibleColumnTitles(visibleColumn));
-    localStorage.setItem('currentColumns', JSON.stringify(visibleColumn));
-    console.log('checked = ', checkedValues);
-  }
+    checkedColumnsArray.forEach((column: object) => {
+      filteredColumns = filteredColumns.filter((elem) => elem.title.toLowerCase() !== column);
+    });
 
-  if (columns !== null) {
-    const allColumnOptions = Array.from(JSON.parse(columns)).map((column: any) => column.title);
-    columnOptions = props.adminMode
-      ? allColumnOptions.filter((column) => column !== undefined)
-      : allColumnOptions.filter((column, index) => column !== undefined && index !== 6);
-  }
+    setCheckedColumns(checkedColumnsArray);
+    props.setVisibleColumns(filteredColumns);
 
-  const columnList = (
+  };
+
+  const menu = (
     <Menu>
-      <Menu.Item key="0">
-        <Checkbox.Group
-          style={{ display: 'flex', flexDirection: 'column', padding: '0 5px' }}
-          options={columnOptions}
-          defaultValue={/* props.columnTitles */ columnOptions}
-          onChange={onChange}
-        />
-      </Menu.Item>
+      <Menu.ItemGroup title="Columns" >
+        <Menu.Item  key="1"><Checkbox id="time" onChange={onChange} defaultChecked>Time</Checkbox></Menu.Item>
+        <Menu.Item key="2"><Checkbox id="link" onChange={onChange} defaultChecked>Link</Checkbox></Menu.Item>
+        <Menu.Item  key="3"><Checkbox id="duration" onChange={onChange} defaultChecked>Duration</Checkbox></Menu.Item>
+        <Menu.Item key="4"><Checkbox id="type" onChange={onChange} defaultChecked>Type</Checkbox></Menu.Item>
+        <Menu.Item  key="5"><Checkbox id="author" onChange={onChange} defaultChecked>Author</Checkbox></Menu.Item>
+      </Menu.ItemGroup>
     </Menu>
   );
 
   return (
     <>
-      <Dropdown overlay={columnList} trigger={['click']}>
-        <Button onClick={(e) => e.preventDefault()}>
+      <Dropdown
+        overlay={menu}
+        trigger={['click']}>
+        <Button onClick={(e) => {e.preventDefault()
+        }}>
           Columns <DownOutlined />
         </Button>
       </Dropdown>
@@ -60,12 +60,13 @@ const HideColumnDropdown = (props: any) => {
 const mapStateToProps = (state: any) => {
   return {
     columnTitles: state.hideColumnData.columnArray,
+    initialColumns: state.initColumnsData.initialColumns,
     adminMode: state.userMode.isAdmin,
   };
 };
 
 const mapDispatchToProps = {
-  setVisibleColumnTitles,
+  setVisibleColumns,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HideColumnDropdown);

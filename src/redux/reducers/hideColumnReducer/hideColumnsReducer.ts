@@ -1,16 +1,27 @@
-import { VISIBLE_COLUMN_TITLES } from './actionTypes';
+import { VISIBLE_COLUMNS, INITIAL_COLUMNS } from './actionTypes';
 
-const initialState = {
+const firstInitialState = {
     columnArray: [],
+};
+
+const secondInitialState = {
+    initialColumns: [],
 }
 
-const hideColumsReducer = (state = initialState, action: any ) => {
+export const hideColumsReducer = (state = firstInitialState, action: any ) => {
     switch(action.type){
-        case VISIBLE_COLUMN_TITLES:
-            return { ...initialState, columnArray: [...initialState.columnArray, action.payload]}
+        case VISIBLE_COLUMNS:
+            return { ...firstInitialState, columnArray: action.payload };
         default:
             return state;
     }
 };
 
-export default hideColumsReducer;
+export const initColumnsReducer = (state = secondInitialState, action: any ) => {
+    switch(action.type){
+        case INITIAL_COLUMNS:
+            return { ...secondInitialState, initialColumns: action.payload };
+        default:
+            return state;
+    }
+};
