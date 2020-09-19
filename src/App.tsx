@@ -19,7 +19,8 @@ function App(props) {
       <DropDownListRow/>
       <HideColumnsDropdown/>
       {props.scheduleMode === 0 && <FilterTable/>}
-      {props.scheduleMode === 1 && <WrappedCalendar/>}
+      {props.scheduleMode === 2 && <WrappedCalendar/>}
+      {props.scheduleMode === 1 && <ListView/>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { ColumnsType } from 'antd/es/table';
 import { LinkOutlined } from '@ant-design/icons';
 import ScheduleData from '../../data/scheduleData.json';
 import { filters } from '../../utils/filters';
-import { choosingPage } from './choosingPage';
+// import { choosingPage } from './choosingPage';
 import TaskPageDrawer from '../TaskPageDrawer';
 import { fetchScheduleData } from '../../redux/actions';
 import { connect } from 'react-redux';
@@ -136,8 +136,8 @@ const FilterTable = (props: any) => {
 
   const currentData = useMemo(() => {
     if (props.data !== null) {
-      const pageIndex = choosingPage(props.data);
-      setPage(pageIndex);
+      // const pageIndex = choosingPage(props.data);
+      // setPage(pageIndex);
       return props.data.map((elem: Event) => {
         const date = new Date(elem.date);
         date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
@@ -154,7 +154,7 @@ const FilterTable = (props: any) => {
       {props.error && <p>Error, try again</p>}
       {props.data !== null && (
         <Table<Event>
-          pagination={{ defaultCurrent: page }}
+          // pagination={{ defaultCurrent: page }}
           columns={props.adminMode ? columns : columns.filter((el, index) => index !== 6)}
           dataSource={currentData}
           onRow={(record, index) => {
