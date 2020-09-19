@@ -158,7 +158,6 @@ const FilterTable = (props: any) => {
       {props.error && <p>Error, try again</p>}
       {props.data !== null && (
         <Table<Event>
-          pagination={{ defaultCurrent: page }}
           columns={props.adminMode ? columnsList : columnsList.filter((el, index) => index !== 6)}
           dataSource={currentData}
           onRow={(record, index) => {
