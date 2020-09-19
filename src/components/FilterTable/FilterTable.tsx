@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { setVisibleColumnTitles } from '../../redux/reducers/hideColumnReducer/actions';
 import store from '../../redux/store';
 import '../../App.less';
+import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
 
 interface Event {
   id: number;
@@ -150,6 +151,7 @@ const FilterTable = (props: any) => {
 
   return (
     <>
+     <HideColumnsDropdown/>
       {props.loading && <p>Loading...</p>}
       {props.error && <p>Error, try again</p>}
       {props.data !== null && (

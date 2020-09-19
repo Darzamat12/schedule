@@ -17,7 +17,8 @@ function App(props) {
   return (
     <div className="App">
       <DropDownListRow/>
-      <HideColumnsDropdown/>
+      
+      {props.isMobile===1 && <ListView/>}
       {props.scheduleMode === 0 && <FilterTable/>}
       {props.scheduleMode === 2 && <WrappedCalendar/>}
       {props.scheduleMode === 1 && <ListView/>}
@@ -27,7 +28,8 @@ function App(props) {
 
 const mapStateToProps = (state:any)=>{
   return{
-    scheduleMode: state.scheduleModeData.scheduleMode
+    scheduleMode: state.scheduleModeData.scheduleMode,
+    isMobile:state.scheduleModeData.isMobile
   }
 }
 
