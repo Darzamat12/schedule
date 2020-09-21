@@ -8,7 +8,7 @@ const secondInitialState = {
     initialColumns: [],
 }
 
-export const hideColumsReducer = (state = firstInitialState, action: any ) => {
+export const hideColumnsReducer = (state = firstInitialState, action: any ) => {
     switch(action.type){
         case VISIBLE_COLUMNS:
             return { ...firstInitialState, columnArray: action.payload };

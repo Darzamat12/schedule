@@ -122,7 +122,7 @@ const columns: ColumnsType<Event> = [
     sortDirections: ['descend', 'ascend'],
   },
 ];
-localStorage.setItem('columns', JSON.stringify(columns));
+// localStorage.setItem('columns', JSON.stringify(columns));
 const FilterTable = (props: any) => {
   const [showModal, setShowModal] = useState(false);
   const [currentItem, setCurrentItem] = useState<Event>({});
@@ -142,8 +142,8 @@ const FilterTable = (props: any) => {
 
   const currentData = useMemo(() => {
     if (props.data !== null) {
-      const pageIndex = choosingPage(props.data);
-      setPage(pageIndex);
+      // const pageIndex = choosingPage(props.data);
+      // setPage(pageIndex);
       return props.data.map((elem: Event) => {
         const date = new Date(elem.date);
         date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
@@ -159,20 +159,20 @@ const FilterTable = (props: any) => {
       {props.loading && <p>Loading...</p>}
       {props.error && <p>Error, try again</p>}
       {props.data !== null && (
-        <Table<Event>
-          columns={props.adminMode ? columnsList : columnsList.filter((el, index) => index !== 6)}
-          dataSource={currentData}
-          onRow={(record, index) => {
-            return {
-              onClick: (event) => {
-                setShowModal(true);
-                setCurrentItem(record);
-              },
-            };
-          }}
-        />
-      )}
-      <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />
+          <Table<Event>
+            columns={props.adminMode ? columnsList : columnsList.filter((el, index) => index !== 6)}
+            dataSource={currentData}
+            onRow={(record, index) => {
+              return {
+                onClick: (event) => {
+                  setShowModal(true);
+                  setCurrentItem(record);
+                },
+              };
+            }}
+          />
+        )}
+        <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />
     </>
   );
 };
