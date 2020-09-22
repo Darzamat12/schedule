@@ -1,6 +1,6 @@
 import React from 'react';
 import './Upload.less';
-import { Upload, message, Button } from 'antd';
+import { Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 const props = {

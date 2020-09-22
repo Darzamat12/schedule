@@ -1,45 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Spin } from 'antd';
-import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react';
-import { EnvironmentOutlined } from '@ant-design/icons';
+import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import './Map.less';
 import MapStyle from './mapStyle.json';
 
-const MapComponent = (props) => {
+const MapComponent: React.FC = ({ google, onMapClicked, activeMarker }: any) => {
   const customMapStyle = MapStyle;
-  const [showingInfoWindow, setShowingInfoWindow] = useState(false);
-  const [activeMarker, setActiveMarker] = useState({});
-  const [selectedPlace, setSelectedPlace] = useState({});
-
-  const onMarkerClick = (props: any, marker: any) => {
-    setSelectedPlace(props);
-    setActiveMarker(marker);
-    setShowingInfoWindow(true);
-  };
-
-  const onMapClicked = () => {
-    if (showingInfoWindow) {
-      setShowingInfoWindow(false);
-      setActiveMarker({});
-    }
-  };
 
   return (
     <div className="map-container">
       <Map
-        google={props.google}
+        google={google}
         zoom={12}
-        defaultCenter={{ lat: 25.791949, lng: -80.193596 }}
+        initialCenter={{ lat: 37.774929, lng: -122.419416 }}
         style={{ width: '100%', height: 300, position: 'absolute', top: 0, left: 0 }}
         styles={customMapStyle}
         onClick={onMapClicked}
       >
-        <Marker title="RS School" icon={<EnvironmentOutlined />} onClick={onMarkerClick} />
-        <InfoWindow marker={activeMarker} visible={showingInfoWindow}>
-          <div>
-            <p>RS School</p>
-          </div>
-        </InfoWindow>
+        <Marker title="RS School" position={activeMarker} />
       </Map>
     </div>
   );

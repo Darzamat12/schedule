@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TaskPageDrawer.less';
-import { Drawer, Col, Row, Card, Avatar } from 'antd';
+import { Drawer, Col, Row, Card, Avatar, Rate } from 'antd';
 import useWindowDimensions from '../../utils/useWindowDimensions';
-import Info from './Info/Info';
+import Info from './Info';
+import { fetchEventData } from '../../redux/actions';
 import { connect } from 'react-redux';
-import { Event } from '../../interfaces/Event';
 
 const { Meta } = Card;
 
-const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentItem: Event; adminMode?: boolean }> = ({
-  isShown,
-  handleOnClose,
-  currentItem,
-  adminMode,
-}) => {
-  // const [adminMode, setAdminMode] = useState(false);
+const TaskPageDrawer: React.FC = ({ isShown, handleOnClose, currentItem, fetchEventData }: any) => {
+  const [adminMode, setAdminMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  console.log(adminMode);
+
   const { width } = useWindowDimensions();
+
   return (
     <Drawer
       width={
@@ -38,7 +34,7 @@ const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentIt
                 <img
                   className="task-page-drawer-image"
                   alt="sloth"
-                  src="https://res.cloudinary.com/dv4fxot90/image/upload/v1599812573/img/sloth_hd7uor.jpg"
+                  src="https://res.cloudinary.com/dv4fxot90/image/upload/v1600690472/schedule/sloth-big_hbqhl7.png"
                 />
               </div>
             }
@@ -47,14 +43,17 @@ const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentIt
               title={
                 <>
                   <Avatar src="https://res.cloudinary.com/dv4fxot90/image/upload/v1598976466/img/sloth_ugzwwr.jpg" />
-                  <span className="task-modal-author">{currentItem.author}</span>
-                  <h1>{currentItem.name}</h1>
+                  <span className="task-page-drawer-author">{currentItem.author}</span>
+                  <div>
+                    <h1 className="task-page-drawer-title">{currentItem.name}</h1>
+                    {currentItem.rating && <Rate value={currentItem.rating} />}
+                  </div>
                 </>
               }
               description={
                 !editMode && (
                   <div>
-                    <Info currentItem={currentItem} adminMode={adminMode} />
+                    <Info key={currentItem} currentItem={currentItem} adminMode={adminMode} previewMode={false} />
                   </div>
                 )
               }
@@ -66,10 +65,16 @@ const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentIt
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   return {
-    adminMode: state.userMode.isAdmin,
+    loading: state.eventData.loading,
+    error: state.eventData.error,
+    data: state.eventData.data,
   };
 };
 
-export default connect(mapStateToProps, null)(TaskPageDrawer);
+const mapDispatchToProps = {
+  fetchEventData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskPageDrawer);
