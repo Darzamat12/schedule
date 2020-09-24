@@ -4,23 +4,37 @@ import React from 'react'
 import ScheduleData from '../../data/scheduleData.json'
 import './ImportantColumn.less'
 
-export const Check = ({value, id}) =>{
+const Check = ({value, id}) =>{
+  let index = ScheduleData.findIndex(el=>el.id==id)
   const [ state, setState] = useState(()=>{
     return {
-      checked: value ? true : false,
-      activeClass: value ? "active" : "",
+      id,
+      index,
+      checked: importantCol[index] ? true : false,
+      activeClass: importantCol[index] ? "active" : "",
+      value,
     }
   })
+  if(id!=state.id){
+    setState((st)=>{
+      return {
+        id,
+        index,
+        checked: importantCol[index] ? true : false,
+        activeClass: importantCol[index] ? "active" : "",
+        value,
+      }
+    })
+  }
   const onClick = ()=> {
-    let index = ScheduleData.findIndex(el => el.id == id )
+    importantCol[state.index] = state.checked ? false : state.value;
+    localStorage.setItem("important", JSON.stringify(importantCol));
     setState(({checked})=>{
       return{
       ...state,
       checked: !checked,
       activeClass: !checked ? "active" : "",
     }})
-    ScheduleData[index].important = !state.checked
-    console.log(ScheduleData[index].important, !state.checked)
   }
   return (
     <div className={"importantWrapper"} onClick={()=>onClick()}>
@@ -28,6 +42,9 @@ export const Check = ({value, id}) =>{
     </div>
   )
 }
+
+const localCol = JSON.parse(localStorage.getItem("important"))
+const importantCol = localCol ? localCol : new Array(ScheduleData.length).fill(false)
 
 export class Important extends React.Component {
   state = {
@@ -39,7 +56,6 @@ export class Important extends React.Component {
     console.log('Various parameters', pagination, filters, sorter);
     this.setState({
       filteredInfo: filters,
-      sortedInfo: sorter,
     });
   };
 
@@ -47,16 +63,8 @@ export class Important extends React.Component {
     this.setState({ filteredInfo: null });
   };
 
-  clearAll = () => {
-    this.setState({
-      filteredInfo: null,
-      sortedInfo: null,
-    });
-  };
-
   render() {
-    let { sortedInfo, filteredInfo } = this.state;
-    sortedInfo = sortedInfo || {};
+    let { filteredInfo } = this.state;
     filteredInfo = filteredInfo || {};
     const columns = [
       {
@@ -73,26 +81,16 @@ export class Important extends React.Component {
         filters: [
           { text: 'ok', value: true },
         ],
-        render: (value, record)=> {
-          return <Check value={value} id={record.id}/>
-        },
+        render: (value, record, i)=> <Check value={record} id={record.id}/>,
         filteredValue: filteredInfo.important || null,
         onFilter: (value, record) => {
-          if(record.hasOwnProperty('important'))
-            return value==record.important
-          else
-            return !value
+          return importantCol.some(el => el.id == record.id)
         },
         ellipsis: true,
       },
     ];
     return (
       <>
-        <Space style={{ marginBottom: 16 }}>
-          <Button onClick={this.setAgeSort}>Sort age</Button>
-          <Button onClick={this.clearFilters}>Clear filters</Button>
-          <Button onClick={this.clearAll}>Clear filters and sorters</Button>
-        </Space>
         <Table columns={columns} dataSource={ScheduleData} onChange={this.handleChange} />
       </>
     );
