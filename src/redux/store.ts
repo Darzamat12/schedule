@@ -21,6 +21,7 @@ const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(
 const persistor = persistStore(store);
 
 sagaMiddleware.run(watchFetchScheduleData);
-sagaMiddleware.run(watchFetchCalendarData);
 
-export { persistor, store }
+export { persistor, store };
+
+
