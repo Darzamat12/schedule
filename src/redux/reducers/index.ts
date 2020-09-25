@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import scheduleDataReducer from './scheduleDataReducer';
-import preferencesReducer from "./preferences/preferences.reducer";
 import hideColumsReducer from './hideColumnReducer/hideColumnsReducer'
 import preferencesReducer from "./preferences/preferences.reducer";
 import { TaskPageReducer } from '../../components/TaskPage/TaskPageReducer';
