@@ -11,7 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/index';
 const persistConfig = {
   key: 'userPreferences',
   storage,
-  whitelist: ['userPreferences'],
+  whitelist: ['userPreferences', 'importantColData'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

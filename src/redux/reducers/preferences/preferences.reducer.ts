@@ -3,6 +3,7 @@ import { IPreferences, IAction } from '../../../interfaces';
 export const CHANGE_FONT_SIZE = 'CHANGE_FONT_SIZE';
 export const CHANGE_COLOR = 'CHANGE_COLOR';
 export const CHANGE_THEME = 'CHANGE_THEME';
+export {REMOVE_IMPORTANT, ADD_IMPORTANT} from '../ImportantReducer/actionTypes'
 
 export const changeUserFontSize = (payload: number): IAction => ({ type: CHANGE_FONT_SIZE, payload });
 export const changeUserColor = (payload: string): IAction => ({ type: CHANGE_COLOR, payload });

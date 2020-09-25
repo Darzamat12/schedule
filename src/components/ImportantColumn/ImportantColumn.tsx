@@ -1,98 +1,53 @@
 import { Table, Button, Space } from 'antd';
 import {useState} from 'react';
 import React from 'react'
+import {useSelector} from 'react-redux'
 import ScheduleData from '../../data/scheduleData.json'
 import './ImportantColumn.less'
+import {Check} from './Check'
 
-const Check = ({value, id}) =>{
-  let index = ScheduleData.findIndex(el=>el.id==id)
-  const [ state, setState] = useState(()=>{
-    return {
-      id,
-      index,
-      checked: importantCol[index] ? true : false,
-      activeClass: importantCol[index] ? "active" : "",
-      value,
-    }
-  })
-  if(id!=state.id){
-    setState((st)=>{
-      return {
-        id,
-        index,
-        checked: importantCol[index] ? true : false,
-        activeClass: importantCol[index] ? "active" : "",
-        value,
-      }
-    })
-  }
-  const onClick = ()=> {
-    importantCol[state.index] = state.checked ? false : state.value;
-    localStorage.setItem("important", JSON.stringify(importantCol));
-    setState(({checked})=>{
-      return{
-      ...state,
-      checked: !checked,
-      activeClass: !checked ? "active" : "",
-    }})
-  }
-  return (
-    <div className={"importantWrapper"} onClick={()=>onClick()}>
-      <div className={`importantIco ${state.activeClass}`} />
-    </div>
-  )
-}
 
-const localCol = JSON.parse(localStorage.getItem("important"))
-const importantCol = localCol ? localCol : new Array(ScheduleData.length).fill(false)
-
-export class Important extends React.Component {
-  state = {
+export const Important = () => {
+  const {importantCol} = useSelector(state=>state.importantColData)
+  const [state, setState] = useState({
+    importantCol,
     filteredInfo: null,
     sortedInfo: null,
-  };
-
-  handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter);
-    this.setState({
+  })
+  const handleChange = (pagination: any, filters: any) => {
+    setState((st)=>({
+      ...st,
       filteredInfo: filters,
-    });
+    }));
   };
 
-  clearFilters = () => {
-    this.setState({ filteredInfo: null });
-  };
+  const clearFilters = () =>{
+    setState( st => ({
+      ...st,
+      filteredInfo: null
+    }));
+  }
 
-  render() {
-    let { filteredInfo } = this.state;
-    filteredInfo = filteredInfo || {};
-    const columns = [
-      {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => {
-          return <a>{text}</a>},
+  let { filteredInfo } = state;
+  filteredInfo = filteredInfo || {};
+  const columns = [
+    {
+      title: 'Important mark',
+      dataIndex: 'important',
+      key: 'important',
+      filters: [
+        { text: 'check impotant', value: true },
+      ],
+      render: (value: any, record: any)=> <Check id={record.id} key={record.key}/>,
+      onFilter: (value: any, record: any) => {
+        return importantCol.some((el: any) => el == record.id)
       },
-      {
-        title: '!',
-        dataIndex: 'important',
-        key: 'important',
-        filters: [
-          { text: 'ok', value: true },
-        ],
-        render: (value, record, i)=> <Check value={record} id={record.id}/>,
-        filteredValue: filteredInfo.important || null,
-        onFilter: (value, record) => {
-          return importantCol.some(el => el.id == record.id)
-        },
-        ellipsis: true,
-      },
-    ];
+      ellipsis: true,
+    },
+  ];
     return (
       <>
-        <Table columns={columns} dataSource={ScheduleData} onChange={this.handleChange} />
+        <Table columns={columns} dataSource={ScheduleData} onChange={handleChange} />
       </>
     );
-  }
 }
