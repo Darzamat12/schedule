@@ -1,6 +1,27 @@
 import { connect } from 'react-redux';
 import FilterTable from './FilterTable';
-
+import { fetchScheduleData, fetchEditData, fetchDeleteData, reqScheduleDataSuccess } from '../../redux/actions';
+import { setVisibleColumns, setInitialColumns } from '../../redux/reducers/hideColumnReducer/actions';
 import { IStore } from '../../interfaces';
 
-export default connect((store: IStore) => ({}), {})(FilterTable);
+const mapStateToProps = (state: any) => {
+  return {
+    loading: state.scheduleData.loading,
+    error: state.scheduleData.error,
+    data: state.scheduleData.data,
+    timeZone: state.timeZoneData.timeOffset,
+    adminMode: state.userMode.isAdmin,
+    columnTitles: state.hideColumnData.columnArray,
+  };
+};
+
+const mapDispatchToProps = {
+  fetchScheduleData,
+  setVisibleColumns,
+  setInitialColumns,
+  fetchEditData,
+  fetchDeleteData,
+  reqScheduleDataSuccess,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterTable);
