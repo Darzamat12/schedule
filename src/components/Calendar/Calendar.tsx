@@ -7,6 +7,7 @@ import AntDesignCalendar from './antDesign/antDesignCalendar';
 import Loader from './antDesign/loader';
 import MiniCalendar from './antDesign/antDesignMiniCalendar';
 import useWindowDimensions from '../../utils/useWindowDimensions';
+import { ButtonDownload } from '../SheduleDownload/button';
 
 function Calendar({ fetchedData, loadData }) {
   const { width } = useWindowDimensions();
@@ -17,7 +18,7 @@ function Calendar({ fetchedData, loadData }) {
   if (fetchedData.length === 0) {
     return <Loader />;
   } else if (width > 750) {
-    return <AntDesignCalendar props={fetchedData} />;
+    return <><ButtonDownload /><AntDesignCalendar props={fetchedData} /></>;
   } else {
     return <MiniCalendar props={fetchedData} />;
   }

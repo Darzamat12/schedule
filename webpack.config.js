@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
   // webpack will take the files from ./src/index
   entry: './src/index',
@@ -7,27 +8,27 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   // adding .ts and .tsx to resolve.extensions will help babel look for .ts and .tsx files to transpile
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
       // we use babel-loader to load our jsx and tsx files
-    {
-      test: /\.(ts|js)x?$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
+      {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
-    },
-    // css-loader to bundle all the css files into one file and style-loader to add all the styles  inside the style tag of the document
-    {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader']
-    },
+      // css-loader to bundle all the css files into one file and style-loader to add all the styles  inside the style tag of the document
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
       {
         test: /\.less$/,
         use: [
@@ -47,20 +48,23 @@ module.exports = {
           },
         ],
       },
-    {
-      test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
-      exclude: /node_modules/,
-      use: ['file-loader?name=[name].[ext]'] // ?name=[name].[ext] is only necessary to preserve the original file name
-    }
-  ]
-},
-devServer: {
-  historyApiFallback: true,
-},
-plugins: [
-  new HtmlWebpackPlugin({
-    template: './public/index.html',
-    favicon: './public/favicon.ico'
-  })
- ]
+      {
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
+        exclude: /node_modules/,
+        use: ['file-loader?name=[name].[ext]'], // ?name=[name].[ext] is only necessary to preserve the original file name
+      },
+    ],
+  },
+  devServer: {
+    historyApiFallback: true,
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      favicon: './public/favicon.ico',
+    }),
+    new webpack.ProvidePlugin({
+      html2canvas: 'html2canvas',
+    }),
+  ],
 };
