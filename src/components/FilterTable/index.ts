@@ -5,7 +5,7 @@ import { IStore } from '../../interfaces';
 
 export default connect(
   (store: IStore) => ({
-
+    userPreferences: store.userPreferences,
   }),
   {
 
