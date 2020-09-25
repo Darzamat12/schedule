@@ -8,6 +8,7 @@ import { getColumns } from './columnsFunc';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import { DoubleRightOutlined } from '@ant-design/icons';
 import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
+import UserSettings from '../UserSettings/UserSettings';
 
 const FilterTable = (props: any) => {
   const [form] = Form.useForm();
@@ -122,15 +123,6 @@ const FilterTable = (props: any) => {
 
   useEffect(() => {
     if (props.data !== null) {
-<<<<<<< HEAD
-      // const pageIndex = choosingPage(props.data);
-      // setPage(pageIndex);
-      return props.data.map((elem: Event) => {
-        const date = new Date(elem.date);
-        date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
-        return { ...elem, date: date };
-      });
-=======
       setData(
         props.data.map((elem: Event) => {
           const date = new Date(elem.date);
@@ -138,7 +130,6 @@ const FilterTable = (props: any) => {
           return { ...elem, date: date };
         }),
       );
->>>>>>> 988144414215ef5a48e9491a38c42734fc68262b
     } else {
       setData(props.data);
     }
@@ -149,22 +140,6 @@ const FilterTable = (props: any) => {
       {props.loading && <p>Loading...</p>}
       {props.error && <p>Error, try again</p>}
       {props.data !== null && (
-<<<<<<< HEAD
-          <Table<Event>
-            columns={props.adminMode ? columnsList : columnsList.filter((el, index) => index !== 6)}
-            dataSource={currentData}
-            onRow={(record, index) => {
-              return {
-                onClick: (event) => {
-                  setShowModal(true);
-                  setCurrentItem(record);
-                },
-              };
-            }}
-          />
-        )}
-        <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />
-=======
         <>
           <HideColumnsDropdown disabled={editingKey !== ''} />
           <Form form={form} component={false}>
@@ -200,7 +175,6 @@ const FilterTable = (props: any) => {
         </>
       )}
       <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />
->>>>>>> 988144414215ef5a48e9491a38c42734fc68262b
     </>
   );
 };
