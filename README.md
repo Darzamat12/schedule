@@ -76,6 +76,7 @@ Schedule - расписание курса RS School.
 - [Redux](https://redux.js.org/basics/usage-with-react)
 - [Ant Design of React](https://ant.design/docs/react/introduce)
 - [Webpack](https://webpack.js.org/)
+- [React-Color](https://github.com/casesandberg/react-color)
 
  **[к оглавлению](#Оглавление)**
 

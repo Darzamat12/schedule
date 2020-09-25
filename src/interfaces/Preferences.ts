@@ -1,11 +1,25 @@
 export interface IPreferences {
-  fontSize: number;
-  color: string;
-  lightTheme: boolean;
+  readable: boolean;
+  tagColor: ITagColor;
+  darkTheme: boolean;
+}
+
+interface ITagColor {
+  xcheck: string;
+  task: string;
+  test: string;
+  lesson: string;
+  deadline: string;
 }
 
 export const initialUserPreferencesState: IPreferences = {
-  fontSize: 0,
-  color: '',
-  lightTheme: true,
+  readable: false,
+  tagColor: {
+    xcheck: '',
+    task: '',
+    test: '',
+    lesson: '',
+    deadline: '',
+  },
+  darkTheme: false,
 };
