@@ -8,14 +8,14 @@ import WrappedDemoComponent from './components/TaskPage/TaskPage';
 import ListView from './components/List/List';
 import './App.less';
 //import {fetchScheduleData} from './redux/actions';
-import FilterTable from './components/FilterTable/FilterTable'
+import FilterTable from './components/FilterTable'
 import HideColumnsDropdown from './components/HideColumnsDropdown/HideColumnsDropdown';
 
 function App(props) {
   return (
     <div className="App">
       <DropDownListRow/>
-      
+
       {props.isMobile===1 && <ListView/>}
       {props.scheduleMode === 0 && <FilterTable/>}
       {props.scheduleMode === 2 && <WrappedCalendar/>}
