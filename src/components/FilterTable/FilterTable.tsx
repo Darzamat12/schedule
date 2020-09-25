@@ -10,6 +10,7 @@ import { DoubleRightOutlined } from '@ant-design/icons';
 import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
 import UserSettings from '../UserSettings/UserSettings';
 
+
 const FilterTable = (props: any) => {
   const [form] = Form.useForm();
   const [data, setData] = useState(props.data);
@@ -79,14 +80,16 @@ const FilterTable = (props: any) => {
 
   useEffect(() => {
     const columns = [
-      ...getColumns(isEditing, save, cancel, edit, editingKey, handleDelete),
+      ...getColumns(isEditing, save, cancel, edit, editingKey, handleDelete, props.userPreferences),
       {
         title: 'More',
         key: 'operation',
         fixed: 'right',
         width: 'fit-content',
+        className: props.userPreferences.readable ? 'readable-bold-2' : '',
         render: (_: any, record: Event) => (
           <Button
+            className={props.userPreferences.readable ? 'readable-bold-1' : ''}
             style={{ border: 'none' }}
             icon={<DoubleRightOutlined />}
             onClick={() => {
@@ -172,6 +175,7 @@ const FilterTable = (props: any) => {
               size={width <= 500 ? 'small' : width <= 800 ? 'middle' : 'large'}
             />
           </Form>
+          
         </>
       )}
       <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />

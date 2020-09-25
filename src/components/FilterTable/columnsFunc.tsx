@@ -13,12 +13,14 @@ export const getColumns = (
   edit: any,
   editingKey: string,
   handleDelete: any,
+  userPreferences: any,
 ) => {
   const columns: ColumnGroupType<Event> | (ColumnType<Event> & ColumnsType<Event>) = [
     {
       title: 'Date',
       dataIndex: 'datePicker',
       key: 'date',
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       sorter: (a, b) => (a.date === b.date ? 0 : a.date < b.date ? -1 : 1),
       sortDirections: ['descend', 'ascend'],
       render: (momentDate, record) => moment(record.date).format('MMM Do YYYY'),
@@ -28,6 +30,7 @@ export const getColumns = (
       title: 'Time',
       dataIndex: 'timePicker',
       key: 'time',
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       render: (momentTime, record) => moment(record.date).format('HH:mm'),
       editable: true,
     },
@@ -35,6 +38,7 @@ export const getColumns = (
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       sorter: (a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1),
       sortDirections: ['descend', 'ascend'],
       render: (text) => <a>{text}</a>,
@@ -44,6 +48,7 @@ export const getColumns = (
       title: 'Link',
       dataIndex: 'links',
       key: 'links',
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       render: (links) => (
         <>
           {links.map((link: string) => {
@@ -61,6 +66,7 @@ export const getColumns = (
       title: 'Duration',
       dataIndex: 'duration',
       key: 'duration',
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       render: (duration) => {
         return <>{duration !== undefined || '' ? duration : 'no data'}</>;
       },
@@ -72,6 +78,7 @@ export const getColumns = (
       key: 'tag',
       dataIndex: 'tag',
       filters: filters.tag,
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       onFilter: (value, record) => record.tag.indexOf(value as string) === 0,
       render: (tag) => {
         let color;
@@ -81,7 +88,7 @@ export const getColumns = (
           color = 'green';
         }
         return (
-          <Tag color={color} key={tag}>
+          <Tag className={userPreferences.readable ? 'readable-bold-1' : ''} color={color} key={tag}>
             {tag}
           </Tag>
         );
@@ -92,6 +99,7 @@ export const getColumns = (
       title: 'Author',
       dataIndex: 'author',
       key: 'author',
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       filters: filters.author,
       onFilter: (value, record) => record.author.indexOf(value as string) === 0,
       sorter: (a, b) => a.author.length - b.author.length,
@@ -101,17 +109,20 @@ export const getColumns = (
     {
       title: 'Action',
       key: 'action',
+      className: userPreferences.readable ? 'readable-bold-2' : '',
       render: (_: any, record: Event) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
             <Popconfirm
+              className={userPreferences.readable ? 'readable-bold-1' : ''}
               title="Sure to save?"
               onConfirm={() => {
                 save(record.id.toString());
               }}
             >
               <a
+                className={userPreferences.readable ? 'readable-bold-1' : ''}
                 onClick={(event) => {
                   event.stopPropagation();
                 }}
@@ -120,13 +131,17 @@ export const getColumns = (
                 Save
               </a>
             </Popconfirm>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+            <Popconfirm 
+              title="Sure to cancel?"
+              onConfirm={cancel}>
+              className={userPreferences.readable ? 'readable-bold-1' : ''}
+              <a className={userPreferences.readable ? 'readable-bold-1' : ''}>Cancel</a>
             </Popconfirm>
           </span>
         ) : (
           <Space>
             <a
+              className={userPreferences.readable ? 'readable-bold-1' : ''}
               disabled={editingKey !== ''}
               onClick={(event) => {
                 event.stopPropagation();
@@ -136,12 +151,13 @@ export const getColumns = (
               Edit
             </a>
             <Popconfirm
+              className={userPreferences.readable ? 'readable-bold-1' : ''}
               title="Sure to delete?"
               onConfirm={() => {
                 handleDelete(record.id);
               }}
             >
-              <a disabled={editingKey !== ''}>Delete</a>
+              <a className={userPreferences.readable ? 'readable-bold-1' : ''} disabled={editingKey !== ''}>Delete</a>
             </Popconfirm>
           </Space>
         );
