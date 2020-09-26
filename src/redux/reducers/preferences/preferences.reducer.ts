@@ -12,11 +12,13 @@ export const changeUserTheme = (payload: boolean): IAction => ({ type: CHANGE_TH
 const initialState = {
   readable: false,
   tagColor: {
-    xcheck: '#2db7f5',
-    task: '#308e00',
-    test: '#a326f4',
-    lesson: '#FF6900',
-    deadline: '#ff0000',
+    self_education: '#2db7f5',
+    interactive: '#FF6900',
+    video: '#FA28FF',
+    html_task: '#308e00',
+    codewars: '#ff0000',
+    js_task: '#37D67A',
+    interview: '#a326f4',
   },
   darkTheme: false,
 };

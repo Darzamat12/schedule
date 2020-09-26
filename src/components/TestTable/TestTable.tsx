@@ -88,8 +88,8 @@ const columns: ColumnsType<Event> = [
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <Button>Edit</Button>
-        <Button>Delete</Button>
+        <Button onClick={(event)=>event.stopPropagation()}>Edit</Button>
+        <Button onClick={(event)=>event.stopPropagation()}>Delete</Button>
       </Space>
     ),
   },

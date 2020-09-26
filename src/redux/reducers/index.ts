@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import scheduleDataReducer from './scheduleDataReducer';
-import hideColumsReducer from './hideColumnReducer/hideColumnsReducer'
+import { hideColumnsReducer, initColumnsReducer} from './hideColumnReducer/hideColumnsReducer'
+import preferencesReducer from "./preferences/preferences.reducer";
 import { TaskPageReducer } from '../../components/TaskPage/TaskPageReducer';
 import { CalendarPageReducer } from '../../components/Calendar/CalendarReducer';
 import scheduleModeReducer from './scheduleModeReducer';
@@ -8,6 +9,10 @@ import userModeReducer from './userModeReducer';
 import timeZoneReducer from './timeZoneReducer';
 import weekPickerReducer from './weekPickerReducer';
 import {importantReducer} from "./ImportantReducer/importantReducer";
+import postEventReducer from './postEventReducer';
+import editEventReducer from './editEventReducer';
+import deleteEventReducer from './deleteEventReducer';
+import eventDataReducer from './eventDataReducer';
 
 
 export default combineReducers({
@@ -20,7 +25,12 @@ export default combineReducers({
     timeZoneData: timeZoneReducer,
     weekPickerData: weekPickerReducer,
     hideColumnData: hideColumsReducer,
-    importantColData: importantReducer
+    importantColData: importantReducer,
+    initColumnsData: initColumnsReducer,
+    postEvent: postEventReducer,
+    editEvent: editEventReducer,
+    deleteEvent: deleteEventReducer,
+    eventData: eventDataReducer
 });
 
 
