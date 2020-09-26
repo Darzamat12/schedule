@@ -12,12 +12,13 @@ const initialState = {
   readable: false,
   tagColor: {
     self_education: '#2db7f5',
-    interactive: '#FF6900',
-    video: '#FA28FF',
-    html_task: '#308e00',
-    codewars: '#ff0000',
+    meetup: '#2db7f5',
+    test: '#FF6900',
+    html_task: '#37D67A',
+    codewars: '#37D67A',
     js_task: '#37D67A',
-    interview: '#a326f4',
+    deadline: '#ff0000',
+    cross_check: '#a326f4',
   },
   darkTheme: false,
 };

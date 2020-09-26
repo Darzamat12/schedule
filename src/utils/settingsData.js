@@ -1,21 +1,23 @@
 export const tags = [
   { name: 'self education', type: 'self_education' },
-  { name: 'interactive', type: 'interactive' },
-  { name: 'video', type: 'video' },
+  { name: 'meetup', type: 'meetup' },
+  { name: 'test', type: 'test' },
   { name: 'html task', type: 'html_task' },
   { name: 'codewars', type: 'codewars' },
   { name: 'js task', type: 'js_task' },
-  { name: 'interview', type: 'interview' },
+  { name: 'cross-check', type: 'cross_check' },
+  { name: 'deadline', type: 'deadline' },
 ];
 
 export const tagsMap =  new Map([
   ['self education', 'self_education'],
-  ['interactive', 'interactive'],
-  ['video', 'video'],
+  ['meetup', 'meetup'],
+  ['test', 'test'],
   ['html task', 'html_task'],
   ['codewars', 'codewars'],
   ['js task', 'js_task'],
-  ['interview', 'interview'],
+  ['cross-check', 'cross_check'],
+  ['deadline', 'deadline'],
 ]);
 
 export const pickerColors = [
