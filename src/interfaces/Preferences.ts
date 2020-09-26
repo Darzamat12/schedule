@@ -5,21 +5,25 @@ export interface IPreferences {
 }
 
 interface ITagColor {
-  xcheck: string;
-  task: string;
-  test: string;
-  lesson: string;
-  deadline: string;
+  self_education: string;
+  interactive: string;
+  video: string;
+  html_task: string;
+  codewars: string;
+  js_task: string;
+  interview: string;
 }
 
 export const initialUserPreferencesState: IPreferences = {
   readable: false,
   tagColor: {
-    xcheck: '',
-    task: '',
-    test: '',
-    lesson: '',
-    deadline: '',
+    self_education: '',
+    interactive: '',
+    video: '',
+    html_task: '',
+    codewars: '',
+    js_task: '',
+    interview: '',
   },
   darkTheme: false,
 };

@@ -1,10 +1,22 @@
 export const tags = [
-  { name: 'Старт кросс-чека', type: 'xcheck' },
-  { name: 'Выдача таска', type: 'task' },
-  { name: 'Тест', type: 'test' },
-  { name: 'Лекция', type: 'lesson' },
-  { name: 'Дедлайн', type: 'deadline' },
+  { name: 'self education', type: 'self_education' },
+  { name: 'interactive', type: 'interactive' },
+  { name: 'video', type: 'video' },
+  { name: 'html task', type: 'html_task' },
+  { name: 'codewars', type: 'codewars' },
+  { name: 'js task', type: 'js_task' },
+  { name: 'interview', type: 'interview' },
 ];
+
+export const tagsMap =  new Map([
+  ['self education', 'self_education'],
+  ['interactive', 'interactive'],
+  ['video', 'video'],
+  ['html task', 'html_task'],
+  ['codewars', 'codewars'],
+  ['js task', 'js_task'],
+  ['interview', 'interview'],
+]);
 
 export const pickerColors = [
   '#ff0000',

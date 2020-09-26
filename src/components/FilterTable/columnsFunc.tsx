@@ -5,6 +5,7 @@ import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/es/table';
 import { DoubleRightOutlined, LinkOutlined, MoreOutlined } from '@ant-design/icons';
 import { filters } from '../../utils/filters';
 import { Event } from './types';
+import { tagsMap } from '../../utils/settingsData';
 
 export const getColumns = (
   isEditing: any,
@@ -81,14 +82,17 @@ export const getColumns = (
       className: userPreferences.readable ? 'readable-bold-2' : '',
       onFilter: (value, record) => record.tag.indexOf(value as string) === 0,
       render: (tag) => {
-        let color;
-        if (tag === 'deadline') {
-          color = 'volcano';
-        } else if (tag === 'html/css task' || tag === 'js task' || tag === 'cv task') {
-          color = 'green';
-        }
+        let tagColor = tagsMap.get(tag) || 'self_education';
         return (
-          <Tag className={userPreferences.readable ? 'readable-bold-1' : ''} color={color} key={tag}>
+          <Tag
+            className={userPreferences.readable ? 'readable-bold-1' : ''}
+            style={{
+              borderColor: userPreferences.tagColor[tagColor],
+              color: userPreferences.tagColor[tagColor],
+              backgroundColor: `${userPreferences.tagColor[tagColor]}10`,
+            }}
+            key={tag}
+          >
             {tag}
           </Tag>
         );
@@ -131,9 +135,7 @@ export const getColumns = (
                 Save
               </a>
             </Popconfirm>
-            <Popconfirm 
-              title="Sure to cancel?"
-              onConfirm={cancel}>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
               <a className={userPreferences.readable ? 'readable-bold-1' : ''}>Cancel</a>
             </Popconfirm>
           </span>
@@ -156,7 +158,9 @@ export const getColumns = (
                 handleDelete(record.id);
               }}
             >
-              <a className={userPreferences.readable ? 'readable-bold-1' : ''} disabled={editingKey !== ''}>Delete</a>
+              <a className={userPreferences.readable ? 'readable-bold-1' : ''} disabled={editingKey !== ''}>
+                Delete
+              </a>
             </Popconfirm>
           </Space>
         );
