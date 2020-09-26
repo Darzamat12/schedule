@@ -13,6 +13,7 @@ const mapStateToProps = (state: any) => {
     adminMode: state.userMode.isAdmin,
     columnTitles: state.hideColumnData.columnArray,
     userPreferences: state.userPreferences,
+    viewData: state.scheduleViewData.viewData,
   };
 };
 

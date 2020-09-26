@@ -10,7 +10,6 @@ import {
   watchDeleteEvent,
   watchFetchEventData
 } from './sagas';
-import { watchFetchCalendarData } from '../components/Calendar/sagas';
 import { composeWithDevTools } from 'redux-devtools-extension/index';
 
 const persistConfig = {
@@ -26,7 +25,6 @@ const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(
 const persistor = persistStore(store);
 
 sagaMiddleware.run(watchFetchScheduleData);
-sagaMiddleware.run(watchFetchCalendarData);
 sagaMiddleware.run(watchPostEvent);
 sagaMiddleware.run(watchEditEvent);
 sagaMiddleware.run(watchDeleteEvent);
