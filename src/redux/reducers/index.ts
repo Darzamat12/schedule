@@ -8,6 +8,7 @@ import scheduleModeReducer from './scheduleModeReducer';
 import userModeReducer from './userModeReducer';
 import timeZoneReducer from './timeZoneReducer';
 import weekPickerReducer from './weekPickerReducer';
+import {importantReducer} from "./ImportantReducer/importantReducer";
 import postEventReducer from './postEventReducer';
 import editEventReducer from './editEventReducer';
 import deleteEventReducer from './deleteEventReducer';
@@ -23,7 +24,8 @@ export default combineReducers({
     taskPageReducer1: TaskPageReducer,
     timeZoneData: timeZoneReducer,
     weekPickerData: weekPickerReducer,
-    hideColumnData: hideColumnsReducer,
+    hideColumnData: hideColumsReducer,
+    importantColData: importantReducer,
     initColumnsData: initColumnsReducer,
     postEvent: postEventReducer,
     editEvent: editEventReducer,
