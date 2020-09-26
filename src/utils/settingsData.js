@@ -33,7 +33,7 @@ export const pickerColors = [
 
 const getLocalStorageTheme = () => {
   try {
-    return JSON.parse(JSON.parse(window.localStorage.getItem('persist:userPreferences')).userPreferences).darkTheme
+    return JSON.parse(JSON.parse(window.localStorage.getItem('persist:root')).userPreferences).darkTheme
       ? 'dark'
       : 'light';
   } catch {
