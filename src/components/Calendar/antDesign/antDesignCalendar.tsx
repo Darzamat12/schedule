@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, Badge } from 'antd';
 import { getMonthValue } from '../DateFuncs';
 import { getListData } from '../DataFuncs'
-import {Scrollbars} from 'react-custom-scrollbars'
+import { Scrollbars } from 'react-custom-scrollbars'
 import { ModalWidnow } from './antDesignModal';
 
 
@@ -24,18 +24,23 @@ function AntDesignCalendar({ props }) {
   function dateCellRender(value: any) {
     const listData = getListData(value, props);
     return (
-      <Scrollbars 
+      <Scrollbars
         autoHide
         autoHideTimeout={500}
         autoHideDuration={200}>
         <ul className="events">
           {listData.map((item) => (
-            <li style={{ backgroundColor: item.color }} key={item.key} onClick={() => showModalWindow(item.key)}>
+            <li style={{
+              border: '1px solid',
+              borderColor: item.color,
+              color: item.color,
+              backgroundColor: `${item.color}50`,
+            }} key={item.key} onClick={() => showModalWindow(item.key)}>
               <Badge color={item.color} text={item.content} />
             </li>
           ))}
         </ul>
-        </Scrollbars>
+      </Scrollbars>
     );
   }
 
