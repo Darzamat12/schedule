@@ -2,7 +2,7 @@ export interface Event {
   id: number;
   name: string;
   author: string;
-  tag: string;
+  tag: Array<string>;
   date: string;
   deadline: string;
   duration: number;
@@ -15,4 +15,5 @@ export interface Event {
   map: string;
   rating: number;
   feedback: string;
+  allowFeedback: boolean;
 }

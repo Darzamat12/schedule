@@ -1,23 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TaskPageDrawer.less';
 import { Drawer, Col, Row, Card, Avatar } from 'antd';
 import useWindowDimensions from '../../utils/useWindowDimensions';
-import Info from './Info/Info';
-import { connect } from 'react-redux';
-import { Event } from '../../interfaces/Event';
+import Info from './Info';
+import FormEditTask from './FormEditTask';
 
 const { Meta } = Card;
 
-const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentItem: Event; adminMode?: boolean }> = ({
-  isShown,
-  handleOnClose,
-  currentItem,
-  adminMode,
-}) => {
-  // const [adminMode, setAdminMode] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  console.log(adminMode);
+const TaskPageDrawer: React.FC = ({ isShown, isAdmin, darkTheme, handleOnClose, currentItem, editMode }: any) => {
+  const [isEdit, setIsEdit] = useState(false);
+  useEffect(() => {
+    setIsEdit(editMode)
+  }, [currentItem]);
+
+  const owlsImage = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110530/schedule/owls_big_xkdavi.png";
+  const slothImage = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601109894/schedule/sloth_big_jsio5q.png";
+  const owlsAvatar = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/owls_ava_emxxwe.png";
+  const slothAvatar = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/sloth_ava_fmo9ir.png";
+  const previewCover = darkTheme ? owlsImage : slothImage;
+  const previewAvatar = darkTheme ? owlsAvatar : slothAvatar;
+
   const { width } = useWindowDimensions();
+
+  const turnOnEditMode = () => {
+    setIsEdit(true);
+  };
+
+  const turnOffEditMode = () => {
+    setIsEdit(false);
+  };
+
+  const TaskPageMode = ({ currentItem }: any) => {
+    if (isEdit) {
+      return <FormEditTask currentItem={currentItem} turnOffEditMode={turnOffEditMode} />;
+    }
+    if (!isEdit) {
+      return (
+        <div>
+          <Info
+            key={currentItem.id}
+            currentItem={currentItem}
+            adminMode={isAdmin}
+            editMode={isEdit}
+            turnOnEditMode={turnOnEditMode}
+          />
+        </div>
+      );
+    }
+  };
+
   return (
     <Drawer
       width={
@@ -38,7 +69,7 @@ const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentIt
                 <img
                   className="task-page-drawer-image"
                   alt="sloth"
-                  src="https://res.cloudinary.com/dv4fxot90/image/upload/v1599812573/img/sloth_hd7uor.jpg"
+                  src={previewCover}
                 />
               </div>
             }
@@ -46,18 +77,11 @@ const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentIt
             <Meta
               title={
                 <>
-                  <Avatar src="https://res.cloudinary.com/dv4fxot90/image/upload/v1598976466/img/sloth_ugzwwr.jpg" />
-                  <span className="task-modal-author">{currentItem.author}</span>
-                  <h1>{currentItem.name}</h1>
+                  <Avatar src={previewAvatar} />
+                  <span className="task-page-drawer-author">{currentItem.author}</span>
                 </>
               }
-              description={
-                !editMode && (
-                  <div>
-                    <Info currentItem={currentItem} adminMode={adminMode} />
-                  </div>
-                )
-              }
+              description={<TaskPageMode currentItem={currentItem} adminMode={isAdmin} />}
             />
           </Card>
         </Col>
@@ -66,10 +90,4 @@ const TaskPageDrawer: React.FC<{ isShown: boolean; handleOnClose: any; currentIt
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    adminMode: state.userMode.isAdmin,
-  };
-};
-
-export default connect(mapStateToProps, null)(TaskPageDrawer);
+export default TaskPageDrawer;

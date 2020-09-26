@@ -1,12 +1,36 @@
 @import '~antd/dist/antd.dark.less';
 
+html, body {
+  scrollbar-base-color: #141414;
+  scrollbar-face-color: #303030;
+}
+
+::-webkit-scrollbar {
+  background-color: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #303030;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #177ddc;
+}
+
 .ant-drawer .ant-picker-clear,
 .ant-drawer .ant-slider-handle,
 .ant-drawer .ant-anchor-wrapper,
 .ant-drawer .ant-collapse-content,
 .ant-drawer .ant-timeline-item-head,
-.ant-drawer .ant-card {
+.ant-drawer .ant-card,
+.ant-card .ant-card-bordered,
+.ant-card-cover,
+.ant-card-body {
   background-color: #1f1f1f;
+}
+
+.ant-form-item-control-input-content .ant-input {
+  background-color: transparent;
 }
 
 .readable-bold-1 {
@@ -18,3 +42,4 @@
   font-size: @font-size-base + 2px;
   font-weight: bold;
 }
+
