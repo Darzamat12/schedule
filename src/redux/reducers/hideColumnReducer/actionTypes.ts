@@ -1,0 +1,3 @@
+
+export const VISIBLE_COLUMNS = 'VISIBLE_COLUMNS';
+export const INITIAL_COLUMNS = 'INITIAL_COLUMNS';

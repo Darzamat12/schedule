@@ -1,28 +1,35 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from "./reducers";
-import {watchFetchScheduleData} from './sagas';
+import rootReducer from './reducers';
+import {
+  watchFetchScheduleData,
+  watchPostEvent,
+  watchEditEvent,
+  watchDeleteEvent,
+  watchFetchEventData
+} from './sagas';
+import { watchFetchCalendarData } from '../components/Calendar/sagas';
+import { composeWithDevTools } from 'redux-devtools-extension/index';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['userPreferences', 'hideColumnData'],
+};
 
-declare global {
-    interface Window {
-        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-    }
-}
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+const persistor = persistStore(store);
 
+sagaMiddleware.run(watchFetchScheduleData);
+sagaMiddleware.run(watchFetchCalendarData);
+sagaMiddleware.run(watchPostEvent);
+sagaMiddleware.run(watchEditEvent);
+sagaMiddleware.run(watchDeleteEvent);
+sagaMiddleware.run(watchFetchEventData);
 
-const createAppStore = (): any => {
-    const sagaMiddleware = createSagaMiddleware();
-    const store = createStore(
-        rootReducer,
-        compose(applyMiddleware(sagaMiddleware), composeEnhancers())
-        );
-    sagaMiddleware.run(watchFetchScheduleData);
-    return store;
-}
-
-
-export default createAppStore();
-
+export { persistor, store }
