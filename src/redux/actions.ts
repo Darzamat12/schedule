@@ -21,6 +21,7 @@ import {
   REQ_EVENT_DATA_FAILED,
   REQ_EVENT_DATA_SUCCEEDED,
   FETCHED_EVENT_DATA,
+  VIEW_SCHEDULE_DATA,
 } from './actionTypes';
 
 export const reqScheduleData = () => {
@@ -118,3 +119,7 @@ export const reqEventDataError = () => {
 export const fetchEventData = (id: string) => {
   return { type: FETCHED_EVENT_DATA, id: id }
 };
+
+export const setViewData = (EventsArray: any) => {
+  return { type: VIEW_SCHEDULE_DATA, payload: EventsArray };
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import moment from 'moment';
 import { Table, Form, Button } from 'antd';
 import TaskPageDrawer from '../TaskPageDrawer';
@@ -24,8 +24,11 @@ const FilterTable = (props: any) => {
   const [editMode, setEditMode] = useState(false);
   const { width } = useWindowDimensions();
 
+
   useEffect(() => {
-    props.fetchScheduleData(); //function to start fetch data
+    if (props.data === null) {
+      props.fetchScheduleData();
+    }
   }, []);
 
   const edit = (record: Event) => {
@@ -149,11 +152,22 @@ const FilterTable = (props: any) => {
     }
   }, [props.timeZone, props.data]);
 
+  const currentViewData = useMemo(() => {
+    if (props.viewData !== null) {
+    return props.viewData.map((elem: Event) => {
+      const date = new Date(elem.date);
+      date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
+      return { ...elem, date: date };
+    })} else {
+      return props.viewData;
+    }
+  }, [props.timeZone, props.viewData ])
+
   return (
     <>
       {props.loading && <p>Loading...</p>}
       {props.error && <p>Error, try again</p>}
-      {props.data !== null && (
+      {props.viewData !== null && (
         <>
           <HideColumnsDropdown disabled={editingKey !== ''} />
           <UserSettings/>
@@ -176,7 +190,7 @@ const FilterTable = (props: any) => {
                   ? columnsList
                   : columnsList.filter((el: any, index: number) => index !== columnsList.length - 2)
               }
-              dataSource={data}
+              dataSource={currentViewData}
               onRow={(record) => {
                 return {
                   onDoubleClick: () => {

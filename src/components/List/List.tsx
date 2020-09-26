@@ -30,8 +30,8 @@ const ListView = (props: any /*plug*/) => {
   };
 
   const shortData = useMemo(() => {
-    if (props.data !== null) {
-      return props.data.slice(renderIndex * 11, renderIndex * 11 + 11).map((elem: Event) => {
+    if (props.viewData !== null) {
+      return props.viewData.slice(renderIndex * 10, renderIndex * 10 + 10).map((elem: Event) => {
         const date = new Date(elem.date);
         date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
         return { ...elem, date: date };
@@ -39,7 +39,7 @@ const ListView = (props: any /*plug*/) => {
     } else {
       return null;
     }
-  }, [renderIndex, props.data, props.timeZone]);
+  }, [renderIndex, props.viewData, props.timeZone]);
 
   const DateArray = useMemo(() => {
     if (shortData != null) {
@@ -113,7 +113,7 @@ const ListView = (props: any /*plug*/) => {
 
       {props.error && <Alert message="Error" description="Error while loading data." type="error" showIcon />}
 
-      {props.data !== null && DateArray !== [] && (
+      {props.viewData !== null && DateArray !== [] && (
         <>
           <Scrollbars className={'scrollbar-list-container'} style={{ height: 650 }}>
             <div style={{ overflowX: 'hidden' }}>
@@ -144,8 +144,8 @@ const ListView = (props: any /*plug*/) => {
 
           <Pagination
             showSizeChanger={false}
-            defaultPageSize={11}
-            total={props.data.length}
+            defaultPageSize={10}
+            total={props.viewData.length}
             onChange={handlerPaginationChange}
             className={'list-pagination'}
             size={width <= 500 ? 'small' : 'default'}
@@ -164,6 +164,7 @@ const mapStateToProps = (state: any) => {
     isAdmin: state.userMode.isAdmin,
     timeZone: state.timeZoneData.timeOffset,
     week: state.weekPickerData.week,
+    viewData: state.scheduleViewData.viewData,
   };
 };
 
