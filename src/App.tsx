@@ -1,4 +1,6 @@
 import React from 'react';
+import './App.less';
+import Header from './components/Header/Header'
 import {connect} from 'react-redux'
 import TestTable from './components/TestTable/TestTable';
 import WrappedCalendar from './components/Calendar/Calendar';
@@ -7,6 +9,7 @@ import FilterTable from "./components/FilterTable";
 import DropDownListRow from './components/DropDownListRow'
 import WrappedDemoComponent from './components/TaskPage/TaskPage';
 import ListView from './components/List/List';
+
 
 
 import HideColumnsDropdown from './components/HideColumnsDropdown/HideColumnsDropdown';
