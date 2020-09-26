@@ -24,7 +24,7 @@ export default combineReducers({
     taskPageReducer1: TaskPageReducer,
     timeZoneData: timeZoneReducer,
     weekPickerData: weekPickerReducer,
-    hideColumnData: hideColumsReducer,
+    hideColumnData: hideColumnsReducer,
     importantColData: importantReducer,
     initColumnsData: initColumnsReducer,
     postEvent: postEventReducer,
