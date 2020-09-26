@@ -118,11 +118,15 @@ const FilterTable = (props: any) => {
 
     props.setVisibleColumns(mergedColumns);
     props.setInitialColumns(mergedColumns);
-  }, [editingKey]);
+  }, [editingKey, props.userPreferences]);
 
   useEffect(() => {
     setColumnsList(props.columnTitles);
   }, [props.columnTitles]);
+
+  useEffect(() => {
+    cancel();
+  }, [props.adminMode])
 
   useEffect(() => {
     if (props.data !== null) {
@@ -145,6 +149,7 @@ const FilterTable = (props: any) => {
       {props.data !== null && (
         <>
           <HideColumnsDropdown disabled={editingKey !== ''} />
+          <UserSettings/>
           <Form form={form} component={false}>
             <Table<Event>
               components={{
@@ -175,7 +180,6 @@ const FilterTable = (props: any) => {
               size={width <= 500 ? 'small' : width <= 800 ? 'middle' : 'large'}
             />
           </Form>
-          
         </>
       )}
       <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />

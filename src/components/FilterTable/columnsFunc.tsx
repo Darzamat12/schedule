@@ -134,7 +134,6 @@ export const getColumns = (
             <Popconfirm 
               title="Sure to cancel?"
               onConfirm={cancel}>
-              className={userPreferences.readable ? 'readable-bold-1' : ''}
               <a className={userPreferences.readable ? 'readable-bold-1' : ''}>Cancel</a>
             </Popconfirm>
           </span>

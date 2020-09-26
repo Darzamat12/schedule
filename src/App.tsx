@@ -15,13 +15,13 @@ import UserSettings from './components/UserSettings/UserSettings';
 function App(props) {
   return (
     <div className="App">
-      {/* <DropDownListRow/>
+      <DropDownListRow/>
 
       {props.isMobile===1 && <ListView/>}
       {props.scheduleMode === 0 && <FilterTable/>}
       {props.scheduleMode === 2 && <WrappedCalendar/>}
-      {props.scheduleMode === 1 && <ListView/>} */}
-      <UserSettings/>
+      {props.scheduleMode === 1 && <ListView/>}
+     
     </div>
   );
 }
