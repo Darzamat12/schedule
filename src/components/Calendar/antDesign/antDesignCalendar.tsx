@@ -10,26 +10,26 @@ import { ModalWidnow } from './antDesignModal';
 
 
 
-function AntDesignCalendar({ props }) {
+function AntDesignCalendar({ data, tagColors }: any) {
   const [modalWindowData, setModalWindowData] = useState({});
   const [showWindow, setShowWindow] = useState(false);
   const handleOnClose = () => {
     setShowWindow(false);
   };
   function showModalWindow(id: any) {
-    setModalWindowData(props.find((el: { id: any; }) => el.id === id));
+    setModalWindowData(data.find((el: { id: any; }) => el.id === id));
     setShowWindow(true);
   }
 
   function dateCellRender(value: any) {
-    const listData = getListData(value, props);
+    const listData = getListData(value, data, tagColors);
     return (
       <Scrollbars
         autoHide
         autoHideTimeout={500}
         autoHideDuration={200}>
         <ul className="events">
-          {listData.map((item) => (
+          {listData.map((item: any) => (
             <li style={{
               border: '1px solid',
               borderColor: item.color,
@@ -45,7 +45,7 @@ function AntDesignCalendar({ props }) {
   }
 
   function monthCellRender(value: any) {
-    const num = getMonthValue(props, value);
+    const num = getMonthValue(data, value);
     return num ? (
       <div className="notes-month">
         <span>Number of events</span>
@@ -56,9 +56,9 @@ function AntDesignCalendar({ props }) {
 
   return (
     <div className="calendar-container">
-      <div>
-        {showWindow && <ModalWidnow isShow={showWindow} currentItem={modalWindowData} handleOnClose={handleOnClose} />}
-      </div>
+
+      <ModalWidnow isShow={showWindow} currentItem={modalWindowData} handleOnClose={handleOnClose} />
+
       <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
     </div>
   );
