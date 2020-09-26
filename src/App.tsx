@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.less';
 import Header from './components/Header/Header'
 import {connect} from 'react-redux'
 import TestTable from './components/TestTable/TestTable';
