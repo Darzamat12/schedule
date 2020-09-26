@@ -1,39 +1,36 @@
 import React, { useEffect } from 'react';
 import './Calendar.less';
 import { connect } from 'react-redux';
-import { loadData } from './actions';
-import { bindActionCreators } from 'redux';
 import AntDesignCalendar from './antDesign/antDesignCalendar';
 import Loader from './antDesign/loader';
 import MiniCalendar from './antDesign/antDesignMiniCalendar';
 import useWindowDimensions from '../../utils/useWindowDimensions';
+import { fetchScheduleData } from '../../redux/actions'
 
-function Calendar({ fetchedData, loadData }) {
+function Calendar(props) {
   const { width } = useWindowDimensions();
   useEffect(() => {
-    loadData();
+    props.fetchScheduleData();
   }, []);
+ 
 
-  if (fetchedData.length === 0) {
+  if (!props.data) {
     return <Loader />;
   } else if (width > 750) {
-    return <AntDesignCalendar props={fetchedData} />;
+    return <AntDesignCalendar props={props.data} />;
   } else {
-    return <MiniCalendar props={fetchedData} />;
+    return <MiniCalendar props={props.data} />;
   }
 }
 
-const mapStateToProps = (state: { CalendarPageReducer: { fetchedData: any; modalWindowData: any; }; }) => {
+const mapStateToProps = (state: { scheduleData: { data: any } }) => {
   return {
-    fetchedData: state.CalendarPageReducer.fetchedData,
-    modalWindowData: state.CalendarPageReducer.modalWindowData,
+    data: state.scheduleData.data,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadData: bindActionCreators(loadData, dispatch),
-  };
+const mapDispatchToProps = {
+  fetchScheduleData
 };
 const WrappedCalendar = connect(mapStateToProps, mapDispatchToProps)(Calendar);
 export default WrappedCalendar;

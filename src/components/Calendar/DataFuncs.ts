@@ -31,6 +31,5 @@ function chooseDot(dot) {
       return 'rgba(245, 55, 229, 0.38)';
     default:
       return 'dark';
-    //rgba(240, 75, 75, 0.61)
   }
 }
