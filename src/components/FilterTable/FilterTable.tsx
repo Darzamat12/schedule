@@ -103,7 +103,7 @@ const FilterTable = (props: any) => {
               setShowModal(true);
               setCurrentItem(record);
             }}
-          ></Button>
+          />
         ),
       },
     ];
