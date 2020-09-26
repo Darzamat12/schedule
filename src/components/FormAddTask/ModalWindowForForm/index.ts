@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
-import TaskPageDrawer from './TaskPageDrawer';
+import ModalWindowForForm from './ModalWindowForForm';
 
 const mapStateToProps = (state: any) => {
   return {
-    isAdmin: state.userMode.isAdmin,
     darkTheme: state.userPreferences.darkTheme,
   };
 };
 
-export default connect(mapStateToProps, null)(TaskPageDrawer);
+export default connect(mapStateToProps, null)(ModalWindowForForm);

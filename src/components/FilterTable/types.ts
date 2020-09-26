@@ -2,7 +2,7 @@ export interface Event {
   id: number;
   name: string;
   author: string;
-  tag: string;
+  tag: Array<string>;
   date: string;
   deadline: string;
   duration: number;
@@ -12,9 +12,15 @@ export interface Event {
   links: Array<string>;
   photo: null;
   video: string;
-  map: string;
+  map: IMap;
   rating: number;
-  feedback: string;
+  feedback: Array<string>;
+  allowFeedback: boolean
+}
+
+export interface IMap {
+  lng: number,
+  lat: number
 }
 
 export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {

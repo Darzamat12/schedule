@@ -9,6 +9,7 @@ import useWindowDimensions from '../../utils/useWindowDimensions';
 import { DoubleRightOutlined } from '@ant-design/icons';
 import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
 import UserSettings from '../UserSettings/UserSettings';
+import ButtonAddTask from '../FormAddTask/ButtonAddTask';
 
 
 const FilterTable = (props: any) => {
@@ -20,6 +21,7 @@ const FilterTable = (props: any) => {
   const [showModal, setShowModal] = useState(false);
   const [currentItem, setCurrentItem] = useState<Event>(Object);
   const [columnsList, setColumnsList] = useState([]);
+  const [editMode, setEditMode] = useState(false);
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -34,6 +36,11 @@ const FilterTable = (props: any) => {
       links: record.links.join(',  '),
     });
     setEditingKey(record.id.toString());
+  };
+
+  const handleOnCloseDrawer = () => {
+    setShowModal(false);
+    setEditMode(false);
   };
 
   const cancel = () => {
@@ -150,6 +157,7 @@ const FilterTable = (props: any) => {
         <>
           <HideColumnsDropdown disabled={editingKey !== ''} />
           <UserSettings/>
+          {props.adminMode && <ButtonAddTask/>}
           <Form form={form} component={false}>
             <Table<Event>
               components={{
@@ -182,7 +190,7 @@ const FilterTable = (props: any) => {
           </Form>
         </>
       )}
-      <TaskPageDrawer isShown={showModal} handleOnClose={() => setShowModal(false)} currentItem={currentItem} />
+      <TaskPageDrawer isShown={showModal} handleOnClose={handleOnCloseDrawer} editMode={editMode} currentItem={currentItem} />
     </>
   );
 };

@@ -22,8 +22,11 @@ const ListView = (props: any /*plug*/) => {
 
   const [drawerCurrentItem, setDrawerCurrentItem] = useState(Object);
   const [drawerIsShow, setDrawerIsShow] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+
   const handleOnCloseDrawer = () => {
     setDrawerIsShow(false);
+    setEditMode(false);
   };
 
   const shortData = useMemo(() => {
@@ -133,6 +136,7 @@ const ListView = (props: any /*plug*/) => {
               <TaskPageDrawer
                 isShown={drawerIsShow}
                 handleOnClose={handleOnCloseDrawer}
+                editMode={editMode}
                 currentItem={drawerCurrentItem}
               ></TaskPageDrawer>
             </div>
