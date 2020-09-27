@@ -28,11 +28,11 @@ Schedule - расписание курса RS School.
 
 ## <a name="demo">Демо</a>
 
-Демо-версия приложения: [![](https://res.cloudinary.com/dv4fxot90/image/upload/v1601235714/documentation/Screenshot_2020-09-27_at_22.41.32_zpbumz.png)](https://schedule-team46.netlify.app/)
+Демо-версия приложения: [![](https://res.cloudinary.com/dv4fxot90/image/upload/v1601226927/documentation/Screenshot_2020-09-27_at_20.15.12_svch2j.png)](https://schedule-team46.netlify.app/)
 
 ## <a name="docs">Документация</a>
 
-Документация приложения: [![](https://res.cloudinary.com/dv4fxot90/image/upload/v1601226927/documentation/Screenshot_2020-09-27_at_20.15.12_svch2j.png)](https://schedule-documentation-team46.netlify.app/)
+Документация приложения: [![](https://res.cloudinary.com/dv4fxot90/image/upload/v1601235714/documentation/Screenshot_2020-09-27_at_22.41.32_zpbumz.png)](https://schedule-documentation-team46.netlify.app/)
 
  **[к оглавлению](#Оглавление)**
 
