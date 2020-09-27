@@ -34,12 +34,12 @@ const HideColumnDropdown = (props: any) => {
 
   const menu = (
     <Menu>
-      <Menu.ItemGroup title="Columns" >
-        <Menu.Item  key="1"><Checkbox id="time" onChange={onChange} checked={isChecked('time')}>Time</Checkbox></Menu.Item>
-        <Menu.Item key="2"><Checkbox id="link" onChange={onChange} checked={isChecked('link')}>Link</Checkbox></Menu.Item>
-        <Menu.Item  key="3"><Checkbox id="duration" onChange={onChange} checked={isChecked('duration')}>Duration</Checkbox></Menu.Item>
-        <Menu.Item key="4"><Checkbox id="type" onChange={onChange} checked={isChecked('type')}>Type</Checkbox></Menu.Item>
-        <Menu.Item  key="5"><Checkbox id="author" onChange={onChange} checked={isChecked('author')}>Author</Checkbox></Menu.Item>
+      <Menu.ItemGroup title="Columns" className={props.userPreferences.readable ? 'readable-bold-2' : ''} >
+        <Menu.Item  key="1"><Checkbox className={props.userPreferences.readable ? 'readable-bold-1' : ''} id="time" onChange={onChange} checked={isChecked('time')}>Time</Checkbox></Menu.Item>
+        <Menu.Item key="2"><Checkbox className={props.userPreferences.readable ? 'readable-bold-1' : ''} id="link" onChange={onChange} checked={isChecked('link')}>Link</Checkbox></Menu.Item>
+        <Menu.Item  key="3"><Checkbox className={props.userPreferences.readable ? 'readable-bold-1' : ''} id="duration" onChange={onChange} checked={isChecked('duration')}>Duration</Checkbox></Menu.Item>
+        <Menu.Item key="4"><Checkbox className={props.userPreferences.readable ? 'readable-bold-1' : ''} id="type" onChange={onChange} checked={isChecked('type')}>Type</Checkbox></Menu.Item>
+        <Menu.Item  key="5"><Checkbox className={props.userPreferences.readable ? 'readable-bold-1' : ''} id="author" onChange={onChange} checked={isChecked('author')}>Author</Checkbox></Menu.Item>
       </Menu.ItemGroup>
     </Menu>
   );
@@ -47,10 +47,11 @@ const HideColumnDropdown = (props: any) => {
   return (
     <>
       <Dropdown
+        className={props.userPreferences.readable ? 'readable-bold-2' : ''}
         disabled={props.disabled}
         overlay={menu}
         trigger={['click']}>
-        <Button onClick={(e) => {e.preventDefault()}}>
+        <Button style={{margin: '0px 10px 10px 0px'}} onClick={(e) => {e.preventDefault()}} >
           Columns <DownOutlined />
         </Button>
       </Dropdown>
@@ -63,6 +64,7 @@ const mapStateToProps = (state: any) => {
     columnTitles: state.hideColumnData.columnArray,
     initialColumns: state.initColumnsData.initialColumns,
     adminMode: state.userMode.isAdmin,
+    userPreferences: state.userPreferences,
   };
 };
 

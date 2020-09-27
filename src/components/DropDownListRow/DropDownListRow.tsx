@@ -7,6 +7,7 @@ import { SelectComponent, SaveScheduleDropDown } from './components';
 import { DropDownListRowInterface } from './types';
 import WeekSwitcher from './components/WeekSwitcher';
 import ScheduleModeSwitcher from './components/ScheduleModeSwitcher'
+import ButtonAddTask from '../FormAddTask/ButtonAddTask';
 
 const DropDownListRow: React.FC<DropDownListRowInterface> = (props) => {
 
@@ -17,13 +18,15 @@ const DropDownListRow: React.FC<DropDownListRowInterface> = (props) => {
   return (
     <>
       <div style={{ alignItems: 'center', display: 'flex', flexWrap: 'wrap', marginBottom: 10}}>
-        <SelectComponent initialValue={3} optionData={timeZoneList} changeFunction={props.changeTimeZone} />
+        <SelectComponent initialValue={3} optionData={timeZoneList} changeFunction={props.changeTimeZone} userPreferences />
         <ScheduleModeSwitcher/>
         {props.scheduleMode !== 2 &&
           <WeekSwitcher/>
         }
+        {props.adminMode && <ButtonAddTask/>}
         <SaveScheduleDropDown />
         <Switch
+          className={props.userPreferences.readable ? 'readable-bold-2' : ''}
           style={{ width: 70, margin: '0 0 10px auto' }}
           checkedChildren="Admin"
           unCheckedChildren="User"
@@ -38,6 +41,8 @@ const mapStateToProps = (state: any) => {
   return {
     timeZone: state.timeZoneData.timeOffset,
     scheduleMode: state.scheduleModeData.scheduleMode,
+    userPreferences: state.userPreferences,
+    adminMode: state.userMode.isAdmin,
   };
 };
 

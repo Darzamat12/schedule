@@ -56,6 +56,7 @@ function* fetchPostDataAcync(action: any) {
         .then(res => res.data)
     });
     yield put(reqPostEventSuccess(data));
+    yield fetchScheduleDataAsync();
   } catch (error) {
     yield put(reqPostEventError());
   }
@@ -69,6 +70,7 @@ function* fetchEditDataAcync(action: any) {
         .then(res => res.data)
     });
     yield put(reqEditEventSuccess(data));
+    yield fetchScheduleDataAsync();
   } catch (error) {
     yield put(reqEditEventError());
   }

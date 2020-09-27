@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Button, Upload, DatePicker, Select, Spin, Alert, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import MapComponent from '../../TaskPageDrawer/Map';
@@ -30,6 +30,7 @@ const FormAddTask = ({
   const [tags, setTags] = useState(initialTags);
   const [isSuccess, setSuccess] = useState(false);
   const [currentTimeZone, setCurrentTimeZone] = useState('Europe/Minsk');
+
 
   const tagOptionsList = tags.map((option: string) => {
     return (
@@ -68,6 +69,7 @@ const FormAddTask = ({
     setAllowFeedback(checked);
   };
 
+
   const onFinish = (values: any) => {
     values = {
       ...values,
@@ -81,7 +83,9 @@ const FormAddTask = ({
       map: activeMarker,
       allowFeedback: allowFeedback,
     };
+
     fetchPostData(values);
+
     if (!error) {
       setSuccess(true);
     }
