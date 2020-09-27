@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Info.less';
-import { Tag, Button, Comment, Avatar, Rate, Spin } from 'antd';
+import { Tag, Button, Comment, Avatar, Rate, Spin, Collapse } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import MapComponent from '../Map';
 import moment from 'moment';
@@ -9,6 +9,8 @@ import Feedback from '../Feedback';
 import UploadFilesView from '../UploadFilesView';
 import { tagColor } from '../utils';
 import FeedbackList from '../FeedbackList';
+import { pickerColors, tags, tagsMap } from '../../../utils/settingsData';
+import { GithubPicker } from 'react-color';
 
 const Info: React.FC = ({
   currentItem,
@@ -21,8 +23,26 @@ const Info: React.FC = ({
   data,
   turnOnEditMode,
   darkTheme,
+  userPreferences
 }: any) => {
   const [needUpdateFeedback, setNeedUpdateFeedback] = useState(false);
+
+  const renderTag = (tag: string) => {
+    const tagColor = tagsMap.get(tag) || 'self_education';
+    return (
+      <Tag
+        className={userPreferences.readable ? 'readable-bold-1' : ''}
+        style={{
+          borderColor: userPreferences.tagColor[tagColor],
+          color: userPreferences.tagColor[tagColor],
+          backgroundColor: `${userPreferences.tagColor[tagColor]}10`,
+        }}
+        key={tag}
+      >
+        {tag}
+      </Tag>
+    );
+  };
 
   const handleOpenFeedback = () => {
     setNeedUpdateFeedback(false);
@@ -76,16 +96,7 @@ const Info: React.FC = ({
         <div className="info-tag-wrapper">
           <h1 className="task-page-drawer-title">{data.name}</h1>
           {data.rating && <Rate allowHalf value={countRating()} />}
-          {data.tag && (
-            <Tag color={tagColor(data.tag)} key={data.tag}>
-              {data.tag}
-            </Tag>
-          )}
-          {tag && (
-            <Tag color={tagColor(tag)} key={tag}>
-              {tag}
-            </Tag>
-          )}
+          {data.tag && renderTag(data.tag)}
           {data.date && <span>{moment(data.date).format('YYYY-MM-DD')}</span>}
         </div>
         {data.deadline && (
