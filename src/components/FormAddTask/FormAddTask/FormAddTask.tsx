@@ -31,6 +31,7 @@ const FormAddTask = ({
   const [isSuccess, setSuccess] = useState(false);
   const [currentTimeZone, setCurrentTimeZone] = useState('Europe/Minsk');
 
+
   const tagOptionsList = tags.map((option: string) => {
     return (
       <Option value={option} key={option}>
@@ -68,6 +69,7 @@ const FormAddTask = ({
     setAllowFeedback(checked);
   };
 
+
   const onFinish = (values: any) => {
     values = {
       ...values,
@@ -81,7 +83,9 @@ const FormAddTask = ({
       map: activeMarker,
       allowFeedback: allowFeedback,
     };
+
     fetchPostData(values);
+
     if (!error) {
       setSuccess(true);
     }

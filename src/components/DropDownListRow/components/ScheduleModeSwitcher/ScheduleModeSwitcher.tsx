@@ -14,10 +14,13 @@ const ScheduleModeSwitcher: React.FC = (props: any) => {
 
   return (
     <>
-      <Select defaultValue={props.scheduleMode} onChange={handleChange} style={{width: 100, margin: '0 10px 10px 0'}}>
+      <Select  className={props.userPreferences.readable ? 'readable-bold-2' : ''}
+        defaultValue={props.scheduleMode} onChange={handleChange}
+        style={{width: 100, margin: '0 10px 10px 0'}}
+      >
         {scheduleModeList.map((item, i) => {
           return (
-            <Option key={item.name} value={i}>
+            <Option className={props.userPreferences.readable ? 'readable-bold-2' : ''} key={item.name} value={i}>
               {item.name}
             </Option>
           );
@@ -31,6 +34,7 @@ const ScheduleModeSwitcher: React.FC = (props: any) => {
 const mapStateToProps = (state: any) => {
   return {
     scheduleMode: state.scheduleModeData.scheduleMode,
+    userPreferences: state.userPreferences,
   };
 };
 

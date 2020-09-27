@@ -30,7 +30,7 @@ const WeekSwitcher: React.FC = (props: any) => {
         break;
     }
     if (weekSwitcherIndex !== 3) {
-      const weekDay = moment().day() + (7 * -weeksOffset);
+      const weekDay = moment().day() === 0 ? 7 + (7 * -weeksOffset) : moment().day() + (7 * -weeksOffset);
       const weekArray = new Array(7).fill(0).map((undef: number, index: number) => {
         return moment()
           .subtract(weekDay, 'd')
@@ -54,10 +54,13 @@ const WeekSwitcher: React.FC = (props: any) => {
 
   return (
     <>
-      <Select defaultValue={props.week} onChange={handleChange} style={{width: 130, margin: '0 10px 10px 0'}}>
+      <Select className={props.userPreferences.readable ? 'readable-bold-2' : ''}
+        defaultValue={props.week} onChange={handleChange} style={{width: 130, margin: '0 10px 10px 0'}}>
         {weekList.map((item, i) => {
           return (
-            <Option key={item.name} value={i}>
+            <Option className={props.userPreferences.readable ? 'readable-bold-2' : ''}
+              key={item.name} value={i}
+            >
               {item.name}
             </Option>
           );
@@ -71,6 +74,7 @@ const mapStateToProps = (state: any) => {
   return {
     data: state.scheduleData.data,
     week: state.weekPickerData.week,
+    userPreferences: state.userPreferences,
   };
 };
 

@@ -8,7 +8,6 @@ import { getColumns } from './columnsFunc';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import { DoubleRightOutlined } from '@ant-design/icons';
 import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
-import ButtonAddTask from '../FormAddTask/ButtonAddTask';
 
 
 const FilterTable = (props: any) => {
@@ -50,11 +49,10 @@ const FilterTable = (props: any) => {
   };
 
   const handleDelete = (id: string) => {
-    props.fetchDeleteData(id);
     const filterData = data.filter((event: Event) => event.id.toString() !== id);
-    setData(filterData);
     props.reqScheduleDataSuccess(filterData);
-  };
+    props.fetchDeleteData(id);
+  }
 
   const save = async (key: React.Key) => {
     const row = await form.validateFields();
@@ -127,7 +125,7 @@ const FilterTable = (props: any) => {
 
     props.setVisibleColumns(mergedColumns);
     props.setInitialColumns(mergedColumns);
-  }, [editingKey, props.userPreferences]);
+  }, [editingKey, props.userPreferences, props.data, props.adminMode]);
 
   useEffect(() => {
     setColumnsList(props.columnTitles);
@@ -146,8 +144,6 @@ const FilterTable = (props: any) => {
           return { ...elem, date: date };
         }),
       );
-    } else {
-      setData(props.data);
     }
   }, [props.timeZone, props.data]);
 
@@ -169,7 +165,6 @@ const FilterTable = (props: any) => {
       {props.viewData !== null && (
         <>
           <HideColumnsDropdown disabled={editingKey !== ''} />
-          {props.adminMode && <ButtonAddTask/>}
           <Form form={form} component={false}>
             <Table<Event>
               components={{
@@ -181,6 +176,7 @@ const FilterTable = (props: any) => {
               pagination={{
                 onChange: cancel,
                 size: width <= 500 ? 'small' : 'default',
+                className: props.userPreferences.readable ? 'readable-bold-1' : '',
               }}
               bordered={true}
               columns={

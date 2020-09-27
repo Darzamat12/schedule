@@ -167,7 +167,7 @@ const ListView = (props: any) => {
             defaultPageSize={10}
             total={props.viewData.length}
             onChange={handlerPaginationChange}
-            className={'list-pagination'}
+            className={props.userPreferences.readable ? 'readable-bold-1 list-pagination' : 'list-pagination'}
             size={width <= 500 ? 'small' : 'default'}
           />
         </>
