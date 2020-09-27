@@ -1,5 +1,4 @@
 import React from 'react';
-import './Upload.less';
 import { Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 

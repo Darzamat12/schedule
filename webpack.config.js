@@ -10,9 +10,10 @@ module.exports = {
   },
   // and output it into /dist as bundle.js
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js',
-    publicPath: '/',
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[hash:8].js',
+    sourceMapFilename: '[name].[hash:8].map',
+    chunkFilename: '[id].[hash:8].js'
   },
   // adding .ts and .tsx to resolve.extensions will help babel look for .ts and .tsx files to transpile
   resolve: {

@@ -1,20 +1,37 @@
 import React from 'react';
 import { Card, Avatar, Empty, Rate, Tag } from 'antd';
-import './TaskPreview.less';
 import moment from 'moment';
 import MapComponent from '../../TaskPageDrawer/Map';
 import UploadFilesView from '../../TaskPageDrawer/UploadFilesView';
 import { tagColor } from '../../TaskPageDrawer/utils';
+import { tagsMap } from '../../../utils/settingsData';
 
 const { Meta } = Card;
 
-const TaskPreview = ({ addingItem, tag, darkTheme, activeMarker }: any) => {
+const TaskPreview = ({ addingItem, tag, darkTheme, activeMarker, userPreferences }: any) => {
   const owlsImage = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110530/schedule/owls_big_xkdavi.png";
   const slothImage = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601109894/schedule/sloth_big_jsio5q.png";
   const owlsAvatar = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/owls_ava_emxxwe.png";
   const slothAvatar = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/sloth_ava_fmo9ir.png";
   const previewCover = darkTheme ? owlsImage : slothImage;
   const previewAvatar = darkTheme ? owlsAvatar : slothAvatar;
+
+  const renderTag = (tag: string) => {
+    const tagColor = tagsMap.get(tag) || 'self_education';
+    return (
+      <Tag
+        className={userPreferences.readable ? 'readable-bold-1' : ''}
+        style={{
+          borderColor: userPreferences.tagColor[tagColor],
+          color: userPreferences.tagColor[tagColor],
+          backgroundColor: `${userPreferences.tagColor[tagColor]}10`,
+        }}
+        key={tag}
+      >
+        {tag}
+      </Tag>
+    );
+  };
 
   const renderLinks = () => {
     if (addingItem.links) {
@@ -59,11 +76,7 @@ const TaskPreview = ({ addingItem, tag, darkTheme, activeMarker }: any) => {
                     {addingItem.tag}
                   </Tag>
                 )}
-                {tag && (
-                  <Tag color={tagColor(tag)} key={tag}>
-                    {tag}
-                  </Tag>
-                )}
+                {tag && renderTag(tag)}
                 {addingItem.date && <span>{moment(addingItem.date).format('YYYY-MM-DD')}</span>}
               </div>
               {addingItem.deadline && (

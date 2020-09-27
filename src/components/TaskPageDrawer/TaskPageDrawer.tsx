@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './TaskPageDrawer.less';
 import { Drawer, Col, Row, Card, Avatar } from 'antd';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import Info from './Info';

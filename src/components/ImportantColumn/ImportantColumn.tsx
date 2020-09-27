@@ -3,7 +3,6 @@ import {useState} from 'react';
 import React from 'react'
 import {useSelector} from 'react-redux'
 import ScheduleData from '../../data/scheduleData.json'
-import './ImportantColumn.less'
 import {Check} from './Check'
 
 

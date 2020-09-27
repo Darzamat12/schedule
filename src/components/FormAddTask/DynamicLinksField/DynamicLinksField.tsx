@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import './DynamicLinksField.less';
 
 const DynamicFieldSet: React.FC = ({ handleChangeLinks }) => {
   return (

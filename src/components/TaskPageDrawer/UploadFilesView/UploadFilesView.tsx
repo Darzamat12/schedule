@@ -1,5 +1,4 @@
 import React from 'react';
-import './UploadFilesView.less';
 import { FileImageOutlined, DeleteOutlined, VideoCameraOutlined } from '@ant-design/icons';
 
 const UploadFilesView: React.FC = ({ fileType }: any) => {

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, InputNumber, Button, Upload, DatePicker, Select, Spin, Alert, Switch } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, InputNumber, Button, Upload, DatePicker, Select, Spin, Alert, Switch, Drawer } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import MapComponent from '../../TaskPageDrawer/Map';
-import './FormAddTask.less';
 import DynamicFieldSet from '../DynamicLinksField';
 import { layout, validateMessages, normFile, initialTags, timeZoneListAdd } from './utilsForForms';
 import moment from 'moment';
 import 'moment-timezone';
+import SettingsTagColor from '../../UserSettings/SettingsTagColor';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -151,6 +151,9 @@ const FormAddTask = ({
               />
             )}
           </Input.Group>
+        </Form.Item>
+        <Form.Item label="Tag color">
+          <SettingsTagColor />
         </Form.Item>
         <Form.Item label="Time Zone">
           <Select

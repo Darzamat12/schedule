@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Button, Upload, DatePicker, Select, Spin, Alert, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import MapComponent from '../../TaskPageDrawer/Map';
-import './FormEditTask.less';
 import DynamicFieldSet from '../../FormAddTask/DynamicLinksField';
 import { validateMessages, normFile, initialTags, timeZoneListAdd } from '../../FormAddTask/FormAddTask/utilsForForms';
+import SettingsTagColor from '../../UserSettings/SettingsTagColor';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -106,6 +106,7 @@ const FormEditTask = ({
   const onFinish = (values: any) => {
     values = {
       ...values,
+      author: values.author ? values.author : 'admin',
       tag: values.tag ? tag : 'self education',
       date: new Date(values.date).toJSON(),
       deadline: new Date(values.deadline).toJSON(),
@@ -138,6 +139,7 @@ const FormEditTask = ({
   if (data) {
     const initialValues = {
       name: data.name,
+      author: data.author,
       tag: data.name,
       duration: data.duration,
       description: data.description,
@@ -155,6 +157,9 @@ const FormEditTask = ({
         initialValues={initialValues}
       >
         <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="author" label="Author" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
         <Form.Item name="tag" label="Tag">
@@ -190,6 +195,9 @@ const FormEditTask = ({
               />
             )}
           </Input.Group>
+        </Form.Item>
+        <Form.Item label="Tag color">
+          <SettingsTagColor />
         </Form.Item>
         <Form.Item label="Time Zone">
           <Select
