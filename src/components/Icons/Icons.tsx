@@ -9,7 +9,7 @@ export function LeftArrow(){
 export function Setting(){
     return(
         <object type="image/svg+xml" data="./src/icons/Vector.svg"/>
-
+    )
 
 type propsIcons = {
     width: number,

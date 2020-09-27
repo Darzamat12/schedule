@@ -3,7 +3,6 @@ import FilterTable from './FilterTable';
 import { fetchScheduleData, fetchEditData, fetchDeleteData, reqScheduleDataSuccess } from '../../redux/actions';
 import { setVisibleColumns, setInitialColumns } from '../../redux/reducers/hideColumnReducer/actions';
 
-
 const mapStateToProps = (state: any) => {
   return {
     loading: state.scheduleData.loading,
@@ -25,6 +24,5 @@ const mapDispatchToProps = {
   fetchDeleteData,
   reqScheduleDataSuccess,
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterTable);

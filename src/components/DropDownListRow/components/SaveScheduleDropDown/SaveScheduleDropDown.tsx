@@ -42,7 +42,7 @@ const SaveScheduleDropDown: React.FC = () => {
   return (
     <>
       <Dropdown.Button
-        style={{margin: '0 10px 10px 0'}}
+        style={{ margin: '0 10px 10px 0' }}
         onClick={() => {
           setShowModal(true);
         }}

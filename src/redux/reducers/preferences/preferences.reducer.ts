@@ -3,7 +3,7 @@ import { IPreferences, IAction } from '../../../interfaces';
 export const CHANGE_READABLE_MODE = 'CHANGE_READABLE_MODE';
 export const CHANGE_TAG_COLOR = 'CHANGE_TAG_COLOR';
 export const CHANGE_THEME = 'CHANGE_THEME';
-export {REMOVE_IMPORTANT, ADD_IMPORTANT} from '../ImportantReducer/actionTypes'
+export { REMOVE_IMPORTANT, ADD_IMPORTANT } from '../ImportantReducer/actionTypes';
 
 export const changeUserReadableMode = (payload: boolean): IAction => ({ type: CHANGE_READABLE_MODE, payload });
 export const changeUserTagColor = (payload: string): IAction => ({ type: CHANGE_TAG_COLOR, payload });

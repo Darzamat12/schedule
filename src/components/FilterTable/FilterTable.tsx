@@ -9,7 +9,6 @@ import useWindowDimensions from '../../utils/useWindowDimensions';
 import { DoubleRightOutlined } from '@ant-design/icons';
 import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
 
-
 const FilterTable = (props: any) => {
   const [form] = Form.useForm();
   const [data, setData] = useState(props.data);
@@ -21,7 +20,6 @@ const FilterTable = (props: any) => {
   const [columnsList, setColumnsList] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const { width } = useWindowDimensions();
-
 
   useEffect(() => {
     if (props.data === null) {
@@ -52,7 +50,7 @@ const FilterTable = (props: any) => {
     const filterData = data.filter((event: Event) => event.id.toString() !== id);
     props.reqScheduleDataSuccess(filterData);
     props.fetchDeleteData(id);
-  }
+  };
 
   const save = async (key: React.Key) => {
     const row = await form.validateFields();
@@ -61,7 +59,8 @@ const FilterTable = (props: any) => {
         hour: row.timePicker.get('hour'),
         minute: row.timePicker.get('minute'),
         second: row.timePicker.get('second'),
-      })._d.toISOString();
+      })
+      ._d.toISOString();
     row.date = date;
     row.links = row.links.split(',');
     delete row.datePicker;
@@ -133,7 +132,7 @@ const FilterTable = (props: any) => {
 
   useEffect(() => {
     cancel();
-  }, [props.adminMode])
+  }, [props.adminMode]);
 
   useEffect(() => {
     if (props.data !== null) {
@@ -149,14 +148,15 @@ const FilterTable = (props: any) => {
 
   const currentViewData = useMemo(() => {
     if (props.viewData !== null) {
-    return props.viewData.map((elem: Event) => {
-      const date = new Date(elem.date);
-      date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
-      return { ...elem, date: date };
-    })} else {
+      return props.viewData.map((elem: Event) => {
+        const date = new Date(elem.date);
+        date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
+        return { ...elem, date: date };
+      });
+    } else {
       return props.viewData;
     }
-  }, [props.timeZone, props.viewData ])
+  }, [props.timeZone, props.viewData]);
 
   return (
     <>
@@ -198,7 +198,12 @@ const FilterTable = (props: any) => {
           </Form>
         </>
       )}
-      <TaskPageDrawer isShown={showModal} handleOnClose={handleOnCloseDrawer} editMode={editMode} currentItem={currentItem} />
+      <TaskPageDrawer
+        isShown={showModal}
+        handleOnClose={handleOnCloseDrawer}
+        editMode={editMode}
+        currentItem={currentItem}
+      />
     </>
   );
 };

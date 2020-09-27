@@ -6,7 +6,6 @@ import MapStyleDark from './mapStyleDark.json';
 const MapComponent: React.FC = ({ google, onMapClicked, activeMarker, darkTheme }: any) => {
   const customMapStyle = darkTheme ? MapStyleDark : MapStyleLight;
 
-  console.log(darkTheme);
   return (
     <div className="map-container">
       <Map

@@ -14,9 +14,9 @@ import { themes } from './utils/settingsData';
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-        <ThemeSwitcherProvider themeMap={themes} defaultTheme={themes.initialTheme}>
-          <App />
-        </ThemeSwitcherProvider>
+      <ThemeSwitcherProvider themeMap={themes} defaultTheme={themes.initialTheme}>
+        <App />
+      </ThemeSwitcherProvider>
     </PersistGate>
   </Provider>,
   document.getElementById('root'),

@@ -7,7 +7,6 @@ import useWindowDimensions from '../../utils/useWindowDimensions';
 import { fetchScheduleData } from '../../redux/actions';
 
 const Calendar = (props: any) => {
-
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -15,20 +14,18 @@ const Calendar = (props: any) => {
       props.fetchScheduleData();
     }
   }, []);
- 
-  
+
   const currentData = useMemo(() => {
     if (props.data !== null) {
-        return props.data.map((elem: any) => {
-          const date = new Date(elem.date);
-          date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
-          return { ...elem, date: date };
-        })
+      return props.data.map((elem: any) => {
+        const date = new Date(elem.date);
+        date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
+        return { ...elem, date: date };
+      });
     } else {
       return props.data;
     }
   }, [props.data, props.timeZone]);
-console.log(currentData)
   if (props.data === null) {
     return <Loader />;
   } else if (width > 750) {
@@ -36,13 +33,13 @@ console.log(currentData)
   } else {
     return <MiniCalendar data={currentData} />;
   }
-}
+};
 
 const mapStateToProps = (state: any) => {
   return {
     data: state.scheduleData.data,
     timeZone: state.timeZoneData.timeOffset,
-    tagColors: state.userPreferences.tagColor
+    tagColors: state.userPreferences.tagColor,
   };
 };
 
@@ -51,7 +48,6 @@ const mapDispatchToProps = () => {
     fetchScheduleData,
   };
 };
-
 
 const WrappedCalendar = connect(mapStateToProps, mapDispatchToProps)(Calendar);
 export default WrappedCalendar;

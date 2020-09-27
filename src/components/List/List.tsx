@@ -57,7 +57,6 @@ const ListView = (props: any) => {
     setRenderIndex(current - 1);
   };
 
-
   const renderEventItem = (eventItem: Event) => {
     const tagColor = tagsMap.get(eventItem.tag) || 'self_education';
     return (
@@ -66,29 +65,44 @@ const ListView = (props: any) => {
           <div className="main-list-item-info">
             <h3 className={props.userPreferences.readable ? 'readable-bold-2' : ''}>{eventItem.name}</h3>
             <div className="description-of-list-item">
-              <Tag key={eventItem.tag}
+              <Tag
+                key={eventItem.tag}
                 className={props.userPreferences.readable ? 'readable-bold-1' : ''}
                 style={{
                   borderColor: props.userPreferences.tagColor[tagColor],
                   color: props.userPreferences.tagColor[tagColor],
                   backgroundColor: `${props.userPreferences.tagColor[tagColor]}10`,
                 }}
-              >{eventItem.tag}</Tag>
+              >
+                {eventItem.tag}
+              </Tag>
               <p className={props.userPreferences.readable ? 'readable-bold-2' : ''}>
                 Time: <span>{moment(eventItem.date).format('HH:mm')}</span>
               </p>
               <p>
                 {eventItem.links.map((link) => {
                   return (
-                    <a className={props.userPreferences.readable ? 'readable-bold-2' : ''} key={link} href={link} title={link}>
+                    <a
+                      className={props.userPreferences.readable ? 'readable-bold-2' : ''}
+                      key={link}
+                      href={link}
+                      title={link}
+                    >
                       <LinkOutlined />
                     </a>
                   );
                 })}
               </p>
-              <p className={props.userPreferences.readable ? 'readable-bold-2 organizer-container' : 'organizer-container'}>
+              <p
+                className={
+                  props.userPreferences.readable ? 'readable-bold-2 organizer-container' : 'organizer-container'
+                }
+              >
                 Organizer:&nbsp;
-                <a className={props.userPreferences.readable ? 'readable-bold-2' : ''} href={'https://github.com/' + eventItem.author}>
+                <a
+                  className={props.userPreferences.readable ? 'readable-bold-2' : ''}
+                  href={'https://github.com/' + eventItem.author}
+                >
                   <Avatar src={`https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png`} />
                   <span>{eventItem.author}</span>
                 </a>
@@ -106,16 +120,18 @@ const ListView = (props: any) => {
           >
             more
           </a>
-          {props.isAdmin && <a
-            className={props.userPreferences.readable ? 'readable-bold-1' : ''}
-            onClick={() => {
-              setEditMode(true);
-              setDrawerCurrentItem(eventItem);
-              setDrawerIsShow(true);
-            }}
-          >
-            edit
-          </a>}
+          {props.isAdmin && (
+            <a
+              className={props.userPreferences.readable ? 'readable-bold-1' : ''}
+              onClick={() => {
+                setEditMode(true);
+                setDrawerCurrentItem(eventItem);
+                setDrawerIsShow(true);
+              }}
+            >
+              edit
+            </a>
+          )}
         </div>
       </List.Item>
     );
@@ -139,7 +155,11 @@ const ListView = (props: any) => {
                 const thisDate = moment(item.date).format('YYYY-MM-DD');
                 return (
                   <div key={index} className={'list-events-container'}>
-                    <h3 className={props.userPreferences.readable ? 'readable-bold-2 list-date-wrapper' : 'list-date-wrapper'}>
+                    <h3
+                      className={
+                        props.userPreferences.readable ? 'readable-bold-2 list-date-wrapper' : 'list-date-wrapper'
+                      }
+                    >
                       {moment(item.date).format('MMMM Do YYYY')}
                     </h3>
                     <List

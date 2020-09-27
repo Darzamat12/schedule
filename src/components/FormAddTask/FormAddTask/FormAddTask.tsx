@@ -31,7 +31,6 @@ const FormAddTask = ({
   const [isSuccess, setSuccess] = useState(false);
   const [currentTimeZone, setCurrentTimeZone] = useState('Europe/Minsk');
 
-
   const tagOptionsList = tags.map((option: string) => {
     return (
       <Option value={option} key={option}>
@@ -68,7 +67,6 @@ const FormAddTask = ({
   const onSwitchChange = (checked: boolean) => {
     setAllowFeedback(checked);
   };
-
 
   const onFinish = (values: any) => {
     values = {
@@ -120,7 +118,7 @@ const FormAddTask = ({
         <Form.Item name="author" label="Author" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-          <Form.Item name="tag" label="Tag">
+        <Form.Item name="tag" label="Tag">
           <Input.Group compact>
             <Select
               style={{ width: '30%' }}
@@ -138,7 +136,9 @@ const FormAddTask = ({
                 onClick={() => {
                   toggleAddTagMode(true);
                 }}
-              >Add own tag</Button>
+              >
+                Add own tag
+              </Button>
             )}
             {addTagMode && (
               <Input
@@ -179,23 +179,21 @@ const FormAddTask = ({
         <Form.Item name="duration" rules={[{ type: 'number', min: 0 }]} label="Duration">
           <InputNumber min={0} step={0.5} />
         </Form.Item>
-          <Form.Item name="description" label="Description">
+        <Form.Item name="description" label="Description">
           <TextArea />
         </Form.Item>
-          <Form.Item name="result" label="Result">
+        <Form.Item name="result" label="Result">
           <Input />
         </Form.Item>
-          <Form.Item name="remark" label="Remark">
+        <Form.Item name="remark" label="Remark">
           <Input />
         </Form.Item>
         <DynamicFieldSet handleChangeLinks={handleChangeLinks} />
-          <Form.Item name="map" label="Map">
+        <Form.Item name="map" label="Map">
           <Button type="dashed" block onClick={showMap}>
             Show map
           </Button>
-          {isMapShown && (
-            <MapComponent onMapClicked={onMapClicked} activeMarker={activeMarker} darkTheme={darkTheme} />
-          )}
+          {isMapShown && <MapComponent onMapClicked={onMapClicked} activeMarker={activeMarker} darkTheme={darkTheme} />}
         </Form.Item>
         <Form.Item name="allowFeedback" valuePropName="checked" label="Allow feedback">
           <Switch defaultChecked onChange={onSwitchChange} />
@@ -205,7 +203,7 @@ const FormAddTask = ({
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
         </Form.Item>
-          <Form.Item valuePropName="fileList" getValueFromEvent={normFile} label="Video">
+        <Form.Item valuePropName="fileList" getValueFromEvent={normFile} label="Video">
           <Upload name="logo" action="/upload.do" listType="picture">
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>

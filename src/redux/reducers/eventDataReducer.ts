@@ -1,4 +1,4 @@
-import { REQ_EVENT_DATA, REQ_EVENT_DATA_FAILED, REQ_EVENT_DATA_SUCCEEDED, } from '../actionTypes';
+import { REQ_EVENT_DATA, REQ_EVENT_DATA_FAILED, REQ_EVENT_DATA_SUCCEEDED } from '../actionTypes';
 
 const initialState = {
   data: null,

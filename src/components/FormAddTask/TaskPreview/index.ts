@@ -3,7 +3,7 @@ import TaskPreview from './TaskPreview';
 
 const mapStateToProps = (state: any) => {
   return {
-    userPreferences: state.userPreferences
+    userPreferences: state.userPreferences,
   };
 };
 

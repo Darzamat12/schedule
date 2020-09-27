@@ -5,14 +5,14 @@ export interface IPreferences {
 }
 
 interface ITagColor {
-  self_education: string,
-  meetup: string,
-  test: string,
-  html_task: string,
-  codewars: string,
-  js_task: string,
-  deadline: string,
-  cross_check: string,
+  self_education: string;
+  meetup: string;
+  test: string;
+  html_task: string;
+  codewars: string;
+  js_task: string;
+  deadline: string;
+  cross_check: string;
 }
 
 export const initialUserPreferencesState: IPreferences = {

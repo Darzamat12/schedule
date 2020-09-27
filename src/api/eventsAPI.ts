@@ -7,29 +7,24 @@ const instance = axios.create({
 const teamId = '46';
 
 export const eventsAPI = {
-  getEvents() {
-    return instance
-      .get(`team/${teamId}/events`)
-      .then((response) => response.data);
+  async getEvents() {
+    const response = await instance.get(`team/${teamId}/events`);
+    return response.data;
   },
-  createEvent(event: any) {
-    return instance
-      .post(`team/${teamId}/event`, event)
-      .then((response) => response);
+  async createEvent(event: any) {
+    const response = await instance.post(`team/${teamId}/event`, event);
+    return response;
   },
-  getEvent(id: string) {
-    return instance
-      .get(`team/${teamId}/event/${id}`)
-      .then((response) => response);
+  async getEvent(id: string) {
+    const response = await instance.get(`team/${teamId}/event/${id}`);
+    return response;
   },
-  updateEvent(id: string, event: any) {
-    return instance
-      .put(`team/${teamId}/event/${id}`, event)
-      .then((response) => response);
+  async updateEvent(id: string, event: any) {
+    const response = await instance.put(`team/${teamId}/event/${id}`, event);
+    return response;
   },
-  deleteEvent(id: string) {
-    return instance
-      .delete(`team/${teamId}/event/${id}`)
-      .then((response) => response);
+  async deleteEvent(id: string) {
+    const response = await instance.delete(`team/${teamId}/event/${id}`);
+    return response;
   },
 };

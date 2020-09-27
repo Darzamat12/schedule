@@ -8,7 +8,7 @@ const mapStateToProps = (state: any) => {
     error: state.eventData.error,
     data: state.eventData.data,
     darkTheme: state.userPreferences.darkTheme,
-    userPreferences: state.userPreferences
+    userPreferences: state.userPreferences,
   };
 };
 

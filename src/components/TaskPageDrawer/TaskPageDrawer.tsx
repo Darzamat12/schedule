@@ -9,13 +9,13 @@ const { Meta } = Card;
 const TaskPageDrawer: React.FC = ({ isShown, isAdmin, darkTheme, handleOnClose, currentItem, editMode }: any) => {
   const [isEdit, setIsEdit] = useState(false);
   useEffect(() => {
-    setIsEdit(editMode)
+    setIsEdit(editMode);
   }, [currentItem]);
 
-  const owlsImage = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110530/schedule/owls_big_xkdavi.png";
-  const slothImage = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601109894/schedule/sloth_big_jsio5q.png";
-  const owlsAvatar = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/owls_ava_emxxwe.png";
-  const slothAvatar = "https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/sloth_ava_fmo9ir.png";
+  const owlsImage = 'https://res.cloudinary.com/dv4fxot90/image/upload/v1601110530/schedule/owls_big_xkdavi.png';
+  const slothImage = 'https://res.cloudinary.com/dv4fxot90/image/upload/v1601109894/schedule/sloth_big_jsio5q.png';
+  const owlsAvatar = 'https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/owls_ava_emxxwe.png';
+  const slothAvatar = 'https://res.cloudinary.com/dv4fxot90/image/upload/v1601110529/schedule/sloth_ava_fmo9ir.png';
   const previewCover = darkTheme ? owlsImage : slothImage;
   const previewAvatar = darkTheme ? owlsAvatar : slothAvatar;
 
@@ -65,11 +65,7 @@ const TaskPageDrawer: React.FC = ({ isShown, isAdmin, darkTheme, handleOnClose, 
             style={{ margin: 'auto' }}
             cover={
               <div className="task-page-drawer-cover">
-                <img
-                  className="task-page-drawer-image"
-                  alt="sloth"
-                  src={previewCover}
-                />
+                <img className="task-page-drawer-image" alt="sloth" src={previewCover} />
               </div>
             }
           >

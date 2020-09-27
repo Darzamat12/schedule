@@ -16,7 +16,7 @@ const ButtonAddTask: React.FC = (props: any) => {
         onClick={() => {
           setVisible(true);
         }}
-        style={{margin: '0 10px 10px 0' }}
+        style={{ margin: '0 10px 10px 0' }}
         className={props.userPreferences.readable ? 'readable-bold-1' : ''}
       >
         <p>Add new task</p>
@@ -31,6 +31,5 @@ const mapStateToProps = (state: any) => {
     userPreferences: state.userPreferences,
   };
 };
-
 
 export default connect(mapStateToProps, null)(ButtonAddTask);
