@@ -7,6 +7,7 @@ import useWindowDimensions from '../../utils/useWindowDimensions';
 import { fetchScheduleData } from '../../redux/actions';
 
 const Calendar = (props: any) => {
+
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -14,7 +15,8 @@ const Calendar = (props: any) => {
       props.fetchScheduleData();
     }
   }, []);
-
+ 
+  
   const currentData = useMemo(() => {
     if (props.data !== null) {
         return props.data.map((elem: any) => {
@@ -26,13 +28,13 @@ const Calendar = (props: any) => {
       return props.data;
     }
   }, [props.data, props.timeZone]);
-
+console.log(currentData)
   if (props.data === null) {
     return <Loader />;
   } else if (width > 750) {
-    return <AntDesignCalendar props={currentData} />;
+    return <AntDesignCalendar data={currentData} />;
   } else {
-    return <MiniCalendar props={currentData} />;
+    return <MiniCalendar data={currentData} />;
   }
 }
 
@@ -40,6 +42,7 @@ const mapStateToProps = (state: any) => {
   return {
     data: state.scheduleData.data,
     timeZone: state.timeZoneData.timeOffset,
+    tagColors: state.userPreferences.tagColor
   };
 };
 
@@ -48,6 +51,7 @@ const mapDispatchToProps = () => {
     fetchScheduleData,
   };
 };
+
 
 const WrappedCalendar = connect(mapStateToProps, mapDispatchToProps)(Calendar);
 export default WrappedCalendar;
