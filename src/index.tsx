@@ -14,11 +14,9 @@ import { themes } from './utils/settingsData';
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <React.StrictMode>
         <ThemeSwitcherProvider themeMap={themes} defaultTheme={themes.initialTheme}>
           <App />
         </ThemeSwitcherProvider>
-      </React.StrictMode>
     </PersistGate>
   </Provider>,
   document.getElementById('root'),

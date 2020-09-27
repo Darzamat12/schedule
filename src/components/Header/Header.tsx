@@ -1,23 +1,21 @@
 import React from 'react';
-import './Header.less'
-import {Button, Avatar} from 'antd';
+import {Button, Avatar, Space} from 'antd';
+import avatar from './avatar.png';
+import UserSettings from '../UserSettings/UserSettings';
 
 function Header() {
   return (
     <header className="header">
-      <a href="#">
-        <img className="logo" src="https://app.rs.school/static/images/logo-rsschool3.png"/>
-      </a>
+      <a href="https://app.rs.school/" className="logoRS" ></a>
       <h1 className="title">Schedule</h1>
       <div className = "header__buttons">
-          <Button className="header__setting" size="large">
-            <img src='src/icons/settings/arrow.svg'/>
-            <img className="setting" src='src/icons/settings/settings.svg'/>
-          </Button>
-        <Button size="large" type="dashed">
-        <Avatar className="header__avatar" size="small"  src="https://app.rs.school/static/images/logo-rsschool3.png" />
-          My profile
+        <Space>
+        <UserSettings/>
+        <Button href={'https://app.rs.school/profile'} size="large" type="dashed" className={'simulate_user_button'}>
+          <Avatar  src={avatar} />
+          &nbsp; My profile
         </Button>
+        </Space>
       </div>
     </header>
   );

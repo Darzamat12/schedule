@@ -8,7 +8,6 @@ import { getColumns } from './columnsFunc';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import { DoubleRightOutlined } from '@ant-design/icons';
 import HideColumnsDropdown from '../HideColumnsDropdown/HideColumnsDropdown';
-import UserSettings from '../UserSettings/UserSettings';
 import ButtonAddTask from '../FormAddTask/ButtonAddTask';
 
 
@@ -170,7 +169,6 @@ const FilterTable = (props: any) => {
       {props.viewData !== null && (
         <>
           <HideColumnsDropdown disabled={editingKey !== ''} />
-          <UserSettings/>
           {props.adminMode && <ButtonAddTask/>}
           <Form form={form} component={false}>
             <Table<Event>
