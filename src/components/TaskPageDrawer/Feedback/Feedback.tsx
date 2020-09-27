@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Feedback.less';
 import { Rate, Button, Form, Input } from 'antd';
 
 const { TextArea } = Input;

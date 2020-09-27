@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Form, Input, InputNumber, Button, Upload, DatePicker, Select, Spin, Alert, Switch, Drawer } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import MapComponent from '../../TaskPageDrawer/Map';
-import './FormAddTask.less';
 import DynamicFieldSet from '../DynamicLinksField';
 import { layout, validateMessages, normFile, initialTags, timeZoneListAdd } from './utilsForForms';
 import moment from 'moment';

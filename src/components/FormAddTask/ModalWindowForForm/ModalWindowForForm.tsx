@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Tabs } from 'antd';
-import './ModalWindowForForm.less';
 import FormAddTask from '../FormAddTask';
 import useWindowDimensions from '../../../utils/useWindowDimensions';
 import TaskPreview from '../TaskPreview';
-import { connect } from 'react-redux';
 
 const ModalWindowForForm: React.FC = ({ visible, handleCancel, darkTheme }: any) => {
   const [addingItem, setAddingItem] = useState(null);

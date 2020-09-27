@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Button, Upload, DatePicker, Select, Spin, Alert, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import MapComponent from '../../TaskPageDrawer/Map';
-import './FormEditTask.less';
 import DynamicFieldSet from '../../FormAddTask/DynamicLinksField';
 import { validateMessages, normFile, initialTags, timeZoneListAdd } from '../../FormAddTask/FormAddTask/utilsForForms';
 import SettingsTagColor from '../../UserSettings/SettingsTagColor';

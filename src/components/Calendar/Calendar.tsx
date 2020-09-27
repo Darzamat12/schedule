@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from 'react';
-import './Calendar.less';
 import { connect } from 'react-redux';
 import AntDesignCalendar from './antDesign/antDesignCalendar';
 import Loader from './antDesign/loader';

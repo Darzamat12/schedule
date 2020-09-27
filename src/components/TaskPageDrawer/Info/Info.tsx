@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './Info.less';
-import { Tag, Button, Comment, Avatar, Rate, Spin, Collapse } from 'antd';
+import { Tag, Button, Rate, Spin } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import MapComponent from '../Map';
 import moment from 'moment';
 import UploadComponent from '../Upload';
 import Feedback from '../Feedback';
 import UploadFilesView from '../UploadFilesView';
-import { tagColor } from '../utils';
 import FeedbackList from '../FeedbackList';
-import { pickerColors, tags, tagsMap } from '../../../utils/settingsData';
-import { GithubPicker } from 'react-color';
+import { tagsMap } from '../../../utils/settingsData';
 
 const Info: React.FC = ({
   currentItem,

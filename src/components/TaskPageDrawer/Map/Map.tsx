@@ -1,6 +1,5 @@
 import React from 'react';
 import { Map, Marker } from 'google-maps-react';
-import './Map.less';
 import MapStyleLight from './mapStyleLight.json';
 import MapStyleDark from './mapStyleDark.json';
 

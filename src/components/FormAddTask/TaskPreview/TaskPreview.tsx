@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Avatar, Empty, Rate, Tag } from 'antd';
-import './TaskPreview.less';
 import moment from 'moment';
 import MapComponent from '../../TaskPageDrawer/Map';
 import UploadFilesView from '../../TaskPageDrawer/UploadFilesView';
