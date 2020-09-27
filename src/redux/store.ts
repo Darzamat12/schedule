@@ -10,6 +10,7 @@ import {
   watchDeleteEvent,
   watchFetchEventData
 } from './sagas';
+
 import { composeWithDevTools } from 'redux-devtools-extension/index';
 
 const persistConfig = {
