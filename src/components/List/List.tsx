@@ -1,19 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { fetchScheduleData } from '../../redux/actions';
 import { connect } from 'react-redux';
-import { List, Avatar, Spin, Checkbox, Tag, Alert, Pagination } from 'antd';
+import { List, Avatar, Spin, Tag, Alert, Pagination } from 'antd';
 import moment from 'moment';
-import './List.less';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { LinkOutlined } from '@ant-design/icons';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import TaskPageDrawer from '../TaskPageDrawer';
 import { Event } from './types';
+import { tagsMap } from '../../utils/settingsData';
 
-const ListView = (props: any /*plug*/) => {
+const ListView = (props: any) => {
   useEffect(() => {
     if (props.data === null) {
-      props.fetchScheduleData(); //function to start fetch data
+      props.fetchScheduleData();
     }
   }, []);
 
@@ -57,30 +57,38 @@ const ListView = (props: any /*plug*/) => {
     setRenderIndex(current - 1);
   };
 
+
   const renderEventItem = (eventItem: Event) => {
+    const tagColor = tagsMap.get(eventItem.tag) || 'self_education';
     return (
       <List.Item key={eventItem.id} className={'list-item'}>
         <div className={'left-list-item-info'}>
-          <Checkbox />
           <div className="main-list-item-info">
-            <h3>{eventItem.name}</h3>
+            <h3 className={props.userPreferences.readable ? 'readable-bold-2' : ''}>{eventItem.name}</h3>
             <div className="description-of-list-item">
-              <Tag key={eventItem.tag}>{eventItem.tag}</Tag>
-              <p>
+              <Tag key={eventItem.tag}
+                className={props.userPreferences.readable ? 'readable-bold-1' : ''}
+                style={{
+                  borderColor: props.userPreferences.tagColor[tagColor],
+                  color: props.userPreferences.tagColor[tagColor],
+                  backgroundColor: `${props.userPreferences.tagColor[tagColor]}10`,
+                }}
+              >{eventItem.tag}</Tag>
+              <p className={props.userPreferences.readable ? 'readable-bold-2' : ''}>
                 Time: <span>{moment(eventItem.date).format('HH:mm')}</span>
               </p>
               <p>
                 {eventItem.links.map((link) => {
                   return (
-                    <a key={link} href={link} title={link}>
+                    <a className={props.userPreferences.readable ? 'readable-bold-2' : ''} key={link} href={link} title={link}>
                       <LinkOutlined />
                     </a>
                   );
                 })}
               </p>
-              <p className={'organizer-container'}>
+              <p className={props.userPreferences.readable ? 'readable-bold-2 organizer-container' : 'organizer-container'}>
                 Organizer:&nbsp;
-                <a href={'https://github.com/' + eventItem.author}>
+                <a className={props.userPreferences.readable ? 'readable-bold-2' : ''} href={'https://github.com/' + eventItem.author}>
                   <Avatar src={`https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png`} />
                   <span>{eventItem.author}</span>
                 </a>
@@ -90,6 +98,7 @@ const ListView = (props: any /*plug*/) => {
         </div>
         <div className="more-info-container">
           <a
+            className={props.userPreferences.readable ? 'readable-bold-1' : ''}
             onClick={() => {
               setDrawerCurrentItem(eventItem);
               setDrawerIsShow(true);
@@ -97,7 +106,16 @@ const ListView = (props: any /*plug*/) => {
           >
             more
           </a>
-          {props.isAdmin && <a>edit</a>}
+          {props.isAdmin && <a
+            className={props.userPreferences.readable ? 'readable-bold-1' : ''}
+            onClick={() => {
+              setEditMode(true);
+              setDrawerCurrentItem(eventItem);
+              setDrawerIsShow(true);
+            }}
+          >
+            edit
+          </a>}
         </div>
       </List.Item>
     );
@@ -121,7 +139,9 @@ const ListView = (props: any /*plug*/) => {
                 const thisDate = moment(item.date).format('YYYY-MM-DD');
                 return (
                   <div key={index} className={'list-events-container'}>
-                    <p className={'list-date-wrapper'}>{moment(item.date).format('MMMM Do YYYY')}</p>
+                    <h3 className={props.userPreferences.readable ? 'readable-bold-2 list-date-wrapper' : 'list-date-wrapper'}>
+                      {moment(item.date).format('MMMM Do YYYY')}
+                    </h3>
                     <List
                       dataSource={shortData}
                       renderItem={(eventItem: Event) => {
@@ -165,6 +185,7 @@ const mapStateToProps = (state: any) => {
     timeZone: state.timeZoneData.timeOffset,
     week: state.weekPickerData.week,
     viewData: state.scheduleViewData.viewData,
+    userPreferences: state.userPreferences,
   };
 };
 

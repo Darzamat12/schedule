@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
-import 'antd/dist/antd.css';
 import { changeWeek, reqScheduleDataSuccess, fetchScheduleData, setViewData} from './../../../../redux/actions';
 import { connect } from 'react-redux';
 import { weekList } from '../../DropDownsData';
@@ -55,7 +54,7 @@ const WeekSwitcher: React.FC = (props: any) => {
 
   return (
     <>
-      <Select defaultValue={props.week} onChange={handleChange} style={{width: 130}}>
+      <Select defaultValue={props.week} onChange={handleChange} style={{width: 130, margin: '0 10px 10px 0'}}>
         {weekList.map((item, i) => {
           return (
             <Option key={item.name} value={i}>

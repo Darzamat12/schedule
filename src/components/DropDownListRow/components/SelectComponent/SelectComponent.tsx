@@ -1,7 +1,6 @@
 import React from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
-import 'antd/dist/antd.css';
 
 const SelectComponent: React.FC<{
   initialValue: number;
@@ -14,7 +13,7 @@ const SelectComponent: React.FC<{
 
   return (
     <>
-      <Select defaultValue={props.initialValue} style={{ width: 200 }} onChange={handleChange} disabled={false}>
+      <Select defaultValue={props.initialValue} style={{ width: 200, margin: '0 10px 10px 0' }} onChange={handleChange} disabled={false}>
         {props.optionData.map((item, i) => {
           return (
             <Option key={item.name} value={i}>

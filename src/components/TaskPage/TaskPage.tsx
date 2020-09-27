@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './TaskPage.less';
 import { changeIsALert } from './action';
 import { Demo } from './alert';
 import { bindActionCreators } from 'redux';

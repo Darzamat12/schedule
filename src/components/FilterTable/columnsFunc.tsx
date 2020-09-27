@@ -1,8 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { Tag, Popconfirm, Button, Space } from 'antd';
+import { Tag, Popconfirm, Space } from 'antd';
 import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/es/table';
-import { DoubleRightOutlined, LinkOutlined, MoreOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import { filters } from '../../utils/filters';
 import { Event } from './types';
 import { tagsMap } from '../../utils/settingsData';
@@ -82,7 +82,7 @@ export const getColumns = (
       className: userPreferences.readable ? 'readable-bold-2' : '',
       onFilter: (value, record) => record.tag.indexOf(value as string) === 0,
       render: (tag) => {
-        let tagColor = tagsMap.get(tag) || 'self_education';
+        const tagColor = tagsMap.get(tag) || 'self_education';
         return (
           <Tag
             className={userPreferences.readable ? 'readable-bold-1' : ''}

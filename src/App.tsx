@@ -14,16 +14,17 @@ import ListView from './components/List/List';
 import HideColumnsDropdown from './components/HideColumnsDropdown/HideColumnsDropdown';
 import UserSettings from './components/UserSettings/UserSettings';
 
-function App(props) {
+function App(props: any) {
   return (
     <div className="App">
-      <DropDownListRow/>
-
+      <Header/>
+      <div style={{margin: 10}}>
+      <DropDownListRow />
       {props.isMobile===1 && <ListView/>}
       {props.scheduleMode === 0 && <FilterTable/>}
       {props.scheduleMode === 2 && <WrappedCalendar/>}
       {props.scheduleMode === 1 && <ListView/>}
-
+      </div>
     </div>
   );
 }
