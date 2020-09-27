@@ -1,0 +1,2 @@
+export const ADD_IMPORTANT = 'ADD_IMPORTANT';
+export const REMOVE_IMPORTANT = 'REMOVE_IMPORTANT';
