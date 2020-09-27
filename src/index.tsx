@@ -6,12 +6,18 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
+import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
+import './theme/dark.less';
+import './theme/light.less';
+import { themes } from './utils/settingsData';
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
-        <App />
+        <ThemeSwitcherProvider themeMap={themes} defaultTheme={themes.initialTheme}>
+          <App />
+        </ThemeSwitcherProvider>
       </React.StrictMode>
     </PersistGate>
   </Provider>,

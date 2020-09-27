@@ -3,15 +3,19 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
-import { watchFetchScheduleData } from './sagas';
-import thunk from 'redux-thunk';
-import { watchFetchCalendarData } from '../components/Calendar/sagas';
+import {
+  watchFetchScheduleData,
+  watchPostEvent,
+  watchEditEvent,
+  watchDeleteEvent,
+  watchFetchEventData
+} from './sagas';
 import { composeWithDevTools } from 'redux-devtools-extension/index';
 
 const persistConfig = {
-  key: 'userPreferences',
+  key: 'root',
   storage,
-  whitelist: ['userPreferences'],
+  whitelist: ['userPreferences', 'importantColData','hideColumnData'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -21,6 +25,9 @@ const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(
 const persistor = persistStore(store);
 
 sagaMiddleware.run(watchFetchScheduleData);
-sagaMiddleware.run(watchFetchCalendarData);
+sagaMiddleware.run(watchPostEvent);
+sagaMiddleware.run(watchEditEvent);
+sagaMiddleware.run(watchDeleteEvent);
+sagaMiddleware.run(watchFetchEventData);
 
 export { persistor, store }

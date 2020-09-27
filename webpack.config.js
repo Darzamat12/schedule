@@ -1,9 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   // webpack will take the files from ./src/index
-  entry: './src/index',
+  entry: {
+    main: './src/index',
+    styles: ['./src/theme/dark.less', './src/theme/light.less'],
+  },
   // and output it into /dist as bundle.js
   output: {
     path: path.join(__dirname, '/dist'),
@@ -33,7 +37,7 @@ module.exports = {
         test: /\.less$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: 'css-loader',
@@ -63,8 +67,31 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
+
     new webpack.ProvidePlugin({
       html2canvas: 'html2canvas',
     }),
+
+    new MiniCssExtractPlugin({ filename: 'styles/[name].css' }),
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        light: {
+          test: (m) => {
+            return /light.less/.test(m._identifier);
+          },
+          name: 'light',
+          chunks: 'initial',
+        },
+        dark: {
+          test: (m) => {
+            return /dark.less/.test(m._identifier);
+          },
+          name: 'dark',
+          chunks: 'initial',
+        },
+      },
+    },
+  },
 };

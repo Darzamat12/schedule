@@ -1,53 +1,27 @@
-import React, { useState } from 'react';
-import { Spin } from 'antd';
-import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react';
-import { EnvironmentOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Map, Marker } from 'google-maps-react';
 import './Map.less';
-import MapStyle from './mapStyle.json';
+import MapStyleLight from './mapStyleLight.json';
+import MapStyleDark from './mapStyleDark.json';
 
-const MapComponent = (props) => {
-  const customMapStyle = MapStyle;
-  const [showingInfoWindow, setShowingInfoWindow] = useState(false);
-  const [activeMarker, setActiveMarker] = useState({});
-  const [selectedPlace, setSelectedPlace] = useState({});
+const MapComponent: React.FC = ({ google, onMapClicked, activeMarker, darkTheme }: any) => {
+  const customMapStyle = darkTheme ? MapStyleDark : MapStyleLight;
 
-  const onMarkerClick = (props: any, marker: any) => {
-    setSelectedPlace(props);
-    setActiveMarker(marker);
-    setShowingInfoWindow(true);
-  };
-
-  const onMapClicked = () => {
-    if (showingInfoWindow) {
-      setShowingInfoWindow(false);
-      setActiveMarker({});
-    }
-  };
-
+  console.log(darkTheme);
   return (
     <div className="map-container">
       <Map
-        google={props.google}
+        google={google}
         zoom={12}
-        defaultCenter={{ lat: 25.791949, lng: -80.193596 }}
+        initialCenter={{ lat: 37.774929, lng: -122.419416 }}
         style={{ width: '100%', height: 300, position: 'absolute', top: 0, left: 0 }}
         styles={customMapStyle}
         onClick={onMapClicked}
       >
-        <Marker title="RS School" icon={<EnvironmentOutlined />} onClick={onMarkerClick} />
-        <InfoWindow marker={activeMarker} visible={showingInfoWindow}>
-          <div>
-            <p>RS School</p>
-          </div>
-        </InfoWindow>
+        <Marker title="RS School" position={activeMarker} />
       </Map>
     </div>
   );
 };
 
-const Loading = () => <Spin />;
-
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDyjNJJI9xzHvd7Ud79BYZhF86KMt3BvE8',
-  LoadingContainer: Loading,
-})(MapComponent);
+export default MapComponent;

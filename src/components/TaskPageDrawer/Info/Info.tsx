@@ -1,50 +1,145 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Info.less';
-import { Tag, Button } from 'antd';
+import { Tag, Button, Comment, Avatar, Rate, Spin, Collapse } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import MapComponent from '../Map/Map';
+import MapComponent from '../Map';
 import moment from 'moment';
 import UploadComponent from '../Upload';
 import Feedback from '../Feedback';
+import UploadFilesView from '../UploadFilesView';
+import { tagColor } from '../utils';
+import FeedbackList from '../FeedbackList';
+import { pickerColors, tags, tagsMap } from '../../../utils/settingsData';
+import { GithubPicker } from 'react-color';
 
-const Info = ({ currentItem, adminMode }) => {
-  const linksList = currentItem.links.map((link: string) => {
-    return <a href={link}>{link}</a>;
-  });
+const Info: React.FC = ({
+  currentItem,
+  adminMode,
+  editMode,
+  tag,
+  fetchEventData,
+  error,
+  loading,
+  data,
+  turnOnEditMode,
+  darkTheme,
+  userPreferences
+}: any) => {
+  const [needUpdateFeedback, setNeedUpdateFeedback] = useState(false);
 
-  return (
-    <>
-      <div className="info-tag-wrapper">
-        <Tag color="green" key={currentItem.tag}>
-          {currentItem.tag}
-        </Tag>
-        <span>{moment(currentItem.date).format('YYYY-MM-DD')}</span>
-      </div>
-      {currentItem.deadline && (
+  const renderTag = (tag: string) => {
+    const tagColor = tagsMap.get(tag) || 'self_education';
+    return (
+      <Tag
+        className={userPreferences.readable ? 'readable-bold-1' : ''}
+        style={{
+          borderColor: userPreferences.tagColor[tagColor],
+          color: userPreferences.tagColor[tagColor],
+          backgroundColor: `${userPreferences.tagColor[tagColor]}10`,
+        }}
+        key={tag}
+      >
+        {tag}
+      </Tag>
+    );
+  };
+
+  const handleOpenFeedback = () => {
+    setNeedUpdateFeedback(false);
+  };
+
+  const handleSendFeedback = () => {
+    setNeedUpdateFeedback(true);
+  };
+
+  useEffect(() => {
+    fetchEventData(currentItem.id);
+  }, [currentItem]);
+
+  const countRating = () => {
+    if (currentItem.rating) {
+      let sum = 0;
+      for (let i = 0; i < currentItem.rating.length; i++) {
+        sum = sum + currentItem.rating[i];
+      }
+      sum = sum / currentItem.rating.length;
+      return sum;
+    } else {
+      return;
+    }
+  };
+
+  const renderLinks = () => {
+    if (data.links) {
+      const linksList = data.links.map((link, i) => {
+        return (
+          <a key={`${link}${i}`} href={link}>
+            {link}
+          </a>
+        );
+      });
+      return linksList;
+    }
+  };
+
+  if (loading || !data) {
+    return <Spin />;
+  }
+
+  if (error) {
+    return <p>Error, try again</p>;
+  }
+
+  if (data) {
+    return (
+      <>
         <div className="info-tag-wrapper">
-          <Tag color="red" key={currentItem.deadline}>
-            {'deadline'}
-          </Tag>
-          <span>{moment(currentItem.deadline).format('YYYY-MM-DD')}</span>
+          <h1 className="task-page-drawer-title">{data.name}</h1>
+          {data.rating && <Rate allowHalf value={countRating()} />}
+          {data.tag && renderTag(data.tag)}
+          {data.date && <span>{moment(data.date).format('YYYY-MM-DD')}</span>}
         </div>
-      )}
-      <p className="info-text">{currentItem.description}</p>
-      {currentItem.remark && <p className="info-text">{currentItem.remark}</p>}
-      {adminMode && <UploadComponent />}
-      {currentItem.links !== null && <div>{linksList}</div>}
-      {currentItem.map !== null && (
-        <div className="task-modal-map">
-          <MapComponent />
-        </div>
-      )}
-      {adminMode && (
-        <Button style={{ marginTop: 20 }} type="dashed" block>
-          <EditOutlined />
-        </Button>
-      )}
-      {!adminMode && <Feedback />}
-    </>
-  );
+        {data.deadline && (
+          <div className="info-tag-wrapper">
+            <Tag color="red" key={data.deadline}>
+              {'deadline'}
+            </Tag>
+            <span>{moment(data.deadline).format('YYYY-MM-DD')}</span>
+          </div>
+        )}
+        {data.duration && <p className="info-text">Duration: {data.duration}</p>}
+        {data.description && <p className="info-text">Description: {data.description}</p>}
+        {data.result && <p className="info-text">Result: {data.result}</p>}
+        {data.remark && <p className="info-text">Remark: {data.remark}</p>}
+        {adminMode && !editMode && <UploadComponent />}
+        {data.links && <div className="info-link-wrapper">{renderLinks()}</div>}
+        {data.map && Object.keys(data.map).length !== 0 && (
+          <div className="task-modal-map">
+            <MapComponent darkTheme={darkTheme} activeMarker={data.map} />
+          </div>
+        )}
+        {data.photo && (
+          <>
+            <UploadFilesView fileType="photo" />
+          </>
+        )}
+        {data.video && (
+          <div>
+            <UploadFilesView fileType="video" />
+          </div>
+        )}
+        {data.feedback && <FeedbackList item={data} needUpdateFeedback={needUpdateFeedback}/>}
+        {adminMode && !editMode && (
+          <Button style={{ marginTop: 20 }} type="dashed" block onClick={turnOnEditMode}>
+            <EditOutlined />
+          </Button>
+        )}
+        {!adminMode && data.allowFeedback && (
+          <Feedback item={data} handleSendFeedback={handleSendFeedback} handleOpenFeedback={handleOpenFeedback}/>
+        )}
+      </>
+    );
+  }
 };
 
 export default Info;

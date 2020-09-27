@@ -1,40 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import './Calendar.less';
 import { connect } from 'react-redux';
-import { loadData } from './actions';
-import { bindActionCreators } from 'redux';
 import AntDesignCalendar from './antDesign/antDesignCalendar';
 import Loader from './antDesign/loader';
 import MiniCalendar from './antDesign/antDesignMiniCalendar';
 import useWindowDimensions from '../../utils/useWindowDimensions';
 import { ButtonDownload } from '../SheduleDownload/button';
+import { fetchScheduleData } from '../../redux/actions';
 
-function Calendar({ fetchedData, loadData }) {
+const Calendar = (props: any) => {
   const { width } = useWindowDimensions();
+
   useEffect(() => {
-    loadData();
+    if (props.data === null) {
+      props.fetchScheduleData();
+    }
   }, []);
 
-  if (fetchedData.length === 0) {
+  const currentData = useMemo(() => {
+    if (props.data !== null) {
+      return props.data.map((elem: any) => {
+        const date = new Date(elem.date);
+        date.setHours(date.getHours() - (3 /*Moscow time offset*/ - props.timeZone));
+        return { ...elem, date: date };
+      })
+    } else {
+      return props.data;
+    }
+  }, [props.data, props.timeZone]);
+
+  if (props.data === null) {
     return <Loader />;
   } else if (width > 750) {
-    return <><ButtonDownload /><AntDesignCalendar props={fetchedData} /></>;
+    return <><ButtonDownload /><AntDesignCalendar props={currentData} /></>;
   } else {
-    return <MiniCalendar props={fetchedData} />;
+    return <MiniCalendar props={currentData} />;
   }
 }
 
-const mapStateToProps = (state: { CalendarPageReducer: { fetchedData: any; modalWindowData: any; }; }) => {
+const mapStateToProps = (state: any) => {
   return {
-    fetchedData: state.CalendarPageReducer.fetchedData,
-    modalWindowData: state.CalendarPageReducer.modalWindowData,
+    data: state.scheduleData.data,
+    timeZone: state.timeZoneData.timeOffset,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
-    loadData: bindActionCreators(loadData, dispatch),
+    fetchScheduleData,
   };
 };
+
 const WrappedCalendar = connect(mapStateToProps, mapDispatchToProps)(Calendar);
 export default WrappedCalendar;

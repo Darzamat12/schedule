@@ -9,46 +9,66 @@ export const filters = {
       value: 'mentor',
     },
     {
-      text: 'another_mentor',
-      value: 'another_mentor',
+      text: 'bzzz_man',
+      value: 'bzzz_man',
     },
     {
-      text: 'article',
-      value: 'article',
+      text: 'team-lead',
+      value: 'team-lead',
+    },
+    {
+      text: 'Teskatlipoka',
+      value: 'Teskatlipoka',
+    },
+    {
+      text: 'kusochekshaurmi',
+      value: 'kusochekshaurmi',
+    },
+    {
+      text: 'ur-mom',
+      value: 'ur-mom',
+    },
+    {
+      text: 'Sir_Bernar',
+      value: 'Sir_Bernar',
+    },
+    {
+      text: 'Garrincha',
+      value: 'Garrincha',
     },
   ],
   tag: [
     {
-      text: 'interactive',
-      value: 'interactive',
+      text: 'self education',
+      value: 'self education',
     },
     {
-      text: 'article',
-      value: 'article',
+      text: 'meetup',
+      value: 'meetup',
     },
     {
-      text: 'video',
-      value: 'video',
+      text: 'test',
+      value: 'test',
     },
     {
-      text: 'cv task',
-      value: 'cv task',
-    },
-    {
-      text: 'html/css task',
-      value: 'html/css task',
-    },
-    {
-      text: 'codewars',
-      value: 'codewars',
+      text: 'html task',
+      value: 'html task',
     },
     {
       text: 'js task',
       value: 'js task',
     },
     {
-      text: 'interview',
-      value: 'interview',
+      text: 'codewars',
+      value: 'codewars',
+    },
+    {
+      text: 'cross-check',
+      value: 'cross-check',
+    },
+    {
+      text: 'deadline',
+      value: 'deadline',
     },
   ],
 };
