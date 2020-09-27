@@ -1,11 +1,11 @@
-import {ADD_IMPORTANT,REMOVE_IMPORTANT} from './actionTypes'
+import { ADD_IMPORTANT, REMOVE_IMPORTANT } from './actionTypes';
 
-export const addImportant=(id )=>({
+export const addImportant = (id) => ({
   type: ADD_IMPORTANT,
-    payload: id,
-})
+  payload: id,
+});
 
-export const removeImportant=(id)=>({
+export const removeImportant = (id) => ({
   type: REMOVE_IMPORTANT,
   payload: id,
-})
+});

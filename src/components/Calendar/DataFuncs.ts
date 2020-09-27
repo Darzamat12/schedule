@@ -2,7 +2,7 @@ import { filterByDate } from './DateFuncs';
 
 export function getListData(value: any, props: any) {
   const listData: { type: string; content: any; key: any }[] = [];
-  filterByDate(props, value).forEach((el: { name: any; id: any }) => {
+  filterByDate(props, value).forEach((el: { name: any; id: any; tag: string }) => {
     const color = chooseDot(el.tag);
     listData.push({ color, content: el.name, key: el.id });
   });
@@ -10,7 +10,7 @@ export function getListData(value: any, props: any) {
   return listData || [];
 }
 
-function chooseDot(dot) {
+function chooseDot(dot: string) {
   switch (dot) {
     case 'self education':
       return 'rgba(13, 207, 255, 1)';
@@ -33,6 +33,5 @@ function chooseDot(dot) {
       return 'rgba(245, 55, 229, 0.38)';
     default:
       return 'dark';
-    //rgba(240, 75, 75, 0.61)
   }
 }

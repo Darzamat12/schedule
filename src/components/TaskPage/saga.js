@@ -4,7 +4,3 @@ import { SHOW_ALERT } from './types';
 function* watchAlert() {
   yield takeEvery(SHOW_ALERT, something);
 }
-
-function something({ payload }) {
-  console.log(payload);
-}

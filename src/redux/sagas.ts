@@ -7,11 +7,22 @@ import {
   FETCHED_EVENT_DATA,
 } from './actionTypes';
 import 'regenerator-runtime/runtime';
-import { reqScheduleData, reqScheduleDataSuccess, reqScheduleDataError,
-  reqPostEvent, reqPostEventSuccess, reqPostEventError,
-  reqEditEvent, reqEditEventSuccess, reqEditEventError,
-  reqDeleteEvent, reqDeleteEventSuccess, reqDeleteEventError,
-  reqEventData, reqEventDataSuccess, reqEventDataError
+import {
+  reqScheduleData,
+  reqScheduleDataSuccess,
+  reqScheduleDataError,
+  reqPostEvent,
+  reqPostEventSuccess,
+  reqPostEventError,
+  reqEditEvent,
+  reqEditEventSuccess,
+  reqEditEventError,
+  reqDeleteEvent,
+  reqDeleteEventSuccess,
+  reqDeleteEventError,
+  reqEventData,
+  reqEventDataSuccess,
+  reqEventDataError,
 } from './actions';
 import { eventsAPI } from '../api/eventsAPI';
 
@@ -39,8 +50,7 @@ function* fetchScheduleDataAsync() {
   try {
     yield put(reqScheduleData());
     const data = yield call(() => {
-      return eventsAPI.getEvents()
-                .then(res => res.data)
+      return eventsAPI.getEvents().then((res) => res.data);
     });
     yield put(reqScheduleDataSuccess(data));
   } catch (error) {
@@ -52,8 +62,7 @@ function* fetchPostDataAcync(action: any) {
   try {
     yield put(reqPostEvent());
     const data = yield call(() => {
-      return eventsAPI.createEvent(action.payload)
-        .then(res => res.data)
+      return eventsAPI.createEvent(action.payload).then((res) => res.data);
     });
     yield put(reqPostEventSuccess(data));
     yield fetchScheduleDataAsync();
@@ -66,8 +75,7 @@ function* fetchEditDataAcync(action: any) {
   try {
     yield put(reqEditEvent());
     const data = yield call(() => {
-      return eventsAPI.updateEvent(action.id, action.obj)
-        .then(res => res.data)
+      return eventsAPI.updateEvent(action.id, action.obj).then((res) => res.data);
     });
     yield put(reqEditEventSuccess(data));
     yield fetchScheduleDataAsync();
@@ -80,8 +88,7 @@ function* fetchDeleteDataAcync(action: any) {
   try {
     yield put(reqDeleteEvent());
     const data = yield call(() => {
-      return eventsAPI.deleteEvent(action.id)
-        .then(res => res.data)
+      return eventsAPI.deleteEvent(action.id).then((res) => res.data);
     });
     yield put(reqDeleteEventSuccess(data));
   } catch (error) {
@@ -93,8 +100,7 @@ function* fetchEventDataAsync(action: any) {
   try {
     yield put(reqEventData());
     const data = yield call(() => {
-      return eventsAPI.getEvent(action.id)
-        .then(res => res.data)
+      return eventsAPI.getEvent(action.id).then((res) => res.data);
     });
     yield put(reqEventDataSuccess(data));
   } catch (error) {

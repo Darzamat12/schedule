@@ -9,7 +9,7 @@ export const tags = [
   { name: 'deadline', type: 'deadline' },
 ];
 
-export const tagsMap =  new Map([
+export const tagsMap = new Map([
   ['self education', 'self_education'],
   ['meetup', 'meetup'],
   ['test', 'test'],

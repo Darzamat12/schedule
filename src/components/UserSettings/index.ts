@@ -3,9 +3,4 @@ import UserSettings from './UserSettings';
 
 import { IStore } from '../../interfaces';
 
-export default connect(
-  (store: IStore) => ({
-  }),
-  {
-  },
-)(UserSettings);
+export default connect((store: IStore) => ({}), {})(UserSettings);

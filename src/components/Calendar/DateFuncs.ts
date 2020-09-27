@@ -5,7 +5,6 @@ export function formatDateToString(date: any) {
 }
 
 export function filterByDate(data: any, value: any) {
-  console.log(data)
   const result = data.filter(
     (el: any) => new Date(el.date).toLocaleDateString() === new Date(value).toLocaleDateString(),
   );

@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Modal } from 'antd';
 import moment from 'moment';
 
 export function ModalWidnow({ isShow, currentItem, handleOnClose }: any) {
-
   return (
     <>
       <Modal
@@ -15,13 +14,16 @@ export function ModalWidnow({ isShow, currentItem, handleOnClose }: any) {
         onCancel={() => handleOnClose()}
         visible={isShow}
       >
-
         <p>Deadline: {moment(currentItem.date).format('LLL')}</p>
         <p>Author: {currentItem.author}</p>
         <p>{currentItem.description}</p>
-        {isShow && currentItem.links.map((el: string | undefined) => <a href={el} target="_blank">Tык</a>)}
+        {isShow &&
+          currentItem.links.map((el: string | undefined) => (
+            <a href={el} target="_blank">
+              Tык
+            </a>
+          ))}
       </Modal>
     </>
   );
-
 }

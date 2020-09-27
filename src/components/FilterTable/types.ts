@@ -15,12 +15,12 @@ export interface Event {
   map: IMap;
   rating: number;
   feedback: Array<string>;
-  allowFeedback: boolean
+  allowFeedback: boolean;
 }
 
 export interface IMap {
-  lng: number,
-  lat: number
+  lng: number;
+  lat: number;
 }
 
 export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {

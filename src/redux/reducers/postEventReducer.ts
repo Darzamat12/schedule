@@ -4,7 +4,7 @@ const initialState = {
   data: null,
   loading: false,
   error: false,
-  success: false
+  success: false,
 };
 
 const postEventReducer = (state = initialState, action: any) => {

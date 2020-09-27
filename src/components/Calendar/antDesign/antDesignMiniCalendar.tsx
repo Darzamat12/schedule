@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Calendar, Badge } from 'antd';
 import { getMonthValue } from '../DateFuncs';
 import TaskPageDrawer from '../../TaskPageDrawer/TaskPageDrawer';
-import { getListData } from '../DataFuncs'
-
+import { getListData } from '../DataFuncs';
 
 export default function MiniCalendar({ data, tagColors }: any) {
   const [modalWindowData, setModalWindowData] = useState([]);
@@ -11,7 +10,6 @@ export default function MiniCalendar({ data, tagColors }: any) {
   const [showDrawer, setShowDrawer] = useState(false);
   const [calendarMode, setCalendarMode] = useState('month');
   const miniCalendarListItem: any = useRef(null);
-
 
   const handleOnClose = () => {
     setShowDrawer(false);
@@ -32,7 +30,6 @@ export default function MiniCalendar({ data, tagColors }: any) {
   }
 
   function onPanelChange(_: any, mode: any) {
-
     setCalendarMode(mode);
     setModalWindowData([]);
   }

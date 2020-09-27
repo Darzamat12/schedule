@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
 module.exports = {
   // webpack will take the files from ./src/index
   entry: {
@@ -10,10 +10,9 @@ module.exports = {
   },
   // and output it into /dist as bundle.js
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash:8].js',
-    sourceMapFilename: '[name].[hash:8].map',
-    chunkFilename: '[id].[hash:8].js'
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.js',
+    publicPath: '/',
   },
   // adding .ts and .tsx to resolve.extensions will help babel look for .ts and .tsx files to transpile
   resolve: {
@@ -68,6 +67,11 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
+
+    new webpack.ProvidePlugin({
+      html2canvas: 'html2canvas',
+    }),
+
     new MiniCssExtractPlugin({ filename: 'styles/[name].css' }),
   ],
   optimization: {

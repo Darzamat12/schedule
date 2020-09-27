@@ -3,7 +3,9 @@ import {
   REQ_SCHEDULE_DATA_FAILED,
   REQ_SCHEDULE_DATA_SUCCEEDED,
   FETCHED_SCHEDULE_DATA,
-  TIME_ZONE, SCHEDULE_MODE, WEEK,
+  TIME_ZONE,
+  SCHEDULE_MODE,
+  WEEK,
   USER_MODE,
   REQ_POST_EVENT,
   REQ_POST_EVENT_SUCCEEDED,
@@ -37,24 +39,24 @@ export const reqScheduleDataError = () => {
 };
 
 export const fetchScheduleData = () => {
-  return { type: FETCHED_SCHEDULE_DATA }
+  return { type: FETCHED_SCHEDULE_DATA };
 };
 
 export const changeTimeZone = (timeOffset: number) => {
-  return { type: TIME_ZONE, payload: timeOffset}
-}
+  return { type: TIME_ZONE, payload: timeOffset };
+};
 
-export const changeScheduleMode = (scheduleMode : 0|1|2) => {
-  return { type: SCHEDULE_MODE, payload: scheduleMode }
-}
+export const changeScheduleMode = (scheduleMode: 0 | 1 | 2) => {
+  return { type: SCHEDULE_MODE, payload: scheduleMode };
+};
 
-export const changeWeek = (week: 0|1|2|3) => {
-  return { type: WEEK, payload: week }
-}
+export const changeWeek = (week: 0 | 1 | 2 | 3) => {
+  return { type: WEEK, payload: week };
+};
 
 export const changeUserMode = (isAdmin: boolean) => {
-  return { type: USER_MODE, payload: isAdmin}
-}
+  return { type: USER_MODE, payload: isAdmin };
+};
 
 export const reqPostEvent = () => {
   return { type: REQ_POST_EVENT };
@@ -69,7 +71,7 @@ export const reqPostEventError = () => {
 };
 
 export const fetchPostData = (obj: any) => {
-  return { type: FETCHED_POST_DATA,  payload: obj}
+  return { type: FETCHED_POST_DATA, payload: obj };
 };
 
 export const reqEditEvent = () => {
@@ -85,7 +87,7 @@ export const reqEditEventError = () => {
 };
 
 export const fetchEditData = (id: string, obj: any) => {
-  return { type: FETCHED_EDIT_DATA,  id: id, obj: obj}
+  return { type: FETCHED_EDIT_DATA, id: id, obj: obj };
 };
 
 export const reqDeleteEvent = () => {
@@ -101,7 +103,7 @@ export const reqDeleteEventError = () => {
 };
 
 export const fetchDeleteData = (id: string) => {
-  return { type: FETCHED_DELETE_DATA,  id: id}
+  return { type: FETCHED_DELETE_DATA, id: id };
 };
 
 export const reqEventData = () => {
@@ -117,9 +119,9 @@ export const reqEventDataError = () => {
 };
 
 export const fetchEventData = (id: string) => {
-  return { type: FETCHED_EVENT_DATA, id: id }
+  return { type: FETCHED_EVENT_DATA, id: id };
 };
 
 export const setViewData = (EventsArray: any) => {
   return { type: VIEW_SCHEDULE_DATA, payload: EventsArray };
-}
+};

@@ -20,7 +20,7 @@ const Info: React.FC = ({
   data,
   turnOnEditMode,
   darkTheme,
-  userPreferences
+  userPreferences,
 }: any) => {
   const [needUpdateFeedback, setNeedUpdateFeedback] = useState(false);
 
@@ -125,14 +125,14 @@ const Info: React.FC = ({
             <UploadFilesView fileType="video" />
           </div>
         )}
-        {data.feedback && <FeedbackList item={data} needUpdateFeedback={needUpdateFeedback}/>}
+        {data.feedback && <FeedbackList item={data} needUpdateFeedback={needUpdateFeedback} />}
         {adminMode && !editMode && (
           <Button style={{ marginTop: 20 }} type="dashed" block onClick={turnOnEditMode}>
             <EditOutlined />
           </Button>
         )}
         {!adminMode && data.allowFeedback && (
-          <Feedback item={data} handleSendFeedback={handleSendFeedback} handleOpenFeedback={handleOpenFeedback}/>
+          <Feedback item={data} handleSendFeedback={handleSendFeedback} handleOpenFeedback={handleOpenFeedback} />
         )}
       </>
     );
